@@ -1,3 +1,44 @@
 <template name="homePage">
 	{{> carousel}}
+
+	<div class="container">
+
+		<div class="page-header">
+  			<h1>Popular Projects</h1>
+		</div>
+
+		<div class="row">
+		    {{> projectThumbNail}}
+		    {{> projectThumbNail}}
+		    {{> projectThumbNail}}
+
+	  	</div> <!-- .row -->
+
+	  	<div class="page-header">
+  			<h1>Ending Soon!</h1>
+		</div>
+
+		<div class="row">
+		    {{> projectThumbNail}}
+		    {{> projectThumbNail}}
+		    {{> projectThumbNail}}
+	  	</div> <!-- .row -->
+	  	<div class="page-header">
+  			
+		</div>
+	  	<div class="jumbotron text-center">
+    		<h1>Our Mission</h1> 
+    		<p>StudyFund is here to put the funding of research projects in the hands of the public. We want our platform to get the public more excited to discover the unknown, and fund the research that inspires them!</p> 
+  		</div>
+  		
+	</div>
+
+	<style type="text/css">
+
+	.img-author {
+		max-width: 15%;
+	}
+
+	</style>
+	<link href="//maxcdn.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css" rel="stylesheet">
 </template>

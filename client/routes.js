@@ -41,6 +41,12 @@ FlowRouter.route('/Project', {
 	  }
   });
 
+FlowRouter.route('/user', {
+	action: function () {
+		BlazeLayout.render("mainLayout", {content: "profilePage"})
+	}
+});
+
 
 routeToProjects = function(){
   FlowRouter.route('/Projects', {
