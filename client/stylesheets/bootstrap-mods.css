@@ -1,0 +1,9 @@
+.navbar {
+  	margin-bottom: 0px;
+}
+
+.carousel-inner > .item > img,
+.carousel-inner > .item > a > img {
+	width: 100%;
+    margin: auto;
+} 
