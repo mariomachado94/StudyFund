@@ -1,0 +1,88 @@
+<template name = "featuredProject">
+  <div class="col-md-12">
+    <div class="featured-project">
+      <div class="col-md-6">
+        <div class="featured-image">
+          <a href="/Project">  <img alt="Project" src="Medical_Small.jpg" class="img-responsive"></a>
+        </div>
+      </div>
+      <div class="col-md-6">
+        <div class="caption">
+          <h4>Project Title</h4>
+          <img class="img-author img-circle" src="placeholder-profile.png">
+          Author
+          <br>
+          <br>
+          <p>Some small description about the project, in order to get backers' attention!</p>
+          <br>
+          <b>$1,023,234 USD</b>
+
+          <div class="progress">
+            <div class="progress-bar" role="progressbar" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100" style="width: 60%;">
+            </div>
+          </div>
+          <div class="featuredLinks">
+              <ul>
+                  <li> <a href=""><i class="fa fa-clock-o"></i> Today</a></li>
+                  <li><i class="fa fa-tag"></i> <a href="">Medical</a> , <a href="">Cancer Research</a></li>
+                  <li><a href=""><i class="fa fa-map-marker"></i> City</a></li>
+              </ul>
+          </div>
+
+          <div class="row">
+            <div class="col-sm-3">
+              <b>60%</b>
+              <br>
+              <span>Funded</span>
+            </div>
+            <div class="col-sm-3">
+              <b>320</b>
+              <br>
+              <p>Supporters</p>
+
+            </div>
+            <div class="col-sm-3">
+              <b>40</b>
+              <br>
+              <p>Days Left</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <style type="text/css">
+
+  .featuredLinks ul{
+      list-style: none;
+      padding: 0;
+  }
+
+  .featuredLinks ul li{
+      display: inline-block;
+      font-size: 12px;
+      margin-right: 10px;
+      color: #BBB;
+  }
+
+  .featuredLinks ul li a{
+      color: #BBB;
+  }
+
+  .featuredLinks ul li a:hover{
+      color: #398110;
+  }
+
+  .featured-project{
+      padding: 10px;
+      border: 1px solid #DDD;
+      margin-bottom: 20px;
+      background-color: #FFF;
+      overflow: hidden !important;
+      position:relative;
+      min-height: 390px;
+  }
+
+  </style>
+</template>
