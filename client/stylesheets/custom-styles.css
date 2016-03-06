@@ -4,3 +4,94 @@
   padding: 3%;
   background-color: grey;
 }
+/*============Icon-Colors=================*/
+.icon-blue{
+    color: #09639E;
+}
+
+.icon-blue:hover{
+    color: #04568C;
+}
+
+.icon-green{
+    color: #99cc33;
+}
+.icon-green:hover{
+    color: #93C42F;
+}
+
+.icon-brown{
+    color: #855410;
+}
+
+.icon-brown:hover{
+    color: #633C06;
+}
+
+.icon-violet{
+    color: #C406B4;
+}
+
+.icon-violet:hover{
+    color: #B007A2;
+}
+
+.icon-dark-blue{
+    color: #0C1D6B;
+}
+
+.icon-dark-blue:hover{
+    color: #07175E;
+}
+
+.icon-orange{
+    color: #F57F0A;
+}
+
+.icon-orange:hover{
+    color: #D46D06;
+}
+
+.icon-light-blue{
+    color: #1BA7DE;
+}
+
+.icon-light-blue:hover{
+    color: #158DBD;
+}
+
+.icon-light-green{
+    color: #149C7E;
+}
+
+.icon-light-green:hover{
+    color: #098066;
+}
+
+/*============featured links (city, tags, etc)=================*/
+
+.featuredLinks ul{
+      list-style: none;
+      padding: 0;
+}
+
+.featuredLinks ul li{
+  display: inline-block;
+  font-size: 12px;
+  margin-right: 10px;
+  color: #BBB;
+}
+
+.featuredLinks ul li a{
+  color: #BBB;
+}
+
+.featuredLinks ul li a:hover{
+  color: #398110;
+}
+
+/*===========Authors Image==============*/
+
+.img-author {
+    max-width: 15%;
+  }
