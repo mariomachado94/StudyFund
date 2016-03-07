@@ -1,22 +1,102 @@
 <template name="profilePage">
-	<div name="container">
-		<div class="row">
-			<div clas="col-2-md">
-				<img src="placeholder-profile.png">
+	{{> editForm}}
+	<div class="container">
+		<div class="row space-top-lg">
+			<div class="col-md-2">
+				<img class="img-rounded img-responsive" src="placeholder-profile.png">
 			</div>
-			<div class="col-10-md">
-				<h1>Mario Machado <span class="small">PhD. Astro Phys, Virtual Reality Computation</span></h1>
-				Backed 2 projects - Mississauga, Ontario - Joined Today
+
+			<div class="col-md-7">
+				<h2>Mario Machado <span class="small">PhD Astro Physics</span></h2>
+				Supported 2 projects - Mississauga, Canada - Joined Today
+
+				<p class="space-top-sm">An MIT gradute in Astro Physics and computer science. I have a great interest in space exploration, and research which will greatly affect NASA and private space companies like SpaceX. I work at cal tech where I conduct research on the big bang theory and it's ramifications on space time itself </p>
 			</div>
-		</div>
 
-		<div class="page-header">
-  			<h1>Supported Projects</h1>
-		</div>
-
-		<div class="row">
-			{{> projectThumbNail}}
-			{{> projectThumbNail}}
+			<div class="col-md-3">
+				{{> userButtons}}
+			</div>
 		</div>
 	</div> <!-- container -->
+
+	<div class="container-fluid space-top-lg">
+		<ul class="nav nav-tabs">
+			<li class="active"><a data-toggle="tab" href="#projects">Projects <span class="badge">2</span></a></li>
+			<li><a data-toggle="tab" href="#sponsored">Sponsored <span class="badge">5</span></a></li>
+			<li><a data-toggle="tab" href="#bio">Biography</a></li>
+		</ul>
+		<div class="tab-content">
+			<div id="projects" class="tab-pane fade in active">
+				<div class="container space-top-lg">
+					<div class="row">
+						{{> projectThumbNail}}
+						{{> projectThumbNail}}
+					</div>
+				</div>
+			</div>
+			<div id="sponsored" class="tab-pane fade">
+			    <div class="container">
+			    	<div class="row">
+			    		{{> sponsoredThumbNail}}
+			    		{{> sponsoredThumbNail}}
+			    		{{> sponsoredThumbNail}}
+			    		{{> sponsoredThumbNail}}
+			    		{{> sponsoredThumbNail}}
+			    	</div>
+			    </div>
+			</div>
+			<div id="bio" class="tab-pane fade">
+				<div class="container">
+					<div class="page-header">
+  						<h1>Biography</h1>
+					</div>
+					<p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.
+  					Contrary to popular belief, Lorem Ipsum is not simply random text. It has roots in a piece of classical Latin literature from 45 BC, making it over 2000 years old. Richard McClintock, a Latin professor at Hampden-Sydney College in Virginia, looked up one of the more obscure Latin words, consectetur, from a Lorem Ipsum passage, and going through the cites of the word in classical literature, discovered the undoubtable source. Lorem Ipsum comes from sections 1.10.32 and 1.10.33 of "de Finibus Bonorum et Malorum" (The Extremes of Good and Evil) by Cicero, written in 45 BC. This book is a treatise on the theory of ethics, very popular during the Renaissance. The first line of Lorem Ipsum, "Lorem ipsum dolor sit amet..", comes from a line in section 1.10.32.</p>
+				</div>
+			</div>
+		</div>
+	</div>
+</template>
+
+<template name="userButtons">
+	<div class="btn-group space-top-lg pull-right" role="group">
+		<button type="button" class="btn btn-default" data-toggle="modal" data-target="#myModal">Edit</button>
+		<span class="btn-label btn-label-default" title="23,000 followers">23,000 followers</span>
+	</div>
+</template>
+
+<template name="followButton">
+	<div class="btn-group space-top-lg pull-right" role="group">
+		<button type="button" class="btn btn-default">Following</button>
+		<span class="btn-label btn-label-default" title="23,000 followers">23,000</span>
+	</div>
+</template>
+
+<template name="editForm">
+	<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+	  <div class="modal-dialog" role="document">
+	    <div class="modal-content">
+	      <div class="modal-header">
+	        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+	        <h4 class="modal-title" id="myModalLabel">Edit Profile</h4>
+	      </div>
+	      <div class="modal-body">
+	        ...
+	      </div>
+	      <div class="modal-footer">
+	        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+	        <button type="button" class="btn btn-primary">Save changes</button>
+	      </div>
+	    </div>
+	  </div>
+	</div>
+</template>
+
+<template name="sponsoredThumbNail">
+	<div class="col-md-3 space-top-lg">
+	    <a href="#">
+	    	<img class="img-responsive" src="placeholder-red.png">
+	    </a>
+	    <b>Project Title</b>
+	</div>
 </template>

@@ -4,3 +4,57 @@
   padding: 20px;
   background-color: grey;
 }
+.img-author {
+	max-width: 15%;
+}
+.space-top-lg {
+	margin-top: 3%;
+}
+.space-top-sm {
+	margin-top: 1%;
+}
+.btn-group > .btn-label {
+  position: relative;
+  float: left;
+}
+.btn-label {
+    display: inline-block;
+    padding: 6px 12px;
+    margin-bottom: 0;
+    font-size: 14px;
+    font-weight: normal;
+    line-height: 1.42857143;
+    text-align: center;
+    white-space: nowrap;
+    vertical-align: middle;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+    background-image: none;
+    border: 1px solid transparent;
+    border-radius: 4px;
+}
+.btn-label-default {
+	color: #333;
+    background-color: #fff;
+    border-color: #ccc;
+}
+.btn-group > .btn-label:not(:first-child):not(:last-child):not(.dropdown-toggle) {
+  border-radius: 0;
+}
+.btn-group > .btn-label:first-child {
+  margin-left: 0;
+}
+.btn-group > .btn-label:first-child:not(:last-child):not(.dropdown-toggle) {
+  border-top-right-radius: 0;
+  border-bottom-right-radius: 0;
+}
+.btn-group > .btn-label:last-child:not(:first-child) {
+  border-top-left-radius: 0;
+  border-bottom-left-radius: 0;
+}
+.btn-group .btn + .btn-label,
+.btn-group .btn-label + .btn {
+  margin-left: -1px;
+}

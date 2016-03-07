@@ -6,4 +6,12 @@
 .carousel-inner > .item > a > img {
 	width: 100%;
     margin: auto;
-} 
+}
+.btn:focus,.btn:active {
+	outline: none !important;
+}
+.btn-default:focus, .btn-default.focus {
+    color: none !important;
+    background-color: none !important;
+    border-color: none !important;
+}
