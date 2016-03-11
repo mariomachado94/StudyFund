@@ -2,7 +2,11 @@
   margin-bottom: 0px;
   margin-top: 3%;
   padding: 3%;
-  background-color: grey;
+  background: #011f51;
+  color: #ffffff;
+}
+.progress-bar {
+    background-color: #29c3fa;
 }
 .img-author {
   max-width: 15%;
@@ -49,10 +53,12 @@
 .btn-group > .btn-label:first-child:not(:last-child):not(.dropdown-toggle) {
   border-top-right-radius: 0;
   border-bottom-right-radius: 0;
+  border-right: none;
 }
 .btn-group > .btn-label:last-child:not(:first-child) {
   border-top-left-radius: 0;
   border-bottom-left-radius: 0;
+  border-left: none;
 }
 .btn-group .btn + .btn-label,
 .btn-group .btn-label + .btn {
