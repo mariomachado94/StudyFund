@@ -1,12 +1,13 @@
 <template name="BeginResearch">
   <div class="container">
     <div class="row">
-        <h1> Begin your movement </h1>
-        <h3> Raise money for research within any field of study </h3>
-        <br>
-        <br>
-        <br>
         <div class="col-lg-6">
+          <br>
+          <h1><b>Begin your movement </b></h1>
+          <h3> Raise money for research within any field of study </h3>
+          <br>
+          <br>
+          <br>
           <h4> What is the target goal you would like to reach? </h4>
           <div class="input-group">
             <input type="text" class="form-control" aria-label="..." placeholder="$">
@@ -22,13 +23,31 @@
             </div><!-- /btn-group -->
           </div><!-- /input-group -->
           <span> Minimum $500 </span>
+          <br>
+          <br>
+          <br>
+          
+          <h4> What is the title of your research? </h4>
+          <input type="text" class="form-control" aria-label="..." placeholder="Research title...">
+          <span> 50 Character Limit </span>
+          <br>
+          <br>
+          <br>
+          <br>
+          <br>
+          <button type="button" style = "background-color: #29c3fa; color: white;" class="btn btn-default btn-lg">Start your movement!</button>
+
         </div><!-- /.col-lg-6 -->
     </div>
   </div>
 
   <style type="text/css">
-    .form-control{
-      width: 200px;
+    .input-group-btn{
+      padding-left: 1%;
+    }
+
+    .dropdown-menu{
+      min-width: 100%;
     }
   </style>
 </template>

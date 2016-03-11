@@ -6,7 +6,8 @@
   color: #ffffff;
 }
 .progress-bar {
-    background-color: #29c3fa;
+  background-color: #29c3fa;
+  color: white;
 }
 .img-author {
   max-width: 15%;
