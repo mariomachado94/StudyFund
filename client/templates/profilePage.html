@@ -60,33 +60,51 @@
 
 <template name="userButtons">
 	<div class="btn-group space-top-lg pull-right" role="group">
-		<button type="button" class="btn btn-default" data-toggle="modal" data-target="#myModal">Edit</button>
+		<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#myModal">Edit</button>
 		<span class="btn-label btn-label-default" title="23,000 followers">23,000 followers</span>
 	</div>
 </template>
 
 <template name="followButton">
 	<div class="btn-group space-top-lg pull-right" role="group">
-		<button type="button" class="btn btn-default">Following</button>
+		<button type="button" class="btn btn-primary">Following</button>
 		<span class="btn-label btn-label-default" title="23,000 followers">23,000</span>
 	</div>
 </template>
 
 <template name="editForm">
 	<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
-	  <div class="modal-dialog" role="document">
+	  <div class="modal-dialog modal-lg" role="document">
 	    <div class="modal-content">
-	      <div class="modal-header">
-	        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-	        <h4 class="modal-title" id="myModalLabel">Edit Profile</h4>
-	      </div>
-	      <div class="modal-body">
-	        ...
-	      </div>
-	      <div class="modal-footer">
-	        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-	        <button type="button" class="btn btn-primary">Save changes</button>
-	      </div>
+	    	<div class="modal-header">
+	        	<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+	        	<h4 class="modal-title" id="myModalLabel">Edit Profile</h4>
+	      	</div>
+	      	<div class="modal-body">
+	      		<form role="form">
+		        	<div class="form-group">
+		        		<label for="name">Name</label>
+		            	<input type="text" class="form-control" placeholder="Name">
+		        	</div>
+		            <div class="form-group">
+		            	<label for="title">Title</label>
+		              	<input type="text" class="form-control" placeholder="PhD Physics">
+		            </div>
+		            <div class="form-group">
+		            	<label for="title">Summery</label>
+		              	<textarea class="form-control" rows="3" maxlength="300" placeholder="Give a quick intro and what you're all about...">some text</textarea>
+		              	<span class="small pull-right"><i>300 Character Limit</i></span>
+		            </div>
+		            <div class="form-group">
+		            	<label for="title">Bio</label>
+		              	<textarea class="form-control" rows="5" placeholder="Tell us who you are and why supporters should help your projects..."></textarea>
+		            </div>
+        		</form>
+	      	</div>
+	      	<div class="modal-footer">
+		        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+		        <button type="button" class="btn btn-primary">Save changes</button>
+	    	</div>
 	    </div>
 	  </div>
 	</div>
