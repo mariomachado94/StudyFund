@@ -1,0 +1,30 @@
+<template name = "Summary">
+	<div class= "col-lg-8" style = "background-color:#d3d3d3;">
+		<div class = "page-header">
+		      	<h1 style= "font-family: 'Benton Sans','Helvetica','sans-serif'; font-size: 40px"> 
+		      		Summary
+		     	</h1>
+
+				<p> Tell potential contributors more about your campaign. Introduce yourself and provide details that will motivate people to contribute. A good pitch is compelling, informative, and easy to digest. Learn more about pitching your idea. </p>
+		</div>
+		<h3> Share your video! </h3>
+		<br>
+		<h5> Video URL: </h5>
+		<input type = "text" placeholder = "Youtube Link" name = "video-link" />
+		<a href="" style = "background-color: #29c3fa; color: white;" class="btn btn-default btn-lg">Upload A Video</a>
+
+		<br>
+		<br>
+		<p> Your Research Pitch! </p>
+		<div class = "ResearchSummary">
+		<!--{{>quillReactive collection=editorHelper.collection docId=editorHelper.docId field=editorHelper.field}}-->
+			
+		</div>
+		<br>
+		<div class = "SaveCon">
+			<a href="#Team" id = "toTeam" data-toggle="tab" style = "background-color: #29c3fa; color: white;" class="btn btn-default btn-lg">Save & Continue</a>
+		</div>
+		<br>
+
+	</div>
+</template>

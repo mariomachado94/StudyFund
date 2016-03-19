@@ -1,0 +1,50 @@
+<template name = "StartResearch">
+	<div class = "container">
+		<div class = "row">
+	      	<h1 style= "font-family: 'Benton Sans','Helvetica','sans-serif'; font-size: 40px"> 
+	      		Research Title
+	     	</h1>
+
+			{{>Countries}}
+			<br>
+			<br>
+
+			<div class="col-lg-3">
+				<ul class="nav nav-pills nav-stacked tabs-left">
+			  		<li id="fundamentals" class = "active"><a href="#Fundamentals" aria-expanded="true" data-toggle="tab">Fundamentals</a></li>
+					<li id="summary"><a href="#Summary" data-toggle="tab">Summary</a></li>
+					<li id="team"><a href="#Team" data-toggle="tab">Team</a></li>	
+					<li id="rewards"><a href="#Rewards" data-toggle="tab">Rewards</a></li>
+					<li id="extras"><a href="#Extras" data-toggle="tab">Extras</a></li>		
+				</ul>
+			</div>
+
+			<div class="tab-content " >
+				<div id="Fundamentals" class="tab-pane fade in active">
+					{{> Fundamentals}}
+					
+				</div>
+				<div id="Summary" class="tab-pane fade">
+				    		{{> Summary}} 
+				    			
+				</div>
+				<div id="Team" class="tab-pane fade">
+							{{ >Team}} 
+				</div>
+				<div id="Rewards" class="tab-pane fade">
+							{{ >Rewards}} 
+				</div>
+				<div id="Extras" class="tab-pane fade">
+							{{ >Extras}} 
+				</div>
+			</div>
+			
+		</div>
+	</div>
+<style type="text/css">
+	.SaveCon{
+		padding-left: 77.3%;
+	}
+	
+</style>
+</template>

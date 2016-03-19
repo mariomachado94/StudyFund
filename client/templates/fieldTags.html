@@ -1,0 +1,33 @@
+<template name = "fieldTags">
+	<h5> Please select which tags you would like to associate your research with. </h5>
+	    <div class="ui sub header">Select up to 3 tags</div>
+		<select multiple="" name="skills" class="ui fluid normal dropdown fieldTags">
+		  <option value="">Cancer Research</option>
+		<option value="angular">Tag</option>
+		<option value="css">Tag</option>
+		<option value="design">Graphic Design</option>
+		<option value="ember">Tag</option>
+		<option value="html">Tag</option>
+		<option value="ia">Information Architecture</option>
+		<option value="javascript">Tag</option>
+		<option value="mech">Mechanical Engineering</option>
+		<option value="meteor">Meteor</option>
+		<option value="node">NodeJS</option>
+		<option value="plumbing">Plumbing</option>
+		<option value="python">Tag</option>
+		<option value="rails">Tag</option>
+		<option value="react">Tag</option>
+		<option value="repair">Kitchen Repair</option>
+		<option value="ruby">Ruby</option>
+		<option value="ui">UI Design</option>
+		<option value="ux">User Experience</option>
+		</select>
+
+	<script type="text/javascript">
+		$('.ui.normal.dropdown.fieldTags')
+		  .dropdown({
+		    maxSelections: 3
+		  })
+		;
+	</script>
+</template>

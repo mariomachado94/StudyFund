@@ -1,0 +1,75 @@
+<template name = "Fundamentals">
+	<div class= "col-lg-8" style = "background-color:#d3d3d3;">
+		<div class = "page-header">
+		      	<h1 style= "font-family: 'Benton Sans','Helvetica','sans-serif'; font-size: 40px"> 
+		      		Fundamentals
+		     	</h1>
+
+				<p> Try and grasp societies attention here. First impressions are always key, so when talking about you research make sure to mention the impact of it and how it could benefit society today, and in the future. </p>
+		</div>
+		<div class="well">
+		    <form accept-charset="UTF-8" action="" method="POST">
+		        <textarea class="form-control" id="summarytext" name="text" placeholder="Type in your message" rows="3" maxlength="150"></textarea>
+		        <h6 class="pull-right" id="count_message"></h6>
+		        <br>
+		    </form>
+		</div>
+		<br>
+		<h5> Research Project Image </h5>
+		<img src = "placeholder.gif" id = "ResearchPhoto"/>
+		<br>
+		<br>
+		<a href="" style = "background-color: #29c3fa; color: white;" class="btn btn-default btn-lg">Upload A Photo</a>
+		<br>
+		<br>
+		<br>
+
+		{{>Department}}
+		<br>
+	    <br>
+	    <br>
+	    {{>fieldTags}}
+	    <br>
+	    <br>
+    	<h5> Deadline </h5>
+    	<medium>Please decide on the number of days for this to be funded. (MAX. 60 days) </medium>
+    	<br>
+    	<input type = "text" class="form-control funding-days" aria-label="..." placeholder = "#" />
+    	<br>
+    	<div class = "SaveCon">
+			<a href="#Summary" id = "toSummary" data-toggle="tab" style = "background-color: #29c3fa; color: white;" class="btn btn-default btn-lg">Save & Continue</a>
+		</div>
+    	<br>
+
+	</div>
+
+	<style type="text/css">
+		.well {
+	    max-width: 50%;
+	}
+	.num-of-tags {
+	    max-width: 50%;
+	}
+		.dropdown-menu{
+	  width: 100%;
+	}
+
+	.funding-days{
+		max-width: 7%;
+	}
+	</style>
+
+	<script type="text/javascript">
+
+	var max = parseInt($("#summarytext").attr("maxlength"));
+	$("#count_message").html("Characters left: " + max);
+	$("#summarytext").keyup(function(e){
+		$("#count_message").html("Characters left: " + (max - $(this).val().length));
+	    if($(this).val().length==max){
+	    	$("#count_message").html("Limit Reached....");
+	    }
+	});
+
+	</script>
+
+</template>
