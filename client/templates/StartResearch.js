@@ -1,20 +1,17 @@
 //General
 
-var max = parseInt($("#text").attr("maxlength"));
-	$("#count_message").html("Characters left: " + max);
-	$("#text").keyup(function(e){
-		$("#count_message").html("Characters left: " + (max - $(this).val().length));
-	    if($(this).val().length==max){
-	    	$("#count_message").html("Limit Reached....");
-	    }
-	});
-
 //General
 
 Template.StartResearch.events({
 	'click #toSummary': function(e){
 		$("#fundamentals").removeClass("active")
 		$("#summary").attr("class", "active")
+		var user = Session.get(this.id);
+		var userCountry = $("countries:a").val();
+		alert(userCountry);
+		var department = $("")
+		Projects.update(user, {Country: userCountry, Summary: $("summaryText").text(),
+		 Photo: $("ResearchPhoto").attr('src'), fundingDays: $(".fundingDays").val()})
 	},
 	'click #toTeam': function(e){
 		$("#summary").removeClass("active")
@@ -28,5 +25,6 @@ Template.StartResearch.events({
 		$("#rewards").removeClass("active")
 		$("#extras").attr("class", "active")
 	}
+
 		
 });

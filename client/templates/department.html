@@ -1,0 +1,38 @@
+<template name = "Department">
+	<h5> Department </h5>
+		<div class = "col-md-4">
+		    <div class="ui dropdown button departments">
+			  <span class="text">Choose Department</span>
+			  <i class="dropdown icon"></i>
+			  <div class="menu">
+			    <div class="item">
+			      <span class="text department">Mathematics</span>
+			    </div>
+			    <div class="item">
+			      <i class="dropdown icon"></i>
+			      <span class="text department">Health</span>
+			      <div class="menu">
+			        <div class="item">Fitness</div>
+			        <div class="item">Nutrition</div>
+			      </div>
+			    </div>
+			    <div class="item">
+			      <i class="dropdown icon"></i>
+			      <span class="text department">Science</span>
+			      <div class="menu">
+			        <div class="item">Medical</div>
+			        <div class="item">Physical</div>
+			        <div class="item">Astronomical</div>
+			      </div>
+			    </div>
+			  </div>
+			</div>
+		</div>
+	<script type="text/javascript">
+		$('.ui.dropdown.departments')
+	  .dropdown({
+	  	
+	  })
+	;
+	</script>
+</template>

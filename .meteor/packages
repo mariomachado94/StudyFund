@@ -25,3 +25,5 @@ ian:accounts-ui-bootstrap-3
 twbs:bootstrap
 fortawesome:fontawesome
 jonlachlan:quill-reactive
+flemay:less-autoprefixer
+semantic:ui

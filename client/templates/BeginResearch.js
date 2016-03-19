@@ -72,6 +72,9 @@ Template.BeginResearch.events({
 		if(fundingAmount < 500 || fundingAmount.length == 0){
 			$("#AmountError").text("Amount is less then minimum price");
 		}
+		else if (!($.isNumeric(fundingAmount))){
+			$("#AmountError").text("Invalid entry");
+		}
 		else{
 			$("#AmountError").text("");
 		}
@@ -89,7 +92,7 @@ Template.BeginResearch.events({
 		if(fundingAmount >= 500 && $("#ResearchTitle").val().length <= 50 && $("#ResearchTitle").val().length > 0){
 			var ResearchTitle = $("#ResearchTitle").val();
 			var moneyType = document.getElementById("moneyType").innerHTML;
-
+			Session.set(this.id);
 			Projects.insert({owner: this.id, amount: fundingAmount, moneyType:moneyType, ResearchTitle: ResearchTitle});
 			$("#BeginResearch").attr("href", "/start-research")
 		}
