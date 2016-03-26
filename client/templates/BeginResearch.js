@@ -7,12 +7,17 @@ Template.BeginResearch.events({
 			var moneyType = document.getElementById("moneyType").innerHTML;
 			if(moneyType == "EUR"){
 				$("#MinAmount").text("Minimum €500");
+				$("#amount").attr("placeholder", "€");
 			}
 			else if(moneyType == "GBP"){
 				$("#MinAmount").text("Minimum £500");
+				$("#amount").attr("placeholder", "£");
+
 			}
 			else{
 				$("#MinAmount").text("Minimum $500");
+				$("#amount").attr("placeholder", "$");
+
 			}
 		});
 		$("#Cur2").unbind().click(function(){
@@ -22,12 +27,17 @@ Template.BeginResearch.events({
 			var moneyType = document.getElementById("moneyType").innerHTML;
 			if(moneyType == "EUR"){
 				$("#MinAmount").text("Minimum €500");
+				$("#amount").attr("placeholder", "€");
 			}
 			else if(moneyType == "GBP"){
 				$("#MinAmount").text("Minimum £500");
+				$("#amount").attr("placeholder", "£");
+
 			}
 			else{
 				$("#MinAmount").text("Minimum $500");
+				$("#amount").attr("placeholder", "$");
+
 			}
 		});
 		$("#Cur3").unbind().click(function(){
@@ -38,12 +48,17 @@ Template.BeginResearch.events({
 			
 			if(moneyType == "EUR"){
 				$("#MinAmount").text("Minimum €500");
+				$("#amount").attr("placeholder", "€");
 			}
 			else if(moneyType == "GBP"){
 				$("#MinAmount").text("Minimum £500");
+				$("#amount").attr("placeholder", "£");
+
 			}
 			else{
 				$("#MinAmount").text("Minimum $500");
+				$("#amount").attr("placeholder", "$");
+
 			}
 		});
 		$("#Cur4").unbind().click(function(){
@@ -51,14 +66,19 @@ Template.BeginResearch.events({
 			document.getElementById("moneyType").innerHTML= document.getElementById("Cur4").innerHTML;
 			document.getElementById("Cur4").innerHTML = temp;
 			var moneyType = document.getElementById("moneyType").innerHTML;
-			if(moneyType == "GBP"){
-				$("#MinAmount").text("Minimum £500");
-			}
-			else if(moneyType == "EUR"){
+			if(moneyType == "EUR"){
 				$("#MinAmount").text("Minimum €500");
+				$("#amount").attr("placeholder", "€");
+			}
+			else if(moneyType == "GBP"){
+				$("#MinAmount").text("Minimum £500");
+				$("#amount").attr("placeholder", "£");
+
 			}
 			else{
 				$("#MinAmount").text("Minimum $500");
+				$("#amount").attr("placeholder", "$");
+
 			}
 			});
 			console.log("Swapping cur val");
@@ -92,8 +112,7 @@ Template.BeginResearch.events({
 		if(fundingAmount >= 500 && $("#ResearchTitle").val().length <= 50 && $("#ResearchTitle").val().length > 0){
 			var ResearchTitle = $("#ResearchTitle").val();
 			var moneyType = document.getElementById("moneyType").innerHTML;
-			Session.set(this.id);
-			Projects.insert({owner: this.id, amount: fundingAmount, moneyType:moneyType, ResearchTitle: ResearchTitle});
+			Meteor.call('insertProjectData', Meteor.userId(), fundingAmount, moneyType, ResearchTitle)
 			$("#BeginResearch").attr("href", "/start-research")
 		}
 		
