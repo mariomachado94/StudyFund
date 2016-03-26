@@ -1,8 +1,3 @@
-Meteor.publish("allUserProfiles", function () {
-    return Meteor.users.find({}, {fields: {profile: 1}});
-});
-
-
 Meteor.startup(function() {
 	UploadServer.init({
     	tmpDir: process.env.PWD + '/public/.uploads/tmp',
@@ -15,13 +10,19 @@ Meteor.startup(function() {
 			return Projects.remove({});
 		}
 	});
+
+	S3.config = {
+	  "AccessKeyId" : "AKIAJ67USRP4V3G5EQYA",
+	  "AWSSecretAccessKey" : "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",
+	  "AWSBucket" : "jaydes-photos"
+	}
 });
 
 
 Meteor.methods({
 
 	'insertProjectData': function(userId, fundingAmount, moneyType, ResearchTitle){
-    	Projects.insert({owner: userId, amount: fundingAmount, moneyType:moneyType, ResearchTitle: ResearchTitle});
+    	Projects.insert({owner: [userId], amount: fundingAmount, moneyType:moneyType, title: ResearchTitle});
 	},
 
 	//We need to set an object first and insert that object, because our paramKey 
