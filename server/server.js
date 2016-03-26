@@ -17,11 +17,6 @@ Meteor.startup(function() {
 	});
 });
 
-	
-
-	
-}
-
 Meteor.methods({
 
 	'insertProjectData': function(userId, fundingAmount, moneyType, ResearchTitle){
