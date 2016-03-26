@@ -27,11 +27,11 @@ Template.StartResearch.events({
 		//stop client from refresing at this point, 
 		//as it will since we add a photo to a directory in meteor
 		var photoName = unparsed_photoName[0].trim();
-		
+		$("#ResearchPhoto").attr("src", ".uploads/"+photoName);
+
 		Meteor._reload.onMigrate(function() {
 		  return [false];
 		});
-		$("#ResearchPhoto").attr("src", ".uploads/"+photoName);
 	},
 
 	'click #ResearchPhoto': function(event, template) {
@@ -102,11 +102,11 @@ Template.StartResearch.events({
 		if(all_fields_correct){
 			$("#fundamentals").removeClass("active")
 			$("#summary").attr("class", "active")
-			Meteor.call('updateProjectData',owner, "Country", userCountry);
-			Meteor.call('updateProjectData',owner, "Summary", summarytext);
-			Meteor.call('updateProjectData',owner, "Department", department);
-			Meteor.call('updateProjectData',owner, "Summary", summarytext);
-			Meteor.call('updateProjectData',owner, "DaysLeft", funding_days);
+			Meteor.call('updateProjectData',owner, "country", userCountry);
+			Meteor.call('updateProjectData',owner, "summary", summarytext);
+			Meteor.call('updateProjectData',owner, "department", department);
+			Meteor.call('updateProjectData',owner, "summary", summarytext);
+			Meteor.call('updateProjectData',owner, "daysLeft", funding_days);
 			$("#countries").hide();
 			$("#toSummary").attr("href", "#Summary");
 
@@ -121,7 +121,7 @@ Template.StartResearch.events({
 	'click #teammateBtn': function(e){
 		var teammate = $("#teammate").val();
 		console.log(teammate);
-		Meteor.call('appendToProjectData',Meteor.userId(), "Teammate", teammate);
+		Meteor.call('appendToProjectData',Meteor.userId(), "owner", teammate);
 		$("#teammate").val("");
 
 	},
@@ -129,7 +129,7 @@ Template.StartResearch.events({
 		$("#team").removeClass("active")
 		$("#rewards").attr("class", "active")
 		var author = $("#AuthorName").val();
-		Meteor.call('updateProjectData',Meteor.userId(), "Author", author);
+		Meteor.call('updateProjectData',Meteor.userId(), "author", author);
 	},
 	'click #toExtras': function(e){
 		$("#rewards").removeClass("active")
