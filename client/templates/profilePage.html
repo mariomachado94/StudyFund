@@ -1,5 +1,8 @@
 <template name="profilePage">
-	{{> editForm}}
+	{{#with user}}
+	
+	{{> editProfile}}
+
 	<div class="container">
 		<div class="row space-top-lg">
 			<div class="col-md-2">
@@ -7,14 +10,18 @@
 			</div>
 
 			<div class="col-md-7">
-				<h2>{{name}} <span class="small">{{title}}</span></h2>
+				<h2>{{profile.name}} <span class="small">{{profile.title}}</span></h2>
 				Supported 2 projects - Mississauga, Canada - Joined 
 
-				<p class="space-top-sm">An MIT gradute in Astro Physics and computer science. I have a great interest in space exploration, and research which will greatly affect NASA and private space companies like SpaceX. I work at cal tech where I conduct research on the big bang theory and it's ramifications on space time itself </p>
+				<p class="space-top-sm">{{profile.summary}}</p>
 			</div>
 
 			<div class="col-md-3">
-				{{> userButtons}}
+				{{#if thisUsersProfile}}
+					{{> userButtons}}
+				{{else}}
+					{{> followButton}}
+				{{/if}}
 			</div>
 		</div>
 	</div> <!-- container -->
@@ -23,7 +30,7 @@
 		<ul class="nav nav-tabs">
 			<li class="active"><a data-toggle="tab" href="#projects">Projects <span class="badge">2</span></a></li>
 			<li><a data-toggle="tab" href="#sponsored">Sponsored <span class="badge">5</span></a></li>
-			<li><a data-toggle="tab" href="#bio">Biography</a></li>
+			<li><a data-toggle="tab" href="#bio-tab">Biography</a></li>
 		</ul>
 		<div class="tab-content">
 			<div id="projects" class="tab-pane fade in active">
@@ -45,16 +52,52 @@
 			    	</div>
 			    </div>
 			</div>
-			<div id="bio" class="tab-pane fade">
+			<div id="bio-tab" class="tab-pane fade">
 				<div class="container">
 					<div class="page-header">
   						<h1>Biography</h1>
 					</div>
-					<p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.
-  					Contrary to popular belief, Lorem Ipsum is not simply random text. It has roots in a piece of classical Latin literature from 45 BC, making it over 2000 years old. Richard McClintock, a Latin professor at Hampden-Sydney College in Virginia, looked up one of the more obscure Latin words, consectetur, from a Lorem Ipsum passage, and going through the cites of the word in classical literature, discovered the undoubtable source. Lorem Ipsum comes from sections 1.10.32 and 1.10.33 of "de Finibus Bonorum et Malorum" (The Extremes of Good and Evil) by Cicero, written in 45 BC. This book is a treatise on the theory of ethics, very popular during the Renaissance. The first line of Lorem Ipsum, "Lorem ipsum dolor sit amet..", comes from a line in section 1.10.32.</p>
+					<p>{{profile.bio}}</p>
 				</div>
 			</div>
 		</div>
+	</div>
+	{{/with}}
+</template>
+
+<template name="editProfile">
+	<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+	  <div class="modal-dialog modal-lg" role="document">
+	    <div class="modal-content">
+	    	<div class="modal-header">
+	        	<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+	        	<h4 class="modal-title" id="myModalLabel">Edit Profile</h4>
+	      	</div>
+	      	<div class="modal-body">
+	        	<div class="form-group">
+	        		<label for="name">Name</label>
+	            	<input type="text" id="name" class="form-control" placeholder="Name" value="{{profile.name}}" >
+	        	</div>
+	            <div class="form-group">
+	            	<label for="title">Title</label>
+	              	<input type="text" id="title" class="form-control" placeholder="PhD Physics" value="{{profile.title}}">
+	            </div>
+	            <div class="form-group">
+	            	<label for="summary">Summary</label>
+	              	<textarea id="summary" class="form-control" rows="3" maxlength="300" placeholder="Give a quick intro and what you're all about...">{{profile.summary}}</textarea>
+	              	<span class="small pull-right"><i>300 Character Limit</i></span>
+	            </div>
+	            <div class="form-group">
+	            	<label for="biography">Biography</label>
+	              	<textarea id="bio" class="form-control" rows="5" placeholder="Tell us who you are and why supporters should help your projects...">{{profile.bio}}</textarea>
+	            </div>
+	      	</div>
+	      	<div class="modal-footer">
+	      		<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+		        <button type="submit" class="btn btn-primary save-changes">Save changes</button>
+	    	</div>
+	    </div>
+	  </div>
 	</div>
 </template>
 
@@ -69,44 +112,6 @@
 	<div class="btn-group space-top-lg pull-right" role="group">
 		<button type="button" class="btn btn-primary">Following</button>
 		<span class="btn-label btn-label-default" title="23,000 followers">23,000</span>
-	</div>
-</template>
-
-<template name="editForm">
-	<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
-	  <div class="modal-dialog modal-lg" role="document">
-	    <div class="modal-content">
-	    	<div class="modal-header">
-	        	<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-	        	<h4 class="modal-title" id="myModalLabel">Edit Profile</h4>
-	      	</div>
-	      	<div class="modal-body">
-	      		<form role="form">
-		        	<div class="form-group">
-		        		<label for="name">Name</label>
-		            	<input type="text" class="form-control" placeholder="Name">
-		        	</div>
-		            <div class="form-group">
-		            	<label for="title">Title</label>
-		              	<input type="text" class="form-control" placeholder="PhD Physics">
-		            </div>
-		            <div class="form-group">
-		            	<label for="title">Summery</label>
-		              	<textarea class="form-control" rows="3" maxlength="300" placeholder="Give a quick intro and what you're all about...">some text</textarea>
-		              	<span class="small pull-right"><i>300 Character Limit</i></span>
-		            </div>
-		            <div class="form-group">
-		            	<label for="title">Bio</label>
-		              	<textarea class="form-control" rows="5" placeholder="Tell us who you are and why supporters should help your projects..."></textarea>
-		            </div>
-        		</form>
-	      	</div>
-	      	<div class="modal-footer">
-		        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-		        <button type="button" class="btn btn-primary">Save changes</button>
-	    	</div>
-	    </div>
-	  </div>
 	</div>
 </template>
 
