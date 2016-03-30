@@ -1,5 +1,5 @@
 //General
-
+var videoURL="";
 //General
 
 Template.StartResearch.events({
@@ -113,10 +113,22 @@ Template.StartResearch.events({
 		}
 
 	},
+
+	"click .upload": function(){
+        var files = $(".file")[0].files;
+        S3.upload({
+                files: files,
+                path: "photos",
+            },function(error,result){
+            	console.log(result)
+                videoURL = result.url;
+        });
+    },
+
 	'click #toTeam': function(e){
 		$("#summary").removeClass("active")
 		$("#team").attr("class", "active")
-		//upload video code
+		Meteor.call("updateProjectData",Meteor.userId(), "videoURL", videoURL)
 	},
 	'click #teammateBtn': function(e){
 		var teammate = $("#teammate").val();
@@ -138,4 +150,10 @@ Template.StartResearch.events({
 
 		
 });
+
+Template.uploadFile.helpers({
+	"files": function(){
+		return S3.collection.find();
+	}
+})
 
