@@ -2,18 +2,6 @@ Meteor.startup(function() {
 	// set to true in order to populate projects collection for development
 	var createDummyProjects = true;
 
-	UploadServer.init({
-    	tmpDir: process.env.PWD + '/public/.uploads/tmp',
-    	uploadDir: process.env.PWD + '/public/.uploads/',
-    	checkCreateDirectories: true //create the directories for you
-	});
-
-	S3.config = {
-	  "AccessKeyId" : "AKIAJ67USRP4V3G5EQYA",
-	  "AWSSecretAccessKey" : "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",
-	  "AWSBucket" : "jaydes-photos"
-	}
-
 	Projects.remove({});
 
 	if (createDummyProjects) {
@@ -91,10 +79,16 @@ Meteor.startup(function() {
 	}
 });
 
+S3.config = {
+  key : 'AKIAI3X224EEFHMTTHUQ',
+  secret : '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',
+  bucket : 'jaydes-photos'
+}
+
 Meteor.methods({
 
-	'insertProjectData': function(userId, fundingAmount, moneyType, ResearchTitle){
-    	Projects.insert({owner: [userId], goal: fundingAmount, moneyType:moneyType, title: ResearchTitle});
+	'insertProjectData': function(userId, Goal, moneyType, ResearchTitle){
+    	Projects.insert({owner: [userId], goal: Goal, moneyType:moneyType, title: ResearchTitle});
 	},
 
 	//We need to set an object first and insert that object, because our paramKey 

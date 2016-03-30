@@ -1,9 +1,9 @@
 <template name="uploadFile">
-    <input type="file" class="file_bag">
+    <label class="control-label">Select File</label>
+	<input id="input-1" type="file" class="file">
     <button class="upload">Upload</button>
 
     {{#each files}}
-        <p>{{percent_uploaded}}</p>
     {{/each}}
 
 </template>

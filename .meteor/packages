@@ -27,11 +27,6 @@ fortawesome:fontawesome
 jonlachlan:quill-reactive
 flemay:less-autoprefixer
 semantic:ui
+lepozepo:s3@=5.1.7
 tomi:upload-server
 tomi:upload-jquery
-cfs:standard-packages
-cfs:gridfs
-cfs:filesystem
-cfs:s3
-ostrio:files
-lepozepo:s3
