@@ -1,8 +1,8 @@
 Meteor.startup(function() {
 	// set to true in order to populate projects collection for development
-	var createDummyProjects = true;
-
 	Projects.remove({});
+
+	var createDummyProjects = false;
 
 	if (createDummyProjects) {
 		Projects.insert({
@@ -86,18 +86,19 @@ S3.config = {
 }
 
 Meteor.methods({
-
-	'insertProjectData': function(userId, Goal, moneyType, ResearchTitle){
-    	Projects.insert({owner: [userId], goal: Goal, moneyType:moneyType, title: ResearchTitle});
+	//initially setting new collection in database for researcher
+	'insertProjectData': function(userId, Goal, moneyType, ResearchTitle, currency){
+    	return Projects.insert({owner: [userId], goal: Goal, moneyType:moneyType, 
+    		title: ResearchTitle, currentAmountFunded: 0, numberOfSupporters: 0, currency: currency});
 	},
 
 	//We need to set an object first and insert that object, because our paramKey 
 	//will be called paramKey in our collection as opposed to what it is set as 
-	'updateProjectData': function(userId, paramKey, paramValue){
+	'updateProjectData': function(projectId, paramKey, paramValue){
 		var obj = {};
 		obj[paramKey] = paramValue;
 		console.log("the paramKey is " + paramKey);
-		Projects.update({"owner": userId}, { $set: obj });
+		Projects.update({"_id": projectId}, { $set: obj });
 	},
 
 	'appendToProjectData': function(userId, paramKey, paramValue){
@@ -105,8 +106,16 @@ Meteor.methods({
 		obj[paramKey] = paramValue;
 		console.log("the paramKey is " + paramKey);
 		Projects.update({"owner": userId}, { $push: obj });
-	}
+	},
 
-	
+	'grabProjectData': function(projectId){
+		return Projects.find({_id: projectId}).fetch();
+	},
+
+
+	'populateProjectPage': function(projectId){
+		grabProjectData(projectId);
+
+	}
 
 });

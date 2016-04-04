@@ -1,115 +1,102 @@
-<template name = "discoverLayout">   
-    <div class="container bodycontainer">
-        <div class="row">
-            <center><h1 style= "font-family: 'Benton Sans','Helvetica','sans-serif'; font-size: 40px"> Fund your favourite research </h1></center>
-            <hr>
-            <br>
-            <div class="col-md-8 col-sm-8">
+<template name = "discoverLayout"> 
+    <section id="banner">
+        <center>
+            <h1 style= "font-family: 'Benton Sans','Helvetica','sans-serif'; font-size: 40px"> Fund your favourite research </h1>
+        </center>                
+            <ul class="actions">
+                <li>
+                    <a href="#" class="button big">Lorem ipsum dolor</a>
+                </li>
+            </ul>
+    </section>
+    <section class="wrapper style1 special">
+        <div class="container">
+            <div class="col-md-11 col-sm-11">
                 <div class="row">
                     <div class="col-xs-4 col-sm-3">
-                        <div class="shortcut">
-                            <a href="/projects"><i class="fa fa-medkit shortcut-icon icon-red"></i></a>
-                            <a href="/projects"><h3>Medical</h3></a>
-                            <span class="total-items">234,567</span>
-                        </div>
+                        <a class = "categoryLink" href="/projects">
+                            <div class="shortcut">
+                                <i class="fa fa-medkit shortcut-icon icon-red"></i>
+                                <h3>Medical</h3>
+                                <span class="total-items">234,567</span>
+                            </div>
+                        </a>
                     </div>
                     <div class="col-xs-4 col-sm-3">
-                        <div class="shortcut">
-                            <a href="/projects"><i class="fa fa-camera shortcut-icon icon-green"></i></a>
-                            <a href="/projects"><h3>Photography</h3></a>
-                            <span class="total-items">25,366</span>
-                        </div>
+                        <a class = "categoryLink" href="/projects">
+                            <div class="shortcut">
+                               <i class="fa fa-camera shortcut-icon icon-green"></i>
+                                <h3>Photography</h3>
+                                <span class="total-items">25,366</span>
+                            </div>
+                        </a>
                     </div>
                     <div class="col-xs-4 col-sm-3">
-                        <div class="shortcut">
-                            <a href="/projects"><i class="fa fa-male shortcut-icon icon-brown"></i></a>
-                            <a href="/projects"><h3>Physiology</h3></a>
-                            <span class="total-items">252,546</span>
-                        </div>
+                        <a class = "categoryLink" href="/projects">
+                            <div class="shortcut">
+                                <i class="fa fa-male shortcut-icon icon-brown"></i>
+                                <h3>Physiology</h3>
+                                <span class="total-items">252,546</span>
+                            </div>
+                        </a>
                     </div>
                     <div class="col-xs-4 col-sm-3">
-                        <div class="shortcut">
-                            <a href="/projects"><i class="fa fa-female shortcut-icon icon-violet"></i></a>
-                            <a href="/projects"><h3>Fashion</h3></a>
-                            <span class="total-items">52,546</span>
-                        </div>
+                        <a class = "categoryLink" href="/projects">
+                            <div class="shortcut">
+                                <i class="fa fa-female shortcut-icon icon-violet"></i>
+                                <h3>Fashion</h3>
+                                <span class="total-items">252,546</span>
+                            </div>
+                        </a>
                     </div>
                     <div class="col-xs-4 col-sm-3">
-                        <div class="shortcut">
-                            <a href="/projects"><i class="fa fa-spoon shortcut-icon icon-dark-blue"></i></a>
-                            <a href="/projects"><h3>Nutrition</h3></a>
-                            <span class="total-items">215,546</span>
-                        </div>
+                        <a class = "categoryLink" href="/projects">
+                            <div class="shortcut">
+                                <i class="fa fa-spoon shortcut-icon icon-dark-blue"></i>
+                                <h3>Nutrition</h3>
+                                <span class="total-items">252,546</span>
+                            </div>
+                        </a>
                     </div>
                     <div class="col-xs-4 col-sm-3">
-                        <div class="shortcut">
-                            <a href="/projects"><i class="fa fa-space-shuttle shortcut-icon icon-light-blue"></i></a>
-                            <a href="/projects"><h3>Engineering</h3></a>
-                            <span class="total-items">415,546</span>
-                        </div>  
+                        <a class = "categoryLink" href="/projects">
+                            <div class="shortcut">
+                                <i class="fa fa-space-shuttle shortcut-icon icon-light-blue"></i>
+                                <h3>Engineering</h3>
+                                <span class="total-items">252,546</span>
+                            </div>
+                        </a> 
                     </div>
                     <div class="col-xs-4 col-sm-3">
-                        <div class="shortcut">
-                            <a href="/projects"><i class="fa fa-graduation-cap shortcut-icon icon-black"></i></a>
-                            <a href="/projects"><h3>Education</h3></a>
-                            <span class="total-items">15,546</span>
-                        </div>  
+                        <a class = "categoryLink" href="/projects">
+                            <div class="shortcut">
+                                <i class="fa fa-graduation-cap shortcut-icon icon-black"></i>
+                                <h3>Education</h3>
+                                <span class="total-items">252,546</span>
+                            </div>
+                        </a>
                     </div>
                     <div class="col-xs-4 col-sm-3">
-                        <div class="shortcut">
-                            <a href="/projects"><i class="fa fa-wrench shortcut-icon icon-light-green"></i></a>
-                            <a href="/projects"><h3>Other</h3></a>
-                            <span class="total-items">152,546</span>
-                        </div>  
+                        <a class = "categoryLink" href="/projects">
+                            <div class="shortcut">
+                                <i class="fa fa-wrench shortcut-icon icon-light-green"></i>
+                                <h3>Other</h3>
+                                <span class="total-items">252,546</span>
+                            </div>
+                        </a>
                     </div>
                 </div>
             </div>
         </div>
+    </section>
         
-            <div class="section-header">
-                <h2>Featured</h2>
-            </div>
-            {{>featuredProject}}
-            {{>featuredProject}}
-            {{>featuredProject}}
+    <h1 style= "font-family: 'Benton Sans','Helvetica','sans-serif'; font-size: 40px"> Featured </h1>
 
-    </div> <!-- container -->
-        
-    <div class="counter">
-        <div class="container">
-            <div class="row">
-                <div class="col-md-3">
-                    <div class="item-counter">
-                        <span class="item-icon"><i class="fa fa-database"></i></span>
-                        <div data-refresh-interval="100" data-speed="10000" data-to="7803" data-from="0" class="item-count">7803</div>
-                        <span class="item-info">Donations</span>
-                    </div>
-                </div>
-                <div class="col-md-3">
-                    <div class="item-counter">
-                        <span class="item-icon"><i class="fa fa-book-plus fa-book fa-fw"></i></span>
-                        <div data-refresh-interval="50" data-speed="5000" data-to="427" data-from="0" class="item-count">427</div>
-                        <span class="item-info">Projects</span>
-                    </div>
-                </div>
-                <div class="col-md-3">
-                    <div class="item-counter">
-                        <span class="item-icon"><i class="fa fa-map-marker"></i></span>
-                        <div data-refresh-interval="80" data-speed="5000" data-to="639" data-from="0" class="item-count">639</div>
-                        <span class="item-info">Locations</span>
-                    </div>
-                </div>
-                <div class="col-md-3">
-                    <div class="item-counter">
-                        <span class="item-icon"><i class="fa fa-users"></i></span>
-                        <div data-refresh-interval="80" data-speed="5000" data-to="1548" data-from="0" class="item-count">1548</div>
-                        <span class="item-info">Members</span>
-                    </div>
-                </div>
-            </div>
-        </div> <!-- / .counter -->
+    <div class = "container">
+        {{>featuredProject}}
+        {{>featuredProject}}
+        {{>featuredProject}}
     </div>
-          
 
 <style type="text/css">
 
@@ -117,12 +104,14 @@ a{
     color: #777;
 }
 
-.wrapper{
-    margin-top:70px !important;
-}
 .main{
     padding:30px 0;
     min-height: 460px;
+}
+
+.categoryLink{
+    width:100%;
+    display:block;
 }
 
 .shortcut {
@@ -134,24 +123,6 @@ a{
     border-radius: 5px;
 }
 
-.item-icon{
-    margin-bottom: 20px;
-    font-size: 40px;
-    display: block;
-}
-.item-count{
-    font-size: 60px;
-    font-weight: 700;
-    margin-bottom: 20px;
-    text-align: center;
-    text-transform: uppercase;
-}
-
-
-.item-numbers{
-    font-size: 13px;
-    color: #CCC;
-}
 .shortcut-icon{
     font-size: 50px;
 }
@@ -176,7 +147,6 @@ a{
 }
 
 .section-header{
-    color: #58b325;
     text-transform: uppercase;  
     border-bottom: 1px solid #DDD;
     margin-bottom: 20px;
@@ -189,6 +159,88 @@ a{
 .bodycontainer{
   margin-top: 9%;
 }
+/* Banner */
+
+    #banner {
+        background-image: url(dark_tint.png), url(bokeh_car_lights_bg.jpg);
+        background-position: center center;
+        background-size: cover;
+        color: #ffffff;
+        padding: 14em 0em 14em;
+        text-align: center;
+    }
+
+        #banner :last-child {
+            margin-bottom: 0;
+        }
+
+        #banner h2 {
+            color: #ffffff;
+            font-size: 4em;
+            line-height: 1.25em;
+            margin: 0 0 0.5em 0;
+            padding: 0;
+        }
+
+        #banner p {
+            font-size: 1.5em;
+            margin-bottom: 1.75em;
+        }
+.wrapper {
+        padding: 6em 0em 4em;
+        /* Style 1 Wrapper */
+        /* Style 2 Wrapper */
+        /* Style 3 Wrapper */
+    }
+
+        .wrapper.style1 {
+            background-color: #F5F5F5;
+            border-bottom: 1px solid rgba(144, 144, 144, 0.25);
+            border-top: 1px solid rgba(144, 144, 144, 0.25);
+        }
+
+            .wrapper.style1 .box {
+                background-color: #fff;
+                padding: 3em 2.5em;
+            }
+
+                .wrapper.style1 .box h2, .wrapper.style1 .box h3, .wrapper.style1 .box h4, .wrapper.style1 .box h5, .wrapper.style1 .box h6 {
+                    color: #858585;
+                }
+
+        .wrapper.style2 .profiles {
+            border-bottom: 1px solid rgba(144, 144, 144, 0.25);
+            border-top: 1px solid rgba(144, 144, 144, 0.25);
+            margin-bottom: 4em;
+            padding-top: 4em;
+        }
+
+        .wrapper.style2 .profile {
+            margin-bottom: 2em;
+            text-align: left;
+        }
+
+            .wrapper.style2 .profile img {
+                border-radius: 50%;
+                float: left;
+                margin-bottom: 1em;
+                margin-right: 1em;
+            }
+
+            .wrapper.style2 .profile h4 {
+                margin-bottom: 0;
+                margin-top: 1em;
+            }
+
+        .wrapper.style2 footer {
+            margin-left: auto;
+            margin-right: auto;
+            width: 70%;
+        }
+
+            .wrapper.style2 footer p {
+                margin-bottom: 3em;
+            }
 
 </style>
 

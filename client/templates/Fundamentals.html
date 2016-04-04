@@ -17,11 +17,16 @@
 		<span id = "SummaryTextErrorMsg" style="color:red"></span>
 		<br>
 		<h5> Research Project Image </h5>
-    	{{> uploadFile}}
+    	<label class="control-label">Select File</label>
+		<input id="input-photo" type="file" class="photofile" accept="jpg,.JPG,.JPEG,.PNG,.jpeg,.png">
 		<br>
-		<img src = "placeholder.gif" id = "ResearchPhoto" style="max-width: 200px; max-height:200px;"/>
 		<br>
-		<br>
+		{{#if fileChange}}
+			{{ >spinner}}
+		{{else}}
+			<img src = "{{photoname}}" id = "ResearchPhoto" style="max-width: 200px; max-height:200px;"/>
+		{{/if}}
+
 		{{>Department}}
 		<span id = "DepartmentErrorMsg" style="color:red"></span>
 		<br>
@@ -71,6 +76,10 @@
 	    	$("#count_message").html("Limit Reached....");
 	    }
 	});
+
+
+   
+
 
 	</script>
 

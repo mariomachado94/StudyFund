@@ -10,8 +10,17 @@
 		<h3> Share your video! </h3>
 		<br>
 		<h5> Video URL: </h5>
-		{{> upload_bootstrap}}
-		<br>
+		<label class="control-label">Select File</label>
+		<input id="input-video" type="file" class="videofile" accept=".avi,.mp4,.mpg">
+    	<br>
+    	<br>
+    	{{#if fileChange}}
+			{{ >spinner}}
+		{{else}}
+			<video width="400" id = "inputvideo" controls>
+			  <source src="{{videoname}}" >
+			</video>
+		{{/if}}
 		<br>
 		<p> Your Research Pitch! </p>
 		<div class = "ResearchSummary">
