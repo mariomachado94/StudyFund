@@ -17,7 +17,6 @@ Template.BeginResearch.events({
 			else{
 				$("#MinAmount").text("Minimum $500");
 				$("#amount").attr("placeholder", "$");
-
 			}
 		});
 		$("#Cur2").unbind().click(function(){
@@ -28,11 +27,11 @@ Template.BeginResearch.events({
 			if(moneyType == "EUR"){
 				$("#MinAmount").text("Minimum €500");
 				$("#amount").attr("placeholder", "€");
+
 			}
 			else if(moneyType == "GBP"){
 				$("#MinAmount").text("Minimum £500");
 				$("#amount").attr("placeholder", "£");
-
 			}
 			else{
 				$("#MinAmount").text("Minimum $500");
@@ -49,6 +48,7 @@ Template.BeginResearch.events({
 			if(moneyType == "EUR"){
 				$("#MinAmount").text("Minimum €500");
 				$("#amount").attr("placeholder", "€");
+
 			}
 			else if(moneyType == "GBP"){
 				$("#MinAmount").text("Minimum £500");
@@ -69,6 +69,7 @@ Template.BeginResearch.events({
 			if(moneyType == "EUR"){
 				$("#MinAmount").text("Minimum €500");
 				$("#amount").attr("placeholder", "€");
+
 			}
 			else if(moneyType == "GBP"){
 				$("#MinAmount").text("Minimum £500");
@@ -108,12 +109,22 @@ Template.BeginResearch.events({
 		else{
 			$("#TitleError").text("");
 		}
-		
-		if(fundingAmount >= 500 && $("#ResearchTitle").val().length <= 50 && $("#ResearchTitle").val().length > 0){
-			var ResearchTitle = $("#ResearchTitle").val();
-			var moneyType = document.getElementById("moneyType").innerHTML;
-			Meteor.call('insertProjectData', Meteor.userId(), fundingAmount, moneyType, ResearchTitle)
-			$("#BeginResearch").attr("href", "/start-research")
+
+		if(Meteor.userId() == null){
+			$("#LoginError").text("You must be signed in to start a quest");
+		}
+		else{
+			if(fundingAmount >= 500 && $("#ResearchTitle").val().length <= 50 && $("#ResearchTitle").val().length > 0){
+				var ResearchTitle = $("#ResearchTitle").val();
+				var currency = 	$("#amount").attr("placeholder");
+				var moneyType = document.getElementById("moneyType").innerHTML;
+				Meteor.call('insertProjectData', Meteor.userId(), fundingAmount, moneyType, ResearchTitle, 
+					currency, function(error, result){
+						console.log(result)
+						Session.set("projectId", result);
+					})
+				$("#BeginResearch").attr("href", "/start-research")
+			}
 		}
 		
 	}

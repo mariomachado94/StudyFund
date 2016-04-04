@@ -1,9 +1,11 @@
 <template name = "projectPage">
+	{{#with project}}
+
 	<div class = "container">
 		<div class = "row">
 			<center>
 		      	<h1 style= "font-family: 'Benton Sans','Helvetica','sans-serif'; font-size: 40px"> 
-		      		Project Title
+		      		{{title}}
 		     	</h1>
 			    <div class="featuredLinks">
 	              	<ul>
@@ -21,7 +23,11 @@
 			</ul>
 			<br>
 			<div class="col-md-6 projectVisual">
-				<img src="placeholder-blue.png" alt="..." class="img-responsive">
+				<div class="embed-responsive embed-responsive-16by9">
+				    <video id = "projectVideo" controls>
+				    	<source src="{{videoURL}}">
+				    </video>
+				</div>
 				<div class="row">
 					<div class="projectAuthor featuredLinks">
 						<br>
@@ -36,17 +42,17 @@
 			<div class="col-md-3 projectInfo">
 				
 				<div class="projectSpecs">
-	              <h1 style= "font-family: 'Benton Sans','Helvetica','sans-serif'; font-size: 40px"> $23,456 </h1>
-	              <span>donated of $20,000 goal</span>
+	              <h1 style= "font-family: 'Benton Sans','Helvetica','sans-serif'; font-size: 40px"> {{currency}}{{currentAmountFunded}} </h1>
+	              <span>donated of {{currency}}{{goal}} goal</span>
 	            </div>
 	            <div class="projectSpecs">
-	              <h1 style= "font-family: 'Benton Sans','Helvetica','sans-serif'; font-size: 40px"> 320 </h1>
+	              <h1 style= "font-family: 'Benton Sans','Helvetica','sans-serif'; font-size: 40px"> {{numberOfSupporters}} </h1>
 	              
 	              <span>Supporters</span>
 
 	            </div>
 	            <div class="projectSpecs">
-	              <h1 style= "font-family: 'Benton Sans','Helvetica','sans-serif'; font-size: 40px">40</h1>
+	              <h1 style= "font-family: 'Benton Sans','Helvetica','sans-serif'; font-size: 40px">{{daysLeft}}</h1>
 	              
 	              <span>Days Left</span>
 	            </div>
@@ -59,6 +65,7 @@
 			</div>
 		</div>
 	</div>
+	{{/with}}
 
 	<style type="text/css">
 	.featuredLinks ul li{
