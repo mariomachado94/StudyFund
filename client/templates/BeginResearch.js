@@ -118,4 +118,3 @@ Template.BeginResearch.events({
 		
 	}
 });
-Meteor.call('removeAllPosts');
