@@ -1,42 +1,44 @@
 <template name="projectThumbNail">
 	<div class="col-md-4">
 	    <div class="thumbnail">
-	    	<img src="placeholder-blue.png" alt="...">
-	        <div class="caption">
-				<h4>{{title}}</h4>
-				<img class="img-author img-circle" src="placeholder-profile.png">
-				Author
-				<br>
-				<br>
-				<p>{{summary}}</p>
-				<br>
-				<b>$ {{formatNumber currentAmountFunded}}</b>
+	    	<a href = "project/{{_id}}">
+		    	<img src="{{photoURL}}" alt="...">
+		        <div class="caption">
+					<h4>{{title}}</h4>
+					<img class="img-author img-circle" src="placeholder-profile.png">
+					{{author}}
+					<br>
+					<br>
+					<p>{{summary}}</p>
+					<br>
+					<b>{{currency}} {{formatNumber currentAmountFunded}}</b>
 
-	  			<div class="progress">
-  					<div class="progress-bar" role="progressbar" aria-valuenow="{{percentFunded}}" aria-valuemin="0" aria-valuemax="100" style="width: {{percentFunded}}%; max-width: 100%;">
-    				<span class="sr-only">{{percentFunded}}% Complete</span>
-  					</div>
-				</div>
+		  			<div class="progress">
+	  					<div class="progress-bar" role="progressbar" aria-valuenow="{{percentFunded}}" aria-valuemin="0" aria-valuemax="100" style="width: {{percentFunded}}%; max-width: 100%;">
+	    				<span class="sr-only">{{percentFunded}}% Complete</span>
+	  					</div>
+					</div>
 
-				<div class="row">
-					<div class="col-sm-3">
-						<b>{{percentFunded}}%</b>
-						<br>
-						<span>Funded</span>
-					</div>
-					<div class="col-sm-3">
-						<b>{{formatNumber numberOfSupporters}}</b>
-						<br>
-						<p>Supporters</p>
+					<div class="row">
+						<div class="col-sm-3">
+							<b>{{percentFunded}}%</b>
+							<br>
+							<span>Funded</span>
+						</div>
+						<div class="col-sm-3">
+							<b>{{formatNumber numberOfSupporters}}</b>
+							<br>
+							<p>Supporters</p>
 
+						</div>
+						<div class="col-sm-3">
+							<b>{{daysLeft}}</b>
+							<br>
+							<p>Days Left</p>
+						</div>
 					</div>
-					<div class="col-sm-3">
-						<b>{{daysLeft}}</b>
-						<br>
-						<p>Days Left</p>
-					</div>
-				</div>
-	        </div>
+		        </div>
+		    </a>
 	    </div>
 	</div>
 </template>

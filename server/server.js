@@ -101,11 +101,11 @@ Meteor.methods({
 		Projects.update({"_id": projectId}, { $set: obj });
 	},
 
-	'appendToProjectData': function(userId, paramKey, paramValue){
+	'appendToProjectData': function(projectId, paramKey, paramValue){
 		var obj = {};
 		obj[paramKey] = paramValue;
 		console.log("the paramKey is " + paramKey);
-		Projects.update({"owner": userId}, { $push: obj });
+		Projects.update({"_id": projectId}, { $push: obj });
 	},
 
 	'grabProjectData': function(projectId){

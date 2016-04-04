@@ -36,7 +36,16 @@ Template.profilePage.helpers({
 		else {
 			return false;
 		}
-	}
+	},
+	getUserProjects: function() {
+		return Projects.find({owner: FlowRouter.getParam('_id')}).fetch();
+	},
+	calcPercentage: function(project) {
+		var percentFunded = (project.currentAmountFunded / project.goal) * 100;
+		project.percentFunded = Math.round(percentFunded);
+
+		return project;
+	},
 });
 
 Template.profilePage.events({

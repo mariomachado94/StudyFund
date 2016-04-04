@@ -36,8 +36,9 @@
 			<div id="projects" class="tab-pane fade in active">
 				<div class="container space-top-lg">
 					<div class="row">
-						{{> projectThumbNail}}
-						{{> projectThumbNail}}
+						{{#each project in getUserProjects}}
+							{{> projectThumbNail (calcPercentage project)}}
+						{{/each}}
 					</div>
 				</div>
 			</div>

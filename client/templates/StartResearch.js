@@ -2,8 +2,8 @@
 //General
 var all_fields_correct = false;
 
-
 Template.StartResearch.events({
+
 	'click #fundamentals': function(e){
 		$("#countries").show()
 	},
@@ -73,6 +73,7 @@ Template.StartResearch.events({
 			$("#summary").attr("class", "active")
 			photoname = Session.get("photoname");
 			projectId = Session.get("projectId");
+
 			Meteor.call('updateProjectData',projectId, "country", userCountry);
 			Meteor.call('updateProjectData',projectId, "summary", summarytext);
 			Meteor.call('updateProjectData',projectId, "department", department);
@@ -90,12 +91,14 @@ Template.StartResearch.events({
 		$("#summary").removeClass("active")
 		$("#team").attr("class", "active")
 		videoname = Session.get("videoname")
-		Meteor.call("updateProjectData",Meteor.userId(), "videoURL", videoname)
+		projectId = Session.get("projectId");
+		Meteor.call("updateProjectData",projectId, "videoURL", videoname)
 	},
 	'click #teammateBtn': function(e){
 		var teammate = $("#teammate").val();
 		console.log(teammate);
-		Meteor.call('appendToProjectData',Meteor.userId(), "owner", teammate);
+		projectId = Session.get("projectId");
+		Meteor.call('appendToProjectData',projectId, "author", teammate);
 		$("#teammate").val("");
 
 	},
@@ -103,7 +106,8 @@ Template.StartResearch.events({
 		$("#team").removeClass("active")
 		$("#rewards").attr("class", "active")
 		var author = $("#AuthorName").val();
-		Meteor.call('updateProjectData',Meteor.userId(), "author", author);
+		projectId = Session.get("projectId");
+		Meteor.call('updateProjectData',projectId, "author", author);
 	},
 	'click #toExtras': function(e){
 		$("#rewards").removeClass("active")
