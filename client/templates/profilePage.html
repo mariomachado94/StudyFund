@@ -1,7 +1,8 @@
 <template name="profilePage">
 	{{#with user}}
-	
-	{{> editProfile}}
+	{{#if thisUsersProfile}}
+		{{> editProfile}}
+	{{/if}}
 
 	<div class="container">
 		<div class="row space-top-lg">

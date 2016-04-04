@@ -22,12 +22,8 @@ Template.profilePage.helpers({
 	}, */
 	user: function () {
 		var userId;
-		var user;
-
-		if (userId = FlowRouter.getParam('_id')) {
-			console.log("user is logged in: " + userId);
-			return Meteor.users.findOne(userId, {fields: {profile: 1}});
-		}
+		userId = FlowRouter.getParam('_id');
+		return Meteor.users.findOne(userId, {fields: {profile: 1}});
 	},
 	thisUsersProfile: function() {
 		if (Meteor.userId() === FlowRouter.getParam('_id')) {

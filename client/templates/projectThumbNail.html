@@ -12,6 +12,7 @@
 				<br>
 				<b>$ {{formatNumber currentAmountFunded}}</b>
 
+				{{#let percentFunded=(calcPercentage currentAmountFunded goal)}}
 	  			<div class="progress">
   					<div class="progress-bar" role="progressbar" aria-valuenow="{{percentFunded}}" aria-valuemin="0" aria-valuemax="100" style="width: {{percentFunded}}%; max-width: 100%;">
     				<span class="sr-only">{{percentFunded}}% Complete</span>
@@ -36,6 +37,8 @@
 						<p>Days Left</p>
 					</div>
 				</div>
+
+				{{/let}}
 	        </div>
 	    </div>
 	</div>
