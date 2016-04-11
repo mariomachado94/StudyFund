@@ -32,6 +32,9 @@ Template.profilePage.helpers({
 		else {
 			return false;
 		}
+	},
+	getOwnedProjects: function(id) {
+		return Meteor.Projects.find({}, {}).fetch()
 	}
 });
 
