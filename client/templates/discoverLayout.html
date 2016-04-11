@@ -3,11 +3,7 @@
         <center>
             <h1 style= "font-family: 'Benton Sans','Helvetica','sans-serif'; font-size: 40px"> Fund your favourite research </h1>
         </center>                
-            <ul class="actions">
-                <li>
-                    <a href="#" class="button big">Lorem ipsum dolor</a>
-                </li>
-            </ul>
+            
     </section>
     <section class="wrapper style1 special">
         <div class="container">
@@ -93,9 +89,9 @@
     <h1 style= "font-family: 'Benton Sans','Helvetica','sans-serif'; font-size: 40px"> Featured </h1>
 
     <div class = "container">
-        {{>featuredProject}}
-        {{>featuredProject}}
-        {{>featuredProject}}
+        {{#each project in getfeaturedProjects}}
+                {{> featuredProject (calcPercentage project)}}
+        {{/each}}
     </div>
 
 <style type="text/css">

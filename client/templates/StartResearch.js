@@ -5,38 +5,34 @@ var all_fields_correct = false;
 Template.StartResearch.events({
 
 	'click #fundamentals': function(e){
-		$("#countries").show()
 	},
 
 	'click #summary': function(e){
-		$("#countries").hide()
 	},
 	'click #team': function(e){
-		$("#countries").hide()
 	},
-	'click #rewards': function(e){
-		$("#countries").hide()
-	},
-	'click #extras': function(e){
-		$("#countries").hide()
-	},
+	
 	
 	'click #toSummary': function(e){
 		var owner = Meteor.userId();
-		var userCountry = $(".countries a").text();
-		var department = $(".text.department").text();
+		var department = $("#ResearchDepartment").val();
+		var subfield = $("#subfield").val();
 		var funding_days = $(".funding-days").val();
 		var summarytext = $("#summarytext").val();
-		var tags = "";
-		if(userCountry == ""){
-			$(".countriesError").text("field cannot be empty");
+		console.log(department);
+
+		if(department == ""){
+			$("#DepartmentErrorMsg").text("Select department");
 		}
 		else{
-			$("#SummaryTextErrorMsg").text("");
+			$("#DepartmentErrorMsg").text("");
 		}
 
-		if(department == "Choose Department"){
-			$("#DepartmentErrorMsg").text("Choose a department");
+		if(subfield == ""){
+			$("#subfieldErrorMsg").text("Select subfield(s)");
+		}
+		else{
+			$("#subfieldErrorMsg").text("");
 		}
 
 		if(summarytext.length == 0){
@@ -63,7 +59,7 @@ Template.StartResearch.events({
 
 		if($.isNumeric(funding_days) && funding_days>0 && 
 			funding_days.length !=0 && summarytext.length !=0 
-			&& department != "Choose Department" && userCountry!="")
+			&& department != "" && subfield != "")
 		{
 			all_fields_correct = true;
 		}
@@ -71,16 +67,10 @@ Template.StartResearch.events({
 		if(all_fields_correct){
 			$("#fundamentals").removeClass("active")
 			$("#summary").attr("class", "active")
-			photoname = Session.get("photoname");
-			projectId = Session.get("projectId");
-
-			Meteor.call('updateProjectData',projectId, "country", userCountry);
-			Meteor.call('updateProjectData',projectId, "summary", summarytext);
-			Meteor.call('updateProjectData',projectId, "department", department);
-			Meteor.call('updateProjectData',projectId, "summary", summarytext);
-			Meteor.call('updateProjectData',projectId, "daysLeft", funding_days);
-			Meteor.call("updateProjectData",projectId, "photoURL", photoname)
-			$("#countries").hide();
+			Session.set("summarytext", summarytext);
+			Session.set("subfield", subfield);
+			Session.set("department", department);
+			Session.set("daysLeft", funding_days);
 			$("#toSummary").attr("href", "#Summary");
 
 		}
@@ -90,24 +80,39 @@ Template.StartResearch.events({
 	'click #toTeam': function(e){
 		$("#summary").removeClass("active")
 		$("#team").attr("class", "active")
-		videoname = Session.get("videoname")
-		projectId = Session.get("projectId");
-		Meteor.call("updateProjectData",projectId, "videoURL", videoname)
 	},
 	'click #teammateBtn': function(e){
 		var teammate = $("#teammate").val();
-		console.log(teammate);
 		projectId = Session.get("projectId");
 		Meteor.call('appendToProjectData',projectId, "author", teammate);
 		$("#teammate").val("");
 
 	},
-	'click #toRewards': function(e){
-		$("#team").removeClass("active")
-		$("#rewards").attr("class", "active")
+	'click .UploadProject': function(e){
+		$("#team").removeClass("active");
+		$("#rewards").attr("class", "active");
 		var author = $("#AuthorName").val();
-		projectId = Session.get("projectId");
+		console.log("got here");
+
+		var videoname = Session.get("videoname")
+		var projectId = Session.get("projectId");
+		var photoname = Session.get("photoname");
+		var city = Session.get("city");
+		var country = Session.get("country");
+		var funding_days = Session.get("daysLeft");
+		var department = Session.get("department");
+		var subfield = Session.get("subfield");
+		var summarytext = Session.get("summarytext");
+
+		Meteor.call("updateProjectData",projectId, "videoURL", videoname)
 		Meteor.call('updateProjectData',projectId, "author", author);
+		Meteor.call('updateProjectData',projectId, "department", department);
+		Meteor.call('updateProjectData',projectId, "subfield", subfield);
+		Meteor.call('updateProjectData',projectId, "country", country);
+		Meteor.call('updateProjectData',projectId, "city", city);
+		Meteor.call('updateProjectData',projectId, "summary", summarytext);
+		Meteor.call('updateProjectData',projectId, "daysLeft", funding_days);
+		Meteor.call("updateProjectData",projectId, "photoURL", photoname)
 	},
 	'click #toExtras': function(e){
 		$("#rewards").removeClass("active")

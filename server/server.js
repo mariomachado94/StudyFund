@@ -1,4 +1,17 @@
+/*
+Dynamically change days left when clock hits 12:00 in database
+*/
+
+var d = new Date();
+var hours = d.getHours();
+var minutes = d.getMinutes();
+var seconds = d.getSeconds();
+if(hours == 20 && minutes == 17 && seconds == 0){
+	Projects.update({}, {$subtract: {daysLeft: 1}}, { multi: true });
+}
+
 Meteor.startup(function() {
+
 	// set to true in order to populate projects collection for development
 	Projects.remove({});
 

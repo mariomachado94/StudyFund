@@ -18,29 +18,51 @@
 	  					<div class="progress-bar" role="progressbar" aria-valuenow="{{percentFunded}}" aria-valuemin="0" aria-valuemax="100" style="width: {{percentFunded}}%; max-width: 100%;">
 	    				<span class="sr-only">{{percentFunded}}% Complete</span>
 	  					</div>
+		    	<img src="{{photoURL}}" alt="..." style="max-width:350px; max-height:200px;">
+		    </a>
+	        <div class="caption">
+				<h4>{{title}}</h4>
+				<img class="img-author img-circle" src="placeholder-profile.png">
+				{{author}}
+				<br>
+				<br>
+				<p>{{summary}}</p>
+				<br>
+				<div class = "row">
+				    <div class="col-xs-3">{{currency}} {{formatNumber currentAmountFunded}}</div>
+					<div class="col-xs-2 col-xs-offset-3"><a href=""><i class="fa fa-map-marker">&nbsp;{{city}},&nbsp;{{country}}</i></a>
 					</div>
 
-					<div class="row">
-						<div class="col-sm-3">
-							<b>{{percentFunded}}%</b>
-							<br>
-							<span>Funded</span>
-						</div>
-						<div class="col-sm-3">
-							<b>{{formatNumber numberOfSupporters}}</b>
-							<br>
-							<p>Supporters</p>
+				</div>
 
-						</div>
-						<div class="col-sm-3">
-							<b>{{daysLeft}}</b>
-							<br>
-							<p>Days Left</p>
-						</div>
+	  			<div class="progress">
+  					<div class="progress-bar" role="progressbar" aria-valuenow="{{percentFunded}}" aria-valuemin="0" aria-valuemax="100" style="width: {{percentFunded}}%; max-width: 100%;">
+    				<span class="sr-only">{{percentFunded}}% Complete</span>
+  					</div>
+				</div>
+
+				<div class="row">
+					<div class="col-sm-3">
+						<b>{{percentFunded}}%</b>
+						<br>
+						<span>Funded</span>
 					</div>
 					{{/let}}
 		        </div>
 		    </a>
+					<div class="col-sm-3">
+						<b>{{formatNumber numberOfSupporters}}</b>
+						<br>
+						<p>Supporters</p>
+
+					</div>
+					<div class="col-sm-3">
+						<b>{{daysLeft}}</b>
+						<br>
+						<p>Days Left</p>
+					</div>
+				</div>
+	        </div>
 	    </div>
 	</div>
 </template>

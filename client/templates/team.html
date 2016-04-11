@@ -1,4 +1,6 @@
 <template name = "Team">
+				{{> UploadProject}}
+
 	<div class= "col-lg-8" style = "background-color:#d3d3d3;">
 		<div class = "page-header">
 		      	<h1 style= "font-family: 'Benton Sans','Helvetica','sans-serif'; font-size: 40px"> 
@@ -20,9 +22,16 @@
 		<input type = "text" placeholder = "Email Address" name = "Teammate" id="teammate"/>
 		<a href="" style = "background-color: #29c3fa; color: white;" id = "teammateBtn" class="btn btn-default btn-lg">INVITE TEAMMATE</a>
 		<br>
-		<div class = "SaveCon">
-			<a href="#Rewards" id = "toRewards" data-toggle="tab" style = "background-color: #29c3fa; color: white;" class="btn btn-default btn-lg">Save & Continue</a>
-		</div>
 		<br>
+
+			{{> Save_and_Upload}}
+		
+		<br>
+	</div>
+</template>
+
+<template name="Save_and_Upload">
+	<div class="btn-group space-top-lg pull-right" role="group">
+		<button type="button" class="btn btn-primary UploadProject" data-toggle="modal" data-target="#uploadProjectModal">Save and Upload</button>
 	</div>
 </template>

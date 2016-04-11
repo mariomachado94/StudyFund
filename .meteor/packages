@@ -30,3 +30,6 @@ tomi:upload-server
 standard-minifier-css
 standard-minifier-js
 sacha:spin
+http
+mdg:geolocation
+dburles:google-maps

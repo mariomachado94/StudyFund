@@ -1,0 +1,63 @@
+<template name = "mathematicsFields"> <!-- must be called mathematicsFields for dynamic template -->
+	<div id = "mathematicsfield">
+		<div class="ui sub header">Select your field</div>
+			<div class="ui fluid multiple search normal selection dropdown subfield">
+		  	<input type="hidden" name="mathematicsField" id="subfield">
+		  	<i class="dropdown icon"></i>
+		  	<div class="default text">Subfield...</div>
+			  <div class="menu">
+			  <div class="item">Algebra</div>
+			  <div class="item">Basic Mathematics</div>
+			  <div class="item">Pure mathematics</div>
+			  <div class="item">Calculus and analysis</div>
+			  <div class="item">Geometry and topology</div>
+			  <div class="item">Combinatorics</div>
+			  <div class="item">Logic</div>
+			  <div class="item">Number theory</div>
+			  <div class="item">Dynamical systems and differential equations</div>
+			  <div class="item">Mathematical physics</div>
+			  <div class="item">Computing</div>
+			  <div class="item">Information theory and signal processing</div>
+			  <div class="item">Probability and statistics</div>
+			  <div class="item">Game theory</div>
+			  <div class="item">Operations research</div>
+			  <div class="item">K-theory</div>
+			  <div class="item">Set theory</div>
+			  <div class="item">Group theory</div>			  
+			  <div class="item">Lie groups</div>
+			  <div class="item">Commutative rings</div>
+			  <div class="item">Associative ring theory</div>
+			  <div class="item">Nonassociative ring theory</div>
+			  <div class="item">Field theory</div>
+			  <div class="item">General algebraic systems</div>
+			  <div class="item">Algebraic geometry</div>
+			  <div class="item">Linear algebra</div>
+			  <div class="item">Ordered sets</div>
+			  <div class="item">Differential geometry</div>
+			  <div class="item">Real functions</div>
+			  <div class="item">Measure theory and integration</div>
+			  <div class="item">Finite differences and functional equations</div>
+			  <div class="item">Sequences and series</div>
+			  <div class="item">Complex analysis</div>
+			  <div class="item">Potential theory</div>
+			  <div class="item">Multiple complex variables</div>
+			  <div class="item">Differential and integral equations </div>
+			  <div class="item">Ordinary differential equations</div>
+			  <div class="item">Partial differential equations</div>
+			  <div class="item">Functional analysis</div>
+			  <div class="item">Fourier analysis</div>
+			  <div class="item">Abstract harmonic analysis</div>
+			  <div class="item">Operator theory</div>
+			  <div class="item">Numerical analysis and optimization</div>
+			  <div class="item">Approximations and expansions</div>
+			</div>
+		</div> 
+	</div>
+	<script type="text/javascript">
+		$('.ui.normal.dropdown')
+	  .dropdown({
+	    maxSelections: 1
+	  })
+	;
+	</script>
+</template>

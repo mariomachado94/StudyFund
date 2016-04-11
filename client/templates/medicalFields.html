@@ -1,0 +1,70 @@
+<template name = "medicalFields">
+	<div id = "medicalfield">
+		<div class="ui sub header">Select your field</div>
+			<div class="ui fluid multiple search normal selection dropdown subfield">
+		  	<input type="hidden" name="medicalField" id = "subfield">
+		  	<i class="dropdown icon"></i>
+		  	<div class="default text">Subfield...</div>
+			  <div class="menu">
+			  <div class="item"> Alzheimer's Disease</div>
+			  <div class="item">Anesthesiology</div>
+			  <div class="item">Animal Resources</div>
+			  <div class="item">Biochemistry</div>
+			  <div class="item">Biomedical Engineering</div>
+			  <div class="item">Biostatistical Sciences</div>
+			  <div class="item">Cancer Biology</div>
+			  <div class="item">Cardiovascular</div>
+			  <div class="item">Cardiothoracic Surgery</div>
+			  <div class="item">Comparative Medicine</div>
+			  <div class="item">Dentistry</div>
+			  <div class="item">Dermatology</div>
+			  <div class="item">Emergency Medicine</div>
+			  <div class="item">Endocrinology and Metabolism</div>
+			  <div class="item">Epidemiology & Prevention </div>
+			  <div class="item">Family & Community Medicine</div>
+			  <div class="item">Gastroenterology</div>
+			  <div class="item">General Internal Medicine</div>
+			  <div class="item">Gerontology and Geriatrics</div>
+			  <div class="item">Hematology and Oncology</div>
+			  <div class="item">Infectious Diseases</div>
+			  <div class="item">Investigative Pathology</div>
+			  <div class="item">Injury Biomechanics</div>
+			  <div class="item">Innovations</div>
+			  <div class="item">Integrative Medicine</div>
+			  <div class="item">Internal Medicine</div>
+			  <div class="item">Medical Genetics</div>
+			  <div class="item">Microbiology and Immunology</div>
+			  <div class="item">Molecular Genetics and Genomics Program</div>
+			  <div class="item">Molecular Medicine</div>
+			  <div class="item">Neonatal and Perinatal Medicine</div>
+			  <div class="item">Nephrology</div>
+			  <div class="item">Neurobiology and Anatomy</div>
+			  <div class="item">Neurology</div>
+			  <div class="item">Neurosurgery</div>
+			  <div class="item">Ophthalmology</div>
+			  <div class="item">Orthopaedic Surgery</div>
+			  <div class="item">Otolaryngology </div>
+			  <div class="item">Pathology</div>
+			  <div class="item">Physiology and Pharmacology</div>
+			  <div class="item">Plastic and Reconstructive Surgery</div>
+			  <div class="item">Psychiatry and Behavioral Medicine</div>
+			  <div class="item">Public Health Sciences</div>
+			  <div class="item">Pulmonary, Critical Care, Allergy and Immunological Diseases</div>
+			  <div class="item">Radiation Oncology</div>
+			  <div class="item">Radiology</div>
+			  <div class="item">Rheumatology</div>
+			  <div class="item">Social Sciences and Health Policy</div>
+			  <div class="item">Society for Neuroscience</div>
+			  <div class="item">Urology</div>
+			  <div class="item">Vascular and Endovascular Surgery and Vascular Medicine</div>
+			</div>
+		</div> 
+	</div>
+	<script type="text/javascript">
+		$('.ui.normal.dropdown')
+	  .dropdown({
+	    maxSelections: 1
+	  })
+	;
+	</script>
+</template>

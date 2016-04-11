@@ -26,13 +26,22 @@
 		{{else}}
 			<img src = "{{photoname}}" id = "ResearchPhoto" style="max-width: 200px; max-height:200px;"/>
 		{{/if}}
-
-		{{>Department}}
-		<span id = "DepartmentErrorMsg" style="color:red"></span>
 		<br>
-	    <br>
-	    <br>
-	    {{>fieldTags}}
+		<br>
+		<div class = "row">
+			<div class = "col-md-4">
+			{{>Department}}
+			<span id = "DepartmentErrorMsg" style="color:red"></span>
+
+			</div>
+			<div class = "col-md-6">
+			{{#if departmentChanged}}
+				{{> Template.dynamic template=get_subField}}
+				<span id = "subfieldErrorMsg" style="color:red"></span>
+			{{/if}}
+			</div>
+		</div>
+
 	    <br>
 	    <br>
     	<h5> Deadline </h5>
