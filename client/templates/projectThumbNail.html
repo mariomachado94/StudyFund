@@ -2,22 +2,6 @@
 	<div class="col-md-4">
 	    <div class="thumbnail">
 	    	<a href = "project/{{_id}}">
-		    	<img src="{{photoURL}}" alt="...">
-		        <div class="caption">
-					<h4>{{title}}</h4>
-					<img class="img-author img-circle" src="placeholder-profile.png">
-					{{author}}
-					<br>
-					<br>
-					<p>{{summary}}</p>
-					<br>
-					<b>{{currency}} {{formatNumber currentAmountFunded}}</b>
-
-					{{#let percentFunded=(calcPercentage currentAmountFunded goal)}}
-		  			<div class="progress">
-	  					<div class="progress-bar" role="progressbar" aria-valuenow="{{percentFunded}}" aria-valuemin="0" aria-valuemax="100" style="width: {{percentFunded}}%; max-width: 100%;">
-	    				<span class="sr-only">{{percentFunded}}% Complete</span>
-	  					</div>
 		    	<img src="{{photoURL}}" alt="..." style="max-width:350px; max-height:200px;">
 		    </a>
 	        <div class="caption">
@@ -34,7 +18,7 @@
 					</div>
 
 				</div>
-
+				{{#let percentFunded=(calcPercentage currentAmountFunded goal)}}
 	  			<div class="progress">
   					<div class="progress-bar" role="progressbar" aria-valuenow="{{percentFunded}}" aria-valuemin="0" aria-valuemax="100" style="width: {{percentFunded}}%; max-width: 100%;">
     				<span class="sr-only">{{percentFunded}}% Complete</span>
@@ -47,9 +31,6 @@
 						<br>
 						<span>Funded</span>
 					</div>
-					{{/let}}
-		        </div>
-		    </a>
 					<div class="col-sm-3">
 						<b>{{formatNumber numberOfSupporters}}</b>
 						<br>
@@ -62,6 +43,7 @@
 						<p>Days Left</p>
 					</div>
 				</div>
+				{{/let}}
 	        </div>
 	    </div>
 	</div>
