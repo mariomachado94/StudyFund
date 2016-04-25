@@ -3,7 +3,7 @@
  <div class = "container">
   <div class = "row">
     <center>
-      <h1 style= "font-family: 'Benton Sans','Helvetica','sans-serif'; font-size: 40px"> New discoveries in the medical field </h1>
+      <h1 style= "font-family: 'Benton Sans','Helvetica','sans-serif'; font-size: 40px"> New discoveries in the {{department}} field </h1>
     </center>
     <hr>
     <br>
@@ -29,12 +29,13 @@
   <div class="section-header">
         <h2>Featured</h2>
   </div>
-  {{>featuredProject}}
-
+  {{#each project in (getfeaturedProject department)}}
+    {{>featuredProject (project)}}
+  {{/each}}
   <div class="row">
-    {{>projectThumbNail}}
-    {{>projectThumbNail}}
-    {{>projectThumbNail}}
+    {{#each project in (getDepartmentProjects department)}}
+        {{> projectThumbNail project}}
+      {{/each}}
   </div>
 
   <center>

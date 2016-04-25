@@ -8,7 +8,7 @@
 	<div class="container">
 		<div class="row space-top-lg">
 			<div class="col-md-2">
-				<img class="img-rounded img-responsive profile-pic" src="placeholder-profile.png">
+					<img class="img-rounded img-responsive profile-pic" id="profile_picture" src="{{profile.picture}}">
 			</div>
 
 			<div class="col-md-7">
@@ -38,8 +38,9 @@
 			<div id="projects" class="tab-pane fade in active">
 				<div class="container space-top-lg">
 					<div class="row">
-						{{> projectThumbNail}}
-						{{> projectThumbNail}}
+						{{#each project in getUserProjects}}
+							{{> projectThumbNail project}}
+						{{/each}}
 					</div>
 				</div>
 			</div>
@@ -93,6 +94,15 @@
 	            	<label for="biography">Biography</label>
 	              	<textarea id="bio" class="form-control" rows="5" placeholder="Tell us who you are and why supporters should help your projects...">{{profile.bio}}</textarea>
 	            </div>
+	            <br>
+	            <label class="control-label">Upload Profile Picture</label>
+				<input id="profile-photo" type="file" class="profilePic" accept="jpg,.JPG,.JPEG,.PNG,.jpeg,.png">
+				<br>
+				{{#if profilePic_Changed}}
+					{{ >spinner}}
+				{{else}}
+					<img class="img-rounded img-responsive profile-pic" id="profile_pic" src="{{userProfilePicture}}">
+				{{/if}}
 	      	</div>
 	      	<div class="modal-footer">
 	      		<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>

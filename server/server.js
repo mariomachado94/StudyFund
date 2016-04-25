@@ -25,7 +25,7 @@ Meteor.startup(function() {
 			title: "Marijuana, the cure for cancer?",
 			summary: "THC has already shown cancer killing properties. We are about to find out just how significant these properties truly are.",
 			goal: 45000,
-			owner: ["4yqosh76fmFAwELB4"],
+			owner: ["4yqosh76fmFAwELB4", "5432wefdsq"],
 			currentAmountFunded: 2350,
 			numberOfSupporters: 230
 			
@@ -73,7 +73,7 @@ Meteor.startup(function() {
 			title: "How bad is dog food for your dog?",
 			summary: "Dog food companies are of the most misleading businesses in the world. We put to the test several of the 'Healthiest' dog food products people buy",
 			goal: 2500,
-			owner: ["4yqosh76fmFAwELB4"],
+			owner: ["jrwbqefbeb", "4yqosh76fmFAwELB4"],
 			currentAmountFunded: 2350,
 			numberOfSupporters: 245
 		});

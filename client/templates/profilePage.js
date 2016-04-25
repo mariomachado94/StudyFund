@@ -1,3 +1,5 @@
+var profilePic = "../placeholder-profile.png";
+Session.set("profilePic", profilePic);
 Template.profilePage.helpers({
 	/*name: function() {
 		var userId;
@@ -33,11 +35,21 @@ Template.profilePage.helpers({
 			return false;
 		}
 	},
-	getOwnedProjects: function(id) {
-		return Meteor.Projects.find({}, {}).fetch()
+	getUserProjects: function() {
+		return Projects.find({owner: Meteor.userId()}).fetch();
 	}
 });
 
+Template.editProfile.helpers({
+	profilePic_Changed: function(){
+		console.log("got here")
+		return Session.get("profilePic_Changed");
+	},
+	userProfilePicture: function(){
+		return Session.get("profilePic");
+	}
+	
+})
 Template.profilePage.events({
 	"click .save-changes": function (event, template) {
 		var name = template.$("#name").val();
@@ -45,7 +57,27 @@ Template.profilePage.events({
 		var summary = template.$("#summary").val();
 		var bio = template.$("#bio").val();
 		var userId = Meteor.userId();
+		var profilePic = Session.get("profilePic");
+		Meteor.users.update(userId, {$set: {"profile.name": name, "profile.title": title, "profile.summary": summary, "profile.picture": profilePic,  "profile.bio": bio}});
+	},
+	"change .profilePic": function(e){
+		if($(".profilePic")[0].files.length != 0){
+			Session.set("profilePic_Changed", true)
+			files = $(".profilePic")[0].files;
+			S3.upload({
+		                files: files,
+		                path: "profile-pictures",
+		            },function(error,result){
+		            	console.log(result)
+		            	profilePic = result.url;
+		                Session.set("profilePic", profilePic)
+		                if(result.percent_uploaded == 100){
+		                	Session.set("profilePic_Changed", false)
+		                	$("#profile_pic").attr("src", profilePic);
 
-		Meteor.users.update(userId, {$set: {"profile.name": name, "profile.title": title, "profile.summary": summary, "profile.bio": bio}})
+		                }
+		        });
+		}
+
 	}
 });

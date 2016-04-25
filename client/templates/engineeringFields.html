@@ -1,0 +1,31 @@
+<template name = "engineeringFields"> <!-- must be called mathematicsFields for dynamic template -->
+	<div id = "engineeringfield">
+		<div class="ui sub header">Select your field</div>
+			<div class="ui fluid multiple search normal selection dropdown subfield">
+		  	<input type="hidden" name="engineeringField" id="subfield">
+		  	<i class="dropdown icon"></i>
+		  	<div class="default text">Subfield...</div>
+			  <div class="menu">
+			  <div class="item">Aerospace Engineering</div>
+			  <div class="item">Biomedical Engineering</div>
+			  <div class="item">Chemical Engineering</div>
+			  <div class="item">Civil & Environmental Engineering</div>
+			  <div class="item">Climate & Space Sciences & Engineering</div>
+			  <div class="item">Electrical Engineering & Computer Science</div>
+			  <div class="item">Industrial & Operations Engineering</div>
+			  <div class="item">Integrative Systems & Design</div>
+			  <div class="item">Materials Science & Engineering</div>
+			  <div class="item">Mechanical Engineering</div>
+			  <div class="item">Naval Architecture & Marine Engineering</div>
+			  <div class="item">Nuclear Engineering & Radiological Sciences</div>
+			</div>
+		</div> 
+	</div>
+	<script type="text/javascript">
+		$('.ui.normal.dropdown')
+	  .dropdown({
+	    maxSelections: 1
+	  })
+	;
+	</script>
+</template>

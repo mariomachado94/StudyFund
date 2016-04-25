@@ -47,15 +47,16 @@ Template.Fundamentals.events({
 		        Session.set("field", ResearchDepartment);
 		        Session.set("fieldChanged", true);
 		        $("#subfieldErrorMsg").text("");
-
 		        break;
 		    case "mathematics":
 		        ResearchDepartment = "mathematics";
 		        Session.set("field", ResearchDepartment);
 		        Session.set("fieldChanged", true);
 		        break;
-		    case 3:
-		        day = "Wednesday";
+		    case "engineering":
+		        ResearchDepartment = "engineering";
+		        Session.set("field", ResearchDepartment);
+		        Session.set("fieldChanged", true);
 		        break;
 		    case 4:
 		        day = "Thursday";

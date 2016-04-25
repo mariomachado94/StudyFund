@@ -1,12 +1,12 @@
 <template name="projectThumbNail">
 	<div class="col-md-4">
 	    <div class="thumbnail">
-	    	<a href = "project/{{_id}}">
+	    	<a href = "/projects/project/{{_id}}">
 		    	<img src="{{photoURL}}" alt="..." style="max-width:350px; max-height:200px;">
 		    </a>
 	        <div class="caption">
 				<h4>{{title}}</h4>
-				<img class="img-author img-circle" src="placeholder-profile.png">
+				<img class="img-author img-circle" src="{{getUserPhoto owner.[0]}}">
 				{{author}}
 				<br>
 				<br>

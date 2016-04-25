@@ -19,11 +19,15 @@
         <li><a href="/Begin">Start a quest</a></li>
         <li><a href="#">About us</a></li>
       </ul>
+<<<<<<< Updated upstream
       <form class="search navbar-form navbar-left" role="search">
         <div class="form-group">
           <input type="text" name="query" class="form-control" placeholder="Search">
         </div>
       </form>
+=======
+      {{>searchBox}}
+>>>>>>> Stashed changes
       <ul class="nav navbar-nav navbar-right">
         {{> loginButtons}}
       </ul>
@@ -35,4 +39,13 @@
 <!-- delete template if not using ian:accounts-ui-bootstrap-3 -->
 <template name="_loginButtonsAdditionalLoggedInDropdownActions">
   <button class="btn btn-default btn-block" id="login-buttons-profile">Profile</button>
+</template>
+
+<template name="searchBox">
+    {{> EasySearch.Input index=ProjectIndex }}
+    <ul>
+        {{#EasySearch.Each index=ProjectIndex }}
+             {{summary}}
+        {{/EasySearch.Each}}
+    </ul>
 </template>
