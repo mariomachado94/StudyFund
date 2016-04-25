@@ -4,6 +4,16 @@ Template._loginButtonsLoggedInDropdown.events({
 	}
 });
 
+Template.nav.events({
+    'submit .search': function(event) {
+        event.preventDefault();
+
+        const querytext = event.target.query.value;
+
+        FlowRouter.go('search', null, {q: querytext});
+    }
+});
+
 Accounts.ui.config({
     requestPermissions: {},
     extraSignupFields: [{
