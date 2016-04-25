@@ -7,10 +7,11 @@ Template.discoverLayout.helpers({
 	},
 
 	getfeaturedProjects: function() {
-			return Projects.find({}, {sort: {rand: 1}, limit: 3}).fetch();
+			return Projects.find({}, {sort: {rand: 1}, limit: 1}).fetch();
 	},
 
 });
+
 Template.featuredProject.helpers({
 	getUserPhoto: function(id){
 		var user = Meteor.users.findOne({_id: id}, {fields: {"profile.picture":1}});
