@@ -5,12 +5,16 @@
 		    	<img src="{{photoURL}}" alt="..." style="width:100%; height:200px; overflow: hidden;">
 		    </a>
 	        <div class="caption">
-				<h4>{{title}}</h4>
-				<img class="img-author img-circle" src="{{getUserPhoto owner.[0]}}">
-				{{author}}
+				<h4 style = "word-wrap: break-word; font-size: 1vw;">{{title}}</h4>
+				<div class = "authorthumbnail" onclick = "goto_profilePage()">
+					<img class="img-author img-circle" src="{{getUserPhoto owner.[0]}}">
+					{{author}}
+				</div>
 				<br>
-				<br>
-				<p>{{summary}}</p>
+				<div class = "SummaryContainer" style = "width: 100%; height:40px; font-size: 1em; word-wrap: break-word;">
+					{{summary}}
+				</div>
+				
 				<br>
 				<div class = "row">
 				    <div class="col-xs-3">{{currency}} {{formatNumber currentAmountFunded}}</div>
@@ -47,4 +51,9 @@
 	        </div>
 	    </div>
 	</div>
+	<script type="text/javascript">
+	function goto_profilePage(){
+		window.location.href = "/profile/{{owner}}"
+	}
+	</script>
 </template>

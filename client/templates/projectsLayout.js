@@ -1,3 +1,5 @@
+Session.set("loadMore", false);
+var amountToDisplay = 6;
 Template.projectsLayout.helpers({
 	calcPercentage: function(project) {
 		var percentFunded = (project.currentAmountFunded / project.goal) * 100;
@@ -14,8 +16,20 @@ Template.projectsLayout.helpers({
 		return FlowRouter.getParam('department');
 	},
 	getDepartmentProjects: function(Department) {
-		return Projects.find({department: Department}, {limit: 3}).fetch();
+		Session.set("loadMore", false);
+		return Projects.find({department: Department},{sort: {daysLeft: 1}, limit: amountToDisplay}).fetch();
 	},
+	loadMore: function(){
+		return Session.get("loadMore");
+	}
+
 
 });
+
+Template.projectsLayout.events({
+	"click .LoadMore": function(event){
+		amountToDisplay += 6;
+		Session.set("loadMore", true);
+	}
+})
 

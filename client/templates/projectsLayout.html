@@ -8,22 +8,31 @@
     <hr>
     <br>
     <div class = "col-md-4">
-      <div class="ui fluid multiple search normal selection dropdown countries">
-        <input type="hidden" name="country">
+      <div class="ui fluid multiple search normal selection dropdown departments">
+        <input type="hidden" name="Departments">
         <i class="dropdown icon"></i>
-        <div class="default text">Select Country</div>
+        <div class="default text">Select Department</div>
         <div class="menu">
-          <div class="item" data-value="af"><i class="af flag"></i>Afghanistan</div>
-          <div class="item" data-value="ax"><i class="ax flag"></i>Aland Islands</div>
-          <div class="item" data-value="al"><i class="al flag"></i>Albania</div>
-          <div class="item" data-value="dz"><i class="dz flag"></i>Algeria</div>
-          <div class="item" data-value="as"><i class="as flag"></i>American Samoa</div>
-          <div class="item" data-value="ad"><i class="ad flag"></i>Andorra</div>
-          <div class="item" data-value="ao"><i class="ao flag"></i>Angola</div>
+          <div class="item" >Mathematics</div>
+          <div class="item" >Engineering</div>
+          <div class="item">Medical</div>
+          <div class="item" >Fitness & Nutrition</div>
+          <div class="item" >Other</div>
         </div>
       </div>
     </div>
-    
+    <div class = "col-md-4">
+      <div class="ui fluid multiple search normal selection dropdown Tending">
+        <input type="hidden" name="Trending">
+        <i class="dropdown icon"></i>
+        <div class="default text">Trending</div>
+        <div class="menu">
+          <div class="item" >Ending Soon</div>
+          <div class="item" >Popular</div>
+          <div class="item">Featured</div>
+        </div>
+      </div>
+    </div>
   </div>
   <br>
   <div class="section-header">
@@ -32,14 +41,24 @@
   {{#each project in (getfeaturedProject department)}}
     {{>featuredProject (project)}}
   {{/each}}
+
+  {{#if loadMore}}
   <div class="row">
-    {{#each project in (getDepartmentProjects department)}}
-        {{> projectThumbNail project}}
-      {{/each}}
+      {{#each project in (getDepartmentProjects department)}}
+          {{> projectThumbNail project}}
+        {{/each}}
   </div>
+  {{else}}
+  <div class="row">
+      {{#each project in (getDepartmentProjects department)}}
+          {{> projectThumbNail project}}
+        {{/each}}
+  </div>
+  {{/if}}
+
 
   <center>
-    <a href="" data-toggle="tooltip" data-placement="top" title="Save Favorite" class="btn btn-default btn-md">Load More</a>
+    <a href="" data-toggle="tooltip" data-placement="top" title="Save Favorite" class="btn btn-default btn-md LoadMore">Load More</a>
   </center>
 </div>
 

@@ -1,5 +1,6 @@
 <template name = "projectPage">
 	{{#with project}}
+	{{> supportProject}}
 
 	<div class = "container">
 		<div class = "row">
@@ -16,42 +17,113 @@
 		    </center>
 
 		    <ul class="nav nav-tabs nav-justified">
-			    <li role="presentation" class="active"><a href="#">Home</a></li>
-				<li role="presentation"><a href="#">Supporters</a></li>
-				<li role="presentation"><a href="#">Comments</a></li>
-				<li role="presentation"><a href="#">Portfolio</a></li>
+			    <li role="presentation" class="active"><a data-toggle="tab" href="#Home">Home</a></li>
+				<li role="presentation"><a data-toggle="tab" href="#Supporters">Supporters</a></li>
+				<li role="presentation"><a data-toggle="tab" href="#Comments">Comments</a></li>
+				<li role="presentation"><a data-toggle="tab" href="#Portfolio">Portfolio</a></li>
 			</ul>
 			<br>
-			<div class="col-md-6 projectVisual">
-				<div class="embed-responsive embed-responsive-16by9">
-				    <video id = "projectVideo" controls>
-				    	<source src="{{videoURL}}">
-				    </video>
-				</div>
-			</div>
-			<div class="col-md-3 projectInfo">
-				
-				<div class="projectSpecs">
-	              <h1 style= "font-family: 'Benton Sans','Helvetica','sans-serif'; font-size: 40px"> {{currency}}{{currentAmountFunded}} </h1>
-	              <span>donated of {{currency}}{{goal}} goal</span>
-	            </div>
-	            <div class="projectSpecs">
-	              <h1 style= "font-family: 'Benton Sans','Helvetica','sans-serif'; font-size: 40px"> {{numberOfSupporters}} </h1>
-	              
-	              <span>Supporters</span>
+			<div class="tab-content">
+				<div id="Home" class="tab-pane fade in active">
+					<div class="col-md-6 projectVisual">
+						<div class="embed-responsive embed-responsive-16by9">
+						    <video id = "projectVideo" controls>
+						    	<source src="{{videoURL}}">
+						    </video>
+						</div>
+					</div>
+					<div class="col-md-3 projectInfo">
+						
+						<div class="projectSpecs">
+			              <h1 style= "font-family: 'Benton Sans','Helvetica','sans-serif'; font-size: 40px"> {{currency}}{{currentAmountFunded}} </h1>
+			              <span>donated of {{currency}}{{goal}} goal</span>
+			            </div>
+			            <div class="projectSpecs">
+			              <h1 style= "font-family: 'Benton Sans','Helvetica','sans-serif'; font-size: 40px"> {{numberOfSupporters}} </h1>
+			              
+			              <span>Supporters</span>
 
-	            </div>
-	            <div class="projectSpecs">
-	              <h1 style= "font-family: 'Benton Sans','Helvetica','sans-serif'; font-size: 40px">{{daysLeft}}</h1>
-	              
-	              <span>Days Left</span>
-	            </div>
-				<br>
-				<a href="" data-toggle="tooltip" data-placement="top" title="Save Favorite" class="btn btn-default btn-lg">Support</a>
-				<hr>
-				
-				<img class="img-author img-circle" src="{{profile.picture}}">   
-					
+			            </div>
+			            <div class="projectSpecs">
+			              <h1 style= "font-family: 'Benton Sans','Helvetica','sans-serif'; font-size: 40px">{{daysLeft}}</h1>
+			              
+			              <span>Days Left</span>
+			            </div>
+						<br>
+						<button type="button" data-toggle="modal" data-target="#supportProjectModal" title="Save Favorite" class="btn btn-default btn-lg">Support</button>
+						<hr>
+						
+						<img class="img-author img-circle" src="{{profile.picture}}">   
+							
+					</div>
+				</div>
+				<div id="Supporters" class="tab-pane fade">
+					<div class = "col-lg-8 col-xs-offset-2">
+					    <table class="table table-striped">
+						  <thead>
+						      <tr>
+						        <th>Name</th>
+						        <th>Amount</th>
+						        <th>Email</th>
+						      </tr>
+						    </thead>
+						    <tbody>
+						      <tr>
+						        <td>John</td>
+						        <td>Doe</td>
+						        <td>john@example.com</td>
+						      </tr>
+						      <br>
+						      <tr>
+						        <td>Mary</td>
+						        <td>Moe</td>
+						        <td>mary@example.com</td>
+						      </tr>
+						      <br>
+						      <tr>
+						        <td>July</td>
+						        <td>Dooley</td>
+						        <td>july@example.com</td>
+						      </tr>
+						    </tbody>
+						</table>
+					</div>
+				</div>
+				<div id="Comments" class="tab-pane fade">
+					<div class = "col-lg-8 col-xs-offset-2">
+					    <table class="table table-striped">
+						  <thead>
+						      <tr>
+						        <th>Name</th>
+						        <th>Comment</th>
+						        <th>Email</th>
+						      </tr>
+						    </thead>
+						    <tbody>
+						      <tr>
+						        <td>John</td>
+						        <td>Doe</td>
+						        <td>john@example.com</td>
+						      </tr>
+						      <br>
+						      <tr>
+						        <td>Mary</td>
+						        <td>Moe</td>
+						        <td>mary@example.com</td>
+						      </tr>
+						      <br>
+						      <tr>
+						        <td>July</td>
+						        <td>Dooley</td>
+						        <td>july@example.com</td>
+						      </tr>
+						    </tbody>
+						</table>
+					</div>
+				</div>
+				<div id="Portfolio" class="tab-pane fade">
+					HEY
+				</div>
 			</div>
 		</div>
 	</div>

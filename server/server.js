@@ -15,80 +15,222 @@ Meteor.startup(function() {
 	// set to true in order to populate projects collection for development
 	Projects.remove({});
 
-	var createDummyProjects = false;
+	var createDummyProjects = true;
 
 	if (createDummyProjects) {
-		Projects.insert({
-			country: "Canada",
-			daysLeft: 20,
-			department: "Drugs",
-			title: "Marijuana, the cure for cancer?",
-			summary: "THC has already shown cancer killing properties. We are about to find out just how significant these properties truly are.",
-			goal: 45000,
-			owner: ["4yqosh76fmFAwELB4", "5432wefdsq"],
-			currentAmountFunded: 2350,
-			numberOfSupporters: 230
-			
-		});
-		Projects.insert({
-			country: "USA",
-			daysLeft: 36,
-			department: "Physics",
-			title: "Partical Accelerator",
-			summary: "A partical accelertator to be built in texes so we can compete acedemically with the one in switzerland",
-			goal: 2000000,
-			owner: ["4yqosh76fmFAwELB4"],
-			currentAmountFunded: 567234,
-			numberOfSupporters: 20002
-		});
-
-		Projects.insert({
-			country: "Canada",
-			daysLeft: 15,
-			department: "Nutrition",
-			title: "Creatine study",
-			summary: "How good is creatine for muscle growth",
-			goal: 1400,
-			owner: ["4yqosh76fmFAwELB4"],
-			currentAmountFunded: 987,
-			numberOfSupporters: 89
-		});
-
-		Projects.insert({
-			country: "Canada",
-			daysLeft: 5,
-			department: "Nutrition",
-			title: "Is Mr. Noodle soup secretly killing people?",
-			summary: "This shitty food has evidence surrounding its horrible effects on the body.",
-			goal: 780,
-			owner: ["4yqosh76fmFAwELB4"],
-			currentAmountFunded: 120,
-			numberOfSupporters: 10
-		});
-
-		Projects.insert({
-			country: "Canada",
-			daysLeft: 4,
-			department: "Dog Nutrition",
-			title: "How bad is dog food for your dog?",
-			summary: "Dog food companies are of the most misleading businesses in the world. We put to the test several of the 'Healthiest' dog food products people buy",
-			goal: 2500,
-			owner: ["jrwbqefbeb", "4yqosh76fmFAwELB4"],
-			currentAmountFunded: 2350,
-			numberOfSupporters: 245
-		});
-
+		
 		Projects.insert({
 			country: "Portugal",
+			city: "Lisbon",
+			photoURL: "http://s3.amazonaws.com/jaydes-photos/profile-pictures/a9323832-5591-4d2e-923c-7d8bd50c8d0d.jpg",
 			daysLeft: 50,
-			department: "Medical",
-			title: "A proposed treatment for helping retired construction workers with arthritus",
-			summary: "Too many prokchops have arthritus after retiring long careers in construction. This medical treatment could help",
+			department: "medical",
+			title: "Cancer Research",
+			summary: "Trying to change the world one step at a time",
 			goal: 14000,
-			owner: ["4yqosh76fmFAwELB4"],
+			currency: "$",
+			photoURL: "http://s3.amazonaws.com/jaydes-photos/photos/0f635c04-b50c-4064-9a27-5fce50d4a790.jpg",
+			owner: ["DjaRQJeECPhGFWhTF"],
 			currentAmountFunded: 8742,
 			numberOfSupporters: 500
 		});
+		Projects.insert({
+			country: "Portugal",
+			city: "Lisbon",
+			photoURL: "http://s3.amazonaws.com/jaydes-photos/profile-pictures/a9323832-5591-4d2e-923c-7d8bd50c8d0d.jpg",
+			daysLeft: 50,
+			department: "medical",
+			title: "Cancer Research",
+			summary: "Trying to change the world one step at a time",
+			goal: 14000,
+			currency: "$",
+			photoURL: "http://s3.amazonaws.com/jaydes-photos/photos/0f635c04-b50c-4064-9a27-5fce50d4a790.jpg",
+			owner: ["DjaRQJeECPhGFWhTF"],
+			currentAmountFunded: 8742,
+			numberOfSupporters: 500
+		});
+		Projects.insert({
+			country: "Portugal",
+			city: "Lisbon",
+			photoURL: "http://s3.amazonaws.com/jaydes-photos/profile-pictures/a9323832-5591-4d2e-923c-7d8bd50c8d0d.jpg",
+			daysLeft: 50,
+			department: "medical",
+			title: "Cancer Research",
+			summary: "Trying to change the world one step at a time",
+			goal: 14000,
+			currency: "$",
+			photoURL: "http://s3.amazonaws.com/jaydes-photos/photos/0f635c04-b50c-4064-9a27-5fce50d4a790.jpg",
+			owner: ["DjaRQJeECPhGFWhTF"],
+			currentAmountFunded: 8742,
+			numberOfSupporters: 500
+		});
+		Projects.insert({
+			country: "Portugal",
+			city: "Lisbon",
+			photoURL: "http://s3.amazonaws.com/jaydes-photos/profile-pictures/a9323832-5591-4d2e-923c-7d8bd50c8d0d.jpg",
+			daysLeft: 50,
+			department: "medical",
+			title: "Cancer Research",
+			summary: "Trying to change the world one step at a time",
+			goal: 14000,
+			currency: "$",
+			photoURL: "http://s3.amazonaws.com/jaydes-photos/photos/0f635c04-b50c-4064-9a27-5fce50d4a790.jpg",
+			owner: ["DjaRQJeECPhGFWhTF"],
+			currentAmountFunded: 8742,
+			numberOfSupporters: 500
+		});
+		Projects.insert({
+			country: "Portugal",
+			city: "Lisbon",
+			photoURL: "http://s3.amazonaws.com/jaydes-photos/profile-pictures/a9323832-5591-4d2e-923c-7d8bd50c8d0d.jpg",
+			daysLeft: 50,
+			department: "medical",
+			title: "Cancer Research",
+			summary: "Trying to change the world one step at a time",
+			goal: 14000,
+			currency: "$",
+			photoURL: "http://s3.amazonaws.com/jaydes-photos/photos/0f635c04-b50c-4064-9a27-5fce50d4a790.jpg",
+			owner: ["DjaRQJeECPhGFWhTF"],
+			currentAmountFunded: 8742,
+			numberOfSupporters: 500
+		});
+		Projects.insert({
+			country: "Portugal",
+			city: "Lisbon",
+			photoURL: "http://s3.amazonaws.com/jaydes-photos/profile-pictures/a9323832-5591-4d2e-923c-7d8bd50c8d0d.jpg",
+			daysLeft: 50,
+			department: "medical",
+			title: "Cancer Research",
+			summary: "Trying to change the world one step at a time",
+			goal: 14000,
+			currency: "$",
+			photoURL: "http://s3.amazonaws.com/jaydes-photos/photos/0f635c04-b50c-4064-9a27-5fce50d4a790.jpg",
+			owner: ["DjaRQJeECPhGFWhTF"],
+			currentAmountFunded: 8742,
+			numberOfSupporters: 500
+		});
+		Projects.insert({
+			country: "Portugal",
+			city: "Lisbon",
+			photoURL: "http://s3.amazonaws.com/jaydes-photos/profile-pictures/a9323832-5591-4d2e-923c-7d8bd50c8d0d.jpg",
+			daysLeft: 50,
+			department: "medical",
+			title: "Cancer Research",
+			summary: "Trying to change the world one step at a time",
+			goal: 14000,
+			currency: "$",
+			photoURL: "http://s3.amazonaws.com/jaydes-photos/photos/0f635c04-b50c-4064-9a27-5fce50d4a790.jpg",
+			owner: ["DjaRQJeECPhGFWhTF"],
+			currentAmountFunded: 8742,
+			numberOfSupporters: 500
+		});
+		Projects.insert({
+			country: "Portugal",
+			city: "Lisbon",
+			photoURL: "http://s3.amazonaws.com/jaydes-photos/profile-pictures/a9323832-5591-4d2e-923c-7d8bd50c8d0d.jpg",
+			daysLeft: 50,
+			department: "medical",
+			title: "Cancer Research",
+			summary: "Trying to change the world one step at a time, abbjdkblk jekdbfkejrb jebwkjbe jreblklrej",
+			goal: 14000,
+			currency: "$",
+			photoURL: "http://s3.amazonaws.com/jaydes-photos/photos/0f635c04-b50c-4064-9a27-5fce50d4a790.jpg",
+			owner: ["DjaRQJeECPhGFWhTF"],
+			currentAmountFunded: 8742,
+			numberOfSupporters: 500
+		});
+		Projects.insert({
+			country: "Canada",
+			city: "Oakville",
+			photoURL: "http://s3.amazonaws.com/jaydes-photos/profile-pictures/a9323832-5591-4d2e-923c-7d8bd50c8d0d.jpg",
+			daysLeft: 50,
+			department: "engineering",
+			title: "AeroSpace Engineering",
+			summary: "Trying to change the world one step at a time, with spaceships and physics and engineering",
+			goal: 14000,
+			currency: "$",
+			photoURL: "http://s3.amazonaws.com/jaydes-photos/photos/0f635c04-b50c-4064-9a27-5fce50d4a790.jpg",
+			owner: ["DjaRQJeECPhGFWhTF"],
+			currentAmountFunded: 8742,
+			numberOfSupporters: 500
+		});
+		Projects.insert({
+			country: "Canada",
+			city: "Oakville",
+			photoURL: "http://s3.amazonaws.com/jaydes-photos/profile-pictures/a9323832-5591-4d2e-923c-7d8bd50c8d0d.jpg",
+			daysLeft: 50,
+			department: "engineering",
+			title: "AeroSpace Engineering",
+			summary: "Trying to change the world one step at a time, with spaceships and physics and engineering",
+			goal: 14000,
+			currency: "$",
+			photoURL: "http://s3.amazonaws.com/jaydes-photos/photos/0f635c04-b50c-4064-9a27-5fce50d4a790.jpg",
+			owner: ["DjaRQJeECPhGFWhTF"],
+			currentAmountFunded: 8742,
+			numberOfSupporters: 500
+		});
+		Projects.insert({
+			country: "Canada",
+			city: "Oakville",
+			photoURL: "http://s3.amazonaws.com/jaydes-photos/profile-pictures/a9323832-5591-4d2e-923c-7d8bd50c8d0d.jpg",
+			daysLeft: 50,
+			department: "engineering",
+			title: "AeroSpace Engineering",
+			summary: "Trying to change the world one step at a time, with spaceships and physics and engineering",
+			goal: 14000,
+			currency: "$",
+			photoURL: "http://s3.amazonaws.com/jaydes-photos/photos/0f635c04-b50c-4064-9a27-5fce50d4a790.jpg",
+			owner: ["DjaRQJeECPhGFWhTF"],
+			currentAmountFunded: 8742,
+			numberOfSupporters: 500
+		});
+		Projects.insert({
+			country: "Canada",
+			city: "Oakville",
+			photoURL: "http://s3.amazonaws.com/jaydes-photos/profile-pictures/a9323832-5591-4d2e-923c-7d8bd50c8d0d.jpg",
+			daysLeft: 50,
+			department: "engineering",
+			title: "AeroSpace Engineering",
+			summary: "Trying to change the world one step at a time, with spaceships and physics and engineering",
+			goal: 14000,
+			currency: "$",
+			photoURL: "http://s3.amazonaws.com/jaydes-photos/photos/0f635c04-b50c-4064-9a27-5fce50d4a790.jpg",
+			owner: ["DjaRQJeECPhGFWhTF"],
+			currentAmountFunded: 8742,
+			numberOfSupporters: 500
+		});
+		Projects.insert({
+			country: "Canada",
+			city: "Oakville",
+			photoURL: "http://s3.amazonaws.com/jaydes-photos/profile-pictures/a9323832-5591-4d2e-923c-7d8bd50c8d0d.jpg",
+			daysLeft: 50,
+			department: "engineering",
+			title: "AeroSpace Engineering",
+			summary: "Trying to change the world one step at a time, with spaceships and physics and engineering",
+			goal: 14000,
+			currency: "$",
+			photoURL: "http://s3.amazonaws.com/jaydes-photos/photos/0f635c04-b50c-4064-9a27-5fce50d4a790.jpg",
+			owner: ["DjaRQJeECPhGFWhTF"],
+			currentAmountFunded: 8742,
+			numberOfSupporters: 500
+		});
+		Projects.insert({
+			country: "Canada",
+			city: "Oakville",
+			photoURL: "http://s3.amazonaws.com/jaydes-photos/profile-pictures/a9323832-5591-4d2e-923c-7d8bd50c8d0d.jpg",
+			daysLeft: 50,
+			department: "engineering",
+			title: "AeroSpace Engineering",
+			summary: "Trying to change the world one step at a time, with spaceships and physics and engineering",
+			goal: 14000,
+			currency: "$",
+			photoURL: "http://s3.amazonaws.com/jaydes-photos/photos/0f635c04-b50c-4064-9a27-5fce50d4a790.jpg",
+			owner: ["DjaRQJeECPhGFWhTF"],
+			currentAmountFunded: 8742,
+			numberOfSupporters: 500
+		});
+		
+
 	}
 });
 
