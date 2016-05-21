@@ -1,32 +1,45 @@
-Template.supportProject.helpers({
-	calcPercentage: function(num, den) {
-		console.log("calcPercentage called with num: " + num + " and den: " + den);
-		var percentage = (num / den) * 100;
-		return Math.round(percentage);
-	},
+Template.supportProject.events({
+	"submit #support-form": function(event, template) {
+		event.preventDefault();
 
-	formatNumber: function(amount) {
-		var sign = amount < 0 ? "-" : "", 
-		i = parseInt(amount = Math.round(Math.abs(+amount || 0))) + "", 
-		j = (j = i.length) > 3 ? j % 3 : 0;
-		return sign + (j ? i.substr(0, j) + "," : "") + i.substr(j).replace(/(\d{3})(?=\d)/g, "$1" + ",");
-	},
-	getUserPhoto: function(id){
-		var user = Meteor.users.findOne({_id: id}, {fields: {"profile.picture":1}});
-		return user.profile.picture;
+		console.log("support form was submitted")
+
+		var card = {
+			number: $('[data-stripe="cardNumber"]').val(),
+			exp_month: $('[data-stripe="expMo"]').val(),
+			exp_year: $('[data-stripe="expYr"]').val(),
+			cvc: $('[data-stripe="cvc"]').val()
+		};
+
+		var contributeAmount = $('[data-stripe="contribute-amount"]').val();
+
+		console.log(card);
+
+		STRIPE.getToken( '#support-form', card, 
+		function() {
+
+			console.log(Meteor.user().emails[0].address);
+
+			var customer = {
+				email: Meteor.user().emails[0].address,
+				token: $('[name="stripeToken"]').val()
+			};
+
+			var submitButton = $('input[type="submit"]').button('loading');
+
+			Meteor.call('createStripeCustomer', customer, function(error){
+				if (error) {
+					alert(error.reason);
+					submitButton.button('reset');
+					$("#support-form" ).remove( $( "<input type='hidden' name='stripeToken' />" ));
+				} else {		
+					submitButton.button('reset');
+					$("#support-form" ).remove( $( "<input type='hidden' name='stripeToken' />" ));
+					//Show Success! thanks for suppoting page
+
+					Meteor.call("appendToProjectData", Session.get("currentProjectId"), "backers", {_id: Meteor.userId(), amount: contributeAmount})
+				}
+			});
+		});
 	}
 });
-
-Template.supportProject.events({
-	"click .contribute-to-project": function (event, template) {
-		var amount = template.$("#contribute-amount").val();
-		var CreditCardType = template.$(".CreditCardType input[type='radio']:checked").val();
-		var cvv = template.$("#cvv").val();
-		var expiryDate = template.$("#expireMM option:selected").text() + " " + template.$("#expireYY option:selected").text();
-		var comment = template.$("#userComment").val();
-		
-	},
-	
-});
-
-$( "#myselect option:selected" ).text();

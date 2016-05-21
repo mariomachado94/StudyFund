@@ -1,21 +1,9 @@
-/*
-Dynamically change days left when clock hits 12:00 in database
-*/
-
-var d = new Date();
-var hours = d.getHours();
-var minutes = d.getMinutes();
-var seconds = d.getSeconds();
-if(hours == 20 && minutes == 17 && seconds == 0){
-	Projects.update({}, {$subtract: {daysLeft: 1}}, { multi: true });
-}
-
 Meteor.startup(function() {
 
 	// set to true in order to populate projects collection for development
 	Projects.remove({});
 
-	var createDummyProjects = true;
+	var createDummyProjects = false;
 
 	if (createDummyProjects) {
 		
@@ -240,11 +228,14 @@ S3.config = {
   bucket : 'jaydes-photos'
 }
 
+var secret = Meteor.settings.private.stripe.testSecretKey;
+var Stripe = StripeAPI(secret);
+
 Meteor.methods({
 	//initially setting new collection in database for researcher
 	'insertProjectData': function(userId, Goal, moneyType, ResearchTitle, currency){
     	return Projects.insert({owner: [userId], goal: Goal, moneyType:moneyType, 
-    		title: ResearchTitle, currentAmountFunded: 0, numberOfSupporters: 0, currency: currency});
+    		title: ResearchTitle, currentAmountFunded: 0, numberOfSupporters: 0, currency: currency, backers: []});
 	},
 
 	//We need to set an object first and insert that object, because our paramKey 
@@ -263,14 +254,48 @@ Meteor.methods({
 		Projects.update({"_id": projectId}, { $push: obj });
 	},
 
-	'grabProjectData': function(projectId){
-		return Projects.find({_id: projectId}).fetch();
-	},
+	createStripeCustomer: function(customer){
+		check(customer, {
+			email: String,
+			token: String
+		});
 
+		console.log("createStripeCustomer is called");
+		console.log(customer);
 
-	'populateProjectPage': function(projectId){
-		grabProjectData(projectId);
+		Stripe.customers.create({
+    			source: customer.token,
+    			email: customer.email
+  			}, 
+  			function(error, customer){
+    			if (error){
+      				console.log(error);
+    			} else {
+      				console.log("Stripe customer created with ID: " + customer.id);
 
+    			}
+  			}
+  		);
+
+/*
+		var newCustomer = new Future();
+
+		Meteor.call('stripeCreateCustomer', customer.token, customer.email, function(error, stripeCustomer){
+			if (error) {
+				console.log(error);
+			} else {
+				var customerId = stripeCustomer.id,
+				plan       = customer.plan;
+
+				Meteor.call('stripeCreateSubscription', customerId, plan, function(error, response){
+					if (error) {
+						console.log(error);
+					} else {
+      					// If all goes well with our subscription, we'll handle it here.
+  					}
+					});
+			}
+		});
+		return newCustomer.wait(); */
 	}
-
 });

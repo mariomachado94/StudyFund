@@ -1,6 +1,6 @@
 <template name = "projectPage">
 	{{#with project}}
-	{{> supportProject}}
+	<!-- {{> supportProject}} -->
 
 	<div class = "container">
 		<div class = "row">
@@ -50,7 +50,7 @@
 			              <span>Days Left</span>
 			            </div>
 						<br>
-						<button type="button" data-toggle="modal" data-target="#supportProjectModal" title="Save Favorite" class="btn btn-default btn-lg">Support</button>
+						<button type="button" id="support" title="Save Favorite" class="btn btn-default btn-lg">Support</button>
 						<hr>
 						
 						<img class="img-author img-circle" src="{{profile.picture}}">   
