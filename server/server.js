@@ -1,7 +1,27 @@
+var secret = Meteor.settings.private.stripe.testSecretKey;
+var Stripe = StripeAPI(secret);
+
 Meteor.startup(function() {
 
 	// set to true in order to populate projects collection for development
 	Projects.remove({});
+
+	Stripe.customers.list(
+  		function(error, customers) {
+  			if(error) {
+  				console.log(error);
+  			} else {
+  				var customerArray = customers.data;
+  				for (var i = 0; i < customerArray.length; i++) {
+  					Stripe.customers.del(customerArray[i].id, function(error, confirmation) {
+  						if (error) {
+  							console.log(error);
+  						}
+  					});
+  				}
+  			}
+  		}
+	);
 
 	var createDummyProjects = false;
 
@@ -228,9 +248,6 @@ S3.config = {
   bucket : 'jaydes-photos'
 }
 
-var secret = Meteor.settings.private.stripe.testSecretKey;
-var Stripe = StripeAPI(secret);
-
 Meteor.methods({
 	//initially setting new collection in database for researcher
 	'insertProjectData': function(userId, Goal, moneyType, ResearchTitle, currency){
@@ -260,9 +277,6 @@ Meteor.methods({
 			token: String
 		});
 
-		console.log("createStripeCustomer is called");
-		console.log(customer);
-
 		Stripe.customers.create({
     			source: customer.token,
     			email: customer.email
@@ -276,26 +290,15 @@ Meteor.methods({
     			}
   			}
   		);
+	},
 
-/*
-		var newCustomer = new Future();
-
-		Meteor.call('stripeCreateCustomer', customer.token, customer.email, function(error, stripeCustomer){
-			if (error) {
-				console.log(error);
-			} else {
-				var customerId = stripeCustomer.id,
-				plan       = customer.plan;
-
-				Meteor.call('stripeCreateSubscription', customerId, plan, function(error, response){
-					if (error) {
-						console.log(error);
-					} else {
-      					// If all goes well with our subscription, we'll handle it here.
-  					}
-					});
-			}
+	addSupporter: function (projectId, backer) {
+		check(backer, {
+			_id: String,
+			amount: Number
 		});
-		return newCustomer.wait(); */
+
+		Projects.update(projectId, { $push: {"backers": backer}, $inc: {currentAmountFunded: backer.amount, numberOfSupporters: 1} });
+
 	}
 });
