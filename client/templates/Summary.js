@@ -18,6 +18,10 @@ Template.Summary.events({
 	                }
 	        });
 		}
+	},
+
+	"click #toTeam": function(e){
+		alert($(".note-editable.panel-body").text())
 	}
 })
 

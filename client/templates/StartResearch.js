@@ -80,6 +80,7 @@ Template.StartResearch.events({
 	'click #toTeam': function(e){
 		$("#summary").removeClass("active")
 		$("#team").attr("class", "active")
+
 	},
 	'click #teammateBtn': function(e){
 		var teammate = $("#teammate").val();
@@ -88,7 +89,7 @@ Template.StartResearch.events({
 		$("#teammate").val("");
 
 	},
-	'click .UploadProject': function(e){
+	'click .UploadProject': function(event){
 		$("#team").removeClass("active");
 		$("#rewards").attr("class", "active");
 		var author = $("#AuthorName").val();
@@ -103,6 +104,22 @@ Template.StartResearch.events({
 		var department = Session.get("department");
 		var subfield = Session.get("subfield");
 		var summarytext = Session.get("summarytext");
+
+		var JSONobj = new Object();
+		JSONobj.summarytext = summarytext;
+		JSONobj.subfield = subfield;
+		JSONobj.department = department;
+		JSONobj.funding_days = funding_days;
+		JSONobj.country = country;
+		JSONobj.city = city;
+		JSONobj.photoURL = photoname;
+		JSONobj.videoURL = videoname;
+
+
+		var jsonobj = JSON.stringify(JSONobj);
+
+		event.preventDefault();
+		//Meteor.call("sendEmail", "silvajayde@gmail.com", "Pro is pending for review", jsonobj);
 
 		Meteor.call("updateProjectData",projectId, "videoURL", videoname)
 		Meteor.call('updateProjectData',projectId, "author", author);

@@ -42,7 +42,6 @@ Template.profilePage.helpers({
 
 Template.editProfile.helpers({
 	profilePic_Changed: function(){
-		console.log("got here")
 		return Session.get("profilePic_Changed");
 	},
 	userProfilePicture: function(){
@@ -75,6 +74,22 @@ Template.profilePage.events({
 		                	Session.set("profilePic_Changed", false)
 		                	$("#profile_pic").attr("src", profilePic);
 
+		                }
+		        });
+		}
+
+	},
+	"change .profileAspects": function(e){
+		if($(".profileAspects")[0].files.length != 0){
+			files = $(".profileAspects")[0].files;
+			S3.upload({
+		                files: files,
+		                path: "documents",
+		            },function(error,result){
+		            	console.log(result.url)
+		                if(result.percent_uploaded == 100){
+		                	$(".row.researcherDocuments").append("<a href=" + result.url + 
+		                	">"+ $(".profileAspects").val());
 		                }
 		        });
 		}
