@@ -17,6 +17,13 @@ Template.projectsLayout.helpers({
 	},
 	getDepartmentProjects: function(Department) {
 		Session.set("loadMore", false);
+		var department = Department;
+		console.log("Department is = " + Department)
+		if(Session.get("departmentName") != department && Session.get('departmentName') != null){
+			amountToDisplay = 6;
+			console.log("got int here")
+		}
+		Session.set("departmentName", department);
 		return Projects.find({department: Department},{sort: {daysLeft: 1}, limit: amountToDisplay}).fetch();
 	},
 	loadMore: function(){

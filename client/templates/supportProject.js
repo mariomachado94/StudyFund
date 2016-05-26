@@ -27,7 +27,8 @@ Template.supportProject.events({
 					submitButton.button('reset');
 				} else {		
 					submitButton.button('reset');
-					Meteor.call("addSupporter", Session.get("currentProjectId"), {_id: Meteor.userId(), amount: contributeAmount})
+					Meteor.call("addSupporter", Session.get("currentProjectId"), {_id: Meteor.userId(), amount: contributeAmount});
+					BlazeLayout.render("mainLayout", {content: "homePage"});
 				}
 			});
 		});

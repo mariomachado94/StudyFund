@@ -61,6 +61,8 @@
   						<h1>Biography</h1>
 					</div>
 					<p>{{profile.bio}}</p>
+					<div class = "row researcherDocuments">
+					</div>
 				</div>
 			</div>
 		</div>
@@ -95,14 +97,20 @@
 	              	<textarea id="bio" class="form-control" rows="5" placeholder="Tell us who you are and why supporters should help your projects...">{{profile.bio}}</textarea>
 	            </div>
 	            <br>
-	            <label class="control-label">Upload Profile Picture</label>
-				<input id="profile-photo" type="file" class="profilePic" accept="jpg,.JPG,.JPEG,.PNG,.jpeg,.png">
-				<br>
-				{{#if profilePic_Changed}}
-					{{ >spinner}}
-				{{else}}
-					<img class="img-rounded img-responsive profile-pic" id="profile_pic" src="{{userProfilePicture}}">
-				{{/if}}
+	            <div class = "col-md-6">
+		            <label class="control-label">Upload Profile Picture</label>
+					<input id="profile-photo" type="file" class="profilePic" accept=".jpg,.JPG,.JPEG,.PNG,.jpeg,.png">
+					<br>
+					{{#if profilePic_Changed}}
+						{{ >spinner}}
+					{{else}}
+						<img class="img-rounded img-responsive profile-pic" id="profile_pic" src="{{userProfilePicture}}">
+					{{/if}}
+				</div>
+				<div class = "col-md-6">
+					<label class="control-label">Upload document(s) about yourself </label>
+					<input type ="file" class = "profileAspects" accept = ".txt, .pdf, .doc, .xls">
+				</div>
 	      	</div>
 	      	<div class="modal-footer">
 	      		<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>

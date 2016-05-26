@@ -2,7 +2,7 @@ var secret = Meteor.settings.private.stripe.testSecretKey;
 var Stripe = StripeAPI(secret);
 
 Meteor.startup(function() {
-
+	process.env.MAIL_URL = 'smtp://postmaster@sandboxb75e33707d17401db884ab15677a7dce.mailgun.org:4da2f156b8f08239ebbe9d83bc00b3c7@smtp.mailgun.org:587/'; 
 	// set to true in order to populate projects collection for development
 	Projects.remove({});
 
@@ -24,6 +24,7 @@ Meteor.startup(function() {
 	);
 
 	var createDummyProjects = false;
+
 
 	if (createDummyProjects) {
 		
@@ -253,6 +254,7 @@ Meteor.methods({
 	'insertProjectData': function(userId, Goal, moneyType, ResearchTitle, currency){
     	return Projects.insert({owner: [userId], goal: Goal, moneyType:moneyType, 
     		title: ResearchTitle, currentAmountFunded: 0, numberOfSupporters: 0, currency: currency, backers: []});
+
 	},
 
 	//We need to set an object first and insert that object, because our paramKey 
@@ -298,8 +300,39 @@ Meteor.methods({
 			_id: String,
 			amount: Number
 		});
-
 		Projects.update(projectId, { $push: {"backers": backer}, $inc: {currentAmountFunded: backer.amount, numberOfSupporters: 1} });
 
-	}
+  	},
+
+  	'decrementProjectDays': function(){
+		//loop through projects and decrement daysLeft by 1 every 24 hours
+		for(var i =0; i<Projects.find().fetch().length; i++){
+			var id = Projects.find().fetch()[i]._id;
+			console.log(Projects.findOne({_id: id}).daysLeft);
+			var tempdaysLeft = Projects.findOne({_id: id}).daysLeft;;
+			var daysLeft = parseInt(tempdaysLeft) -1;
+			if(daysLeft == 0){
+				//remove project and disperse money accordingly.
+				Projects.remove({_id: id})
+			}
+			else{
+				Meteor.call("updateProjectData", id, "daysLeft", daysLeft)
+			}
+		}
+	},
+
+  	'sendEmail': function (to, subject, text) {
+		
+
+	    // Let other method calls from the same client start running,
+	    // without waiting for the email sending to complete.
+	    this.unblock();
+	    //can only send up to 300 emails a day
+	    Email.send({
+	      to: to,
+	      from: "Admin@Studyfund.com",
+	      subject: subject,
+	      text: text
+	    });
+	  }
 });

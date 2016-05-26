@@ -22,7 +22,6 @@ kadira:blaze-layout
 ian:accounts-ui-bootstrap-3
 twbs:bootstrap
 fortawesome:fontawesome
-jonlachlan:quill-reactive
 flemay:less-autoprefixer
 semantic:ui
 lepozepo:s3@=5.1.7
@@ -34,5 +33,8 @@ http
 mdg:geolocation
 dburles:google-maps
 easy:search
-mrgalaxy:stripe
 check
+email
+meteorhacks:aggregate
+mrgalaxy:stripe
+#summernote:summernote
