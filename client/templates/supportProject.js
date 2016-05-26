@@ -27,7 +27,6 @@ Template.supportProject.events({
 					submitButton.button('reset');
 				} else {		
 					submitButton.button('reset');
-					alert("New customer created!");
 					Meteor.call("addSupporter", Session.get("currentProjectId"), {_id: Meteor.userId(), amount: contributeAmount})
 				}
 			});

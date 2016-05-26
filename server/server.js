@@ -281,14 +281,15 @@ Meteor.methods({
     			source: customer.token,
     			email: customer.email
   			}, 
-  			function(error, customer){
+  			Meteor.bindEnvironment(function(error, customer){
     			if (error){
       				console.log(error);
     			} else {
       				console.log("Stripe customer created with ID: " + customer.id);
-
+      				Meteor.users.update(Meteor.userId(), {$set: {customerId: customer.id}});
+      				console.log("User ID: " + Meteor.userId());
     			}
-  			}
+  			})
   		);
 	},
 
