@@ -13,6 +13,32 @@ Template.projectPage.helpers({
 		i = parseInt(amount = Math.round(Math.abs(+amount || 0))) + "", 
 		j = (j = i.length) > 3 ? j % 3 : 0;
 		return sign + (j ? i.substr(0, j) + "," : "") + i.substr(j).replace(/(\d{3})(?=\d)/g, "$1" + ",");
+	},
+	allowedToView: function(project){
+		if(Meteor.userId() == "okgTwsvJqwHWDTuaC" 
+		|| project.approved || project.userEmail == "Admin@studyfund.com")
+		{ //check if admin or if approved or if posted by Admin
+			return true;
+		}
+		return false;
+	},
+	calculateDaysLeft: function(id){
+		var endDate = Projects.findOne(id).endDate;
+		var todaysDate = new Date();
+		var timeDiff = Math.abs(endDate.getTime() - todaysDate.getTime());
+		var diffDays = Math.ceil(timeDiff / (1000 * 3600 * 24)); 
+		if(diffDays <= 0){
+			Meteor.call("removeProject", id)
+		}
+		else{
+			return diffDays;
+		}
+	},
+	AdminPosted: function(project){
+		if(project.userEmail == "Admin@studyfund.com"){
+			return true;
+		}
+		return false;
 	}
 });
 
@@ -26,5 +52,23 @@ Template.projectPage.events({
 		else {
 			BlazeLayout.render("mainLayout", {content: "signupPage"});
 		}
-	}
+	},
+
+	"click #approve": function(){
+		var projectId = FlowRouter.getParam('_id');
+		project = Projects.findOne(projectId);
+		$("#approve").remove();
+		$("#reject").remove();
+		Meteor.call("updateProjectData", projectId, "approved", true);
+		Meteor.call("sendEmail", project.userEmail, "your project has been approved");
+
+	},
+	"click #deny": function(){
+		var projectId = FlowRouter.getParam('_id');
+		project = Projects.findOne(projectId);
+		$("#approve").hide();
+		$("#reject").hide();
+		Meteor.call("sendEmail", project.ownerEmail, "your project has been rejected");
+		Meteor.call("removeProject", projectId);
+	},
 });

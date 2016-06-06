@@ -90,7 +90,9 @@
 
     <div class = "container">
         {{#each project in getfeaturedProjects}}
-                {{>featuredProject (calcPercentage project)}}
+                {{#if checkProjectApproval project}}
+                    {{>featuredProject (calcPercentage project)}}
+                {{/if}}
         {{/each}}
     </div>
 

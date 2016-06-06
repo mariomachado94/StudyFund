@@ -3,12 +3,12 @@
 
 	{{#if thisUsersProfile}}
 		{{> editProfile}}
-	{{/if}}
+	{{/if}}	
 
 	<div class="container">
 		<div class="row space-top-lg">
 			<div class="col-md-2">
-					<img class="img-rounded img-responsive profile-pic" id="profile_picture" src="{{profile.picture}}">
+					<img class="img-rounded img-responsive profile-pic" id="profile_picture" src="{{getUserPhoto}}">
 			</div>
 
 			<div class="col-md-7">
@@ -30,7 +30,7 @@
 
 	<div class="container-fluid space-top-lg">
 		<ul class="nav nav-tabs">
-			<li class="active"><a data-toggle="tab" href="#projects">Projects <span class="badge">2</span></a></li>
+			<li class="active"><a data-toggle="tab" href="#projects">Projects <span class="badge">{{projectsOwned}}</span></a></li>
 			<li><a data-toggle="tab" href="#sponsored">Sponsored <span class="badge">5</span></a></li>
 			<li><a data-toggle="tab" href="#bio-tab">Biography</a></li>
 		</ul>
@@ -39,7 +39,9 @@
 				<div class="container space-top-lg">
 					<div class="row">
 						{{#each project in getUserProjects}}
-							{{> projectThumbNail project}}
+							{{#if checkProjectApproval project}}
+								{{> projectThumbNail project}}
+							{{/if}}
 						{{/each}}
 					</div>
 				</div>
@@ -59,10 +61,27 @@
 				<div class="container">
 					<div class="page-header">
   						<h1>Biography</h1>
+  						<div class="fileUpload btn btn-primary" >
+						    <span>Upload Document</span>
+						   	<input type ="file" id = "profileAspects" accept = ".txt, .pdf, .doc, .xls" class="upload" />
+						</div>
 					</div>
 					<p>{{profile.bio}}</p>
-					<div class = "row researcherDocuments">
-					</div>
+					<table class="table table-hover" id = "my_table">
+				    <thead>
+				      <tr>
+				        <th>Document Name</th>
+				        <th>Delete Document</th>
+				      </tr>
+				    </thead>
+				    <tbody>
+				    	{{#if documentsExist}}
+							{{#each doc in getUserDocuments}}
+									{{> documentDisplay doc}}
+							{{/each}}
+						{{/if}}
+					</tbody>
+					</table>
 				</div>
 			</div>
 		</div>
@@ -106,11 +125,7 @@
 					{{else}}
 						<img class="img-rounded img-responsive profile-pic" id="profile_pic" src="{{userProfilePicture}}">
 					{{/if}}
-				</div>
-				<div class = "col-md-6">
-					<label class="control-label">Upload document(s) about yourself </label>
-					<input type ="file" class = "profileAspects" accept = ".txt, .pdf, .doc, .xls">
-				</div>
+				</div>	
 	      	</div>
 	      	<div class="modal-footer">
 	      		<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
@@ -143,3 +158,12 @@
 	    <b>Project Title</b>
 	</div>
 </template>
+
+<template name="documentDisplay">
+      <tr>
+        <td><a href = "{{URL}}">{{Name}}</a></td>
+        <td><button class = "cancelDocument btn btn-danger btn-mini" type="button">Remove</button></td>
+      </tr>
+</template>
+
+

@@ -39,20 +39,26 @@
         <h2>Featured</h2>
   </div>
   {{#each project in (getfeaturedProject department)}}
-    {{>featuredProject (project)}}
+      {{#if checkProjectApproval project}}
+        {{>featuredProject (project)}}
+      {{/if}}
   {{/each}}
 
   {{#if loadMore}}
   <div class="row">
       {{#each project in (getDepartmentProjects department)}}
-          {{> projectThumbNail project}}
-        {{/each}}
+          {{#if checkProjectApproval project}}
+            {{> projectThumbNail project}}
+          {{/if}}
+      {{/each}}
   </div>
   {{else}}
   <div class="row">
       {{#each project in (getDepartmentProjects department)}}
-          {{> projectThumbNail project}}
-        {{/each}}
+          {{#if checkProjectApproval project}}
+             {{> projectThumbNail project}}
+          {{/if}}
+      {{/each}}
   </div>
   {{/if}}
 

@@ -5,5 +5,14 @@ Template.homePage.helpers({
 
 	getEndSoonProjects: function() {
 		return Projects.find({}, {sort: {daysLeft: 1}, limit: 3}).fetch();
+	},
+	checkProjectApproval: function(project){
+		if (Meteor.userId() == "okgTwsvJqwHWDTuaC" 
+		|| project.approved || project.userEmail == "Admin@studyfund.com"){
+			return true;
+		}
+		else{
+			return false;
+		}
 	}
 });

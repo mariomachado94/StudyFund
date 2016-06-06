@@ -14,7 +14,7 @@ Template.StartResearch.events({
 	
 	
 	'click #toSummary': function(e){
-		var owner = Meteor.userId();
+		
 		var department = $("#ResearchDepartment").val();
 		var subfield = $("#subfield").val();
 		var funding_days = $(".funding-days").val();
@@ -65,12 +65,14 @@ Template.StartResearch.events({
 		}
 
 		if(all_fields_correct){
+			//put end date in dB
+			var endDate = new Date(Date.now() + funding_days * 24*60*60*1000);		
 			$("#fundamentals").removeClass("active")
 			$("#summary").attr("class", "active")
 			Session.set("summarytext", summarytext);
 			Session.set("subfield", subfield);
 			Session.set("department", department);
-			Session.set("daysLeft", funding_days);
+			Session.set("endDate", endDate);
 			$("#toSummary").attr("href", "#Summary");
 
 		}
@@ -80,6 +82,10 @@ Template.StartResearch.events({
 	'click #toTeam': function(e){
 		$("#summary").removeClass("active")
 		$("#team").attr("class", "active")
+		var projectId = Session.get("projectId");
+		var projectInfo = $(".note-editable.panel-body").text()
+		Meteor.call("updateProjectData", projectId, "projectInfo", projectInfo);
+	
 
 	},
 	'click #teammateBtn': function(e){
@@ -92,35 +98,24 @@ Template.StartResearch.events({
 	'click .UploadProject': function(event){
 		$("#team").removeClass("active");
 		$("#rewards").attr("class", "active");
+		var ownerId = Meteor.userId();
+		var user = Meteor.users.findOne({_id: ownerId});
+		var userEmail = user.emails[0].address;
 		var author = $("#AuthorName").val();
-		console.log("got here");
-
+	
 		var videoname = Session.get("videoname")
 		var projectId = Session.get("projectId");
 		var photoname = Session.get("photoname");
 		var city = Session.get("city");
 		var country = Session.get("country");
-		var funding_days = Session.get("daysLeft");
+		var endDate = Session.get("endDate");
 		var department = Session.get("department");
 		var subfield = Session.get("subfield");
 		var summarytext = Session.get("summarytext");
 
-		var JSONobj = new Object();
-		JSONobj.summarytext = summarytext;
-		JSONobj.subfield = subfield;
-		JSONobj.department = department;
-		JSONobj.funding_days = funding_days;
-		JSONobj.country = country;
-		JSONobj.city = city;
-		JSONobj.photoURL = photoname;
-		JSONobj.videoURL = videoname;
-
-
-		var jsonobj = JSON.stringify(JSONobj);
-
 		event.preventDefault();
-		//Meteor.call("sendEmail", "silvajayde@gmail.com", "Pro is pending for review", jsonobj);
 
+		//add project to DB
 		Meteor.call("updateProjectData",projectId, "videoURL", videoname)
 		Meteor.call('updateProjectData',projectId, "author", author);
 		Meteor.call('updateProjectData',projectId, "department", department);
@@ -128,8 +123,17 @@ Template.StartResearch.events({
 		Meteor.call('updateProjectData',projectId, "country", country);
 		Meteor.call('updateProjectData',projectId, "city", city);
 		Meteor.call('updateProjectData',projectId, "summary", summarytext);
-		Meteor.call('updateProjectData',projectId, "daysLeft", funding_days);
-		Meteor.call("updateProjectData",projectId, "photoURL", photoname)
+		Meteor.call('updateProjectData',projectId, "endDate", endDate);
+		Meteor.call("updateProjectData",projectId, "userEmail", userEmail);
+		Meteor.call("updateProjectData",projectId, "photoURL", photoname);
+		Meteor.call("updateProjectData",projectId, "approved", false);
+
+		if(userEmail != "Admin@studyfund.com"){
+			Meteor.call("sendEmail", "silvajayde@gmail.com", projectId);
+		}
+
+		//add project ID to userDB
+		Meteor.call("appendToUsersDB", ownerId, "profile.projectsPosted", projectId)
 	},
 	'click #toExtras': function(e){
 		$("#rewards").removeClass("active")

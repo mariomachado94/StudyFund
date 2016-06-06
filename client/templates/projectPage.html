@@ -1,13 +1,17 @@
 <template name = "projectPage">
 	{{#with project}}
 	<!-- {{> supportProject}} -->
-
+	{{#if allowedToView project}}
 	<div class = "container">
 		<div class = "row">
 			<center>
 		      	<h1 style= "font-family: 'Benton Sans','Helvetica','sans-serif'; font-size: 40px"> 
 		      		{{title}}
 		     	</h1>
+		     	{{#unless AdminPosted}}
+		     		<input type="button" id = "approve" name = "approve" value = "approve">
+		     		<input type="button" id = "reject" name = "reject" value = "reject">
+		     	{{/unless}}
 			    <div class="featuredLinks">
 	              	<ul>
 	                  <li><i class="fa fa-tag"></i> <a href="">{{department}}</a> , <a href="">{{subfield}}</a></li>
@@ -45,7 +49,7 @@
 
 			            </div>
 			            <div class="projectSpecs">
-			              <h1 style= "font-family: 'Benton Sans','Helvetica','sans-serif'; font-size: 40px">{{daysLeft}}</h1>
+			              <h1 style= "font-family: 'Benton Sans','Helvetica','sans-serif'; font-size: 40px">{{calculateDaysLeft _id}}</h1>
 			              
 			              <span>Days Left</span>
 			            </div>
@@ -56,7 +60,11 @@
 						<img class="img-author img-circle" src="{{profile.picture}}">   
 							
 					</div>
+					<div class="col-md-6">
+						{{projectInfo}}
+					</div>
 				</div>
+
 				<div id="Supporters" class="tab-pane fade">
 					<div class = "col-lg-8 col-xs-offset-2">
 					    <table class="table table-striped">
@@ -127,6 +135,7 @@
 			</div>
 		</div>
 	</div>
+	{{/if}}
 	{{/with}}
 
 	<style type="text/css">

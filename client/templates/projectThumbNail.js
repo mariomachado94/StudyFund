@@ -1,6 +1,5 @@
 Template.projectThumbNail.helpers({
 	calcPercentage: function(num, den) {
-		console.log("calcPercentage called with num: " + num + " and den: " + den);
 		var percentage = (num / den) * 100;
 		return Math.round(percentage);
 	},
@@ -12,7 +11,25 @@ Template.projectThumbNail.helpers({
 		return sign + (j ? i.substr(0, j) + "," : "") + i.substr(j).replace(/(\d{3})(?=\d)/g, "$1" + ",");
 	},
 	getUserPhoto: function(id){
-		var user = Meteor.users.findOne({_id: id}, {fields: {"profile.picture":1}});
-		return user.profile.picture;
+		var user = Meteor.users.findOne(id, {fields: {profile: 1}});
+		if(user.profile.picture != null){
+			return user.profile.picture;
+		}
+		else{
+			return "../placeholder-profile.png"; //edit this to point to URL in S3 later ****
+		}
+	},
+	calculateDaysLeft: function(id){
+		var endDate = Projects.findOne(id).endDate;
+		var todaysDate = new Date();
+		var timeDiff = Math.abs(endDate.getTime() - todaysDate.getTime());
+		var diffDays = Math.ceil(timeDiff / (1000 * 3600 * 24)); 
+		if(diffDays <= 0){
+			Meteor.call("removeProject", id)
+		}
+		else{
+			return diffDays;
+		}
 	}
+
 });

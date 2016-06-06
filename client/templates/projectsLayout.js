@@ -28,6 +28,15 @@ Template.projectsLayout.helpers({
 	},
 	loadMore: function(){
 		return Session.get("loadMore");
+	},
+	checkProjectApproval: function(project){
+		if (Meteor.userId() == "okgTwsvJqwHWDTuaC" 
+		|| project.approved || project.userEmail == "Admin@studyfund.com"){
+			return true;
+		}
+		else{
+			return false;
+		}
 	}
 
 

@@ -1,27 +1,25 @@
 var profilePic = "../placeholder-profile.png";
 Session.set("profilePic", profilePic);
+Session.set("updatedDocuments", false);
 Template.profilePage.helpers({
-	/*name: function() {
-		var userId;
-		var user;
-
-		if (userId = Meteor.userId()) {
-			user = Meteor.users.findOne(userId, {fields: {profile: 1}});
-			if (user.profile.name) {
-				console.log("There is a name, that name is " + user.profile.name);
-				return user.profile.name;
-			}
-			else {
-				console.log("no name, make it john doe");
-				Meteor.users.update(userId, {$set:{"profile.name": "Jon Doe"}});
-				user = Meteor.users.findOne(userId, {fields: {profile: 1}}); // check if you must call this again
-				return user.profile.name;
-			}
+	checkProjectApproval: function(project){
+		if (project.approved){
+			return true;
 		}
-		else {
-			return "No user"
+		else{
+			return false;
 		}
-	}, */
+	},
+	getUserPhoto: function(){
+		userId = FlowRouter.getParam('_id');
+		var user = Meteor.users.findOne(userId, {fields: {profile: 1}});
+		if(user.profile.picture != null){
+			return user.profile.picture;
+		}
+		else{
+			return "../placeholder-profile.png"; //edit this to point to URL in S3 later ****
+		}
+	},
 	user: function () {
 		var userId;
 		userId = FlowRouter.getParam('_id');
@@ -37,6 +35,34 @@ Template.profilePage.helpers({
 	},
 	getUserProjects: function() {
 		return Projects.find({owner: Meteor.userId()}).fetch();
+	},
+	getUserDocuments: function(){
+		userId = FlowRouter.getParam('_id');
+		Profile = Meteor.users.findOne(userId, {fields: {profile: 1}}).profile;
+		if(Profile.documentURL != null){
+			var documents = [];
+			UserDocumentsUrl = Profile.documentURL;
+			UserDocumentsName = Profile.documentName;
+			for(var i= 0; i<UserDocumentsUrl.length; i++){
+				var doc = {};
+				doc["Name"] = UserDocumentsName[i];
+				doc["URL"] = UserDocumentsUrl[i];
+				documents.push(doc);
+			}
+		}
+		console.log(documents.length)
+		return documents;
+	},
+	userUpdateDocuments: function(){
+		return Session.get("updatedDocuments");
+	},
+	documentsExist: function(){
+		userId = FlowRouter.getParam('_id');
+		Profile = Meteor.users.findOne(userId, {fields: {profile: 1}}).profile;
+		if(Profile.documentURL != null){
+			return true;
+		}
+		return false;
 	}
 });
 
@@ -79,20 +105,36 @@ Template.profilePage.events({
 		}
 
 	},
-	"change .profileAspects": function(e){
-		if($(".profileAspects")[0].files.length != 0){
-			files = $(".profileAspects")[0].files;
+	"change #profileAspects": function(e){
+		if($("#profileAspects")[0].files.length != 0){
+			files = $("#profileAspects")[0].files;
 			S3.upload({
 		                files: files,
 		                path: "documents",
 		            },function(error,result){
 		            	console.log(result.url)
+		            	var path = $("#profileAspects").val()
+						var fileName = path.match(/[^\/\\]+$/);
 		                if(result.percent_uploaded == 100){
-		                	$(".row.researcherDocuments").append("<a href=" + result.url + 
-		                	">"+ $(".profileAspects").val());
+		                userId = FlowRouter.getParam('_id');
+						Meteor.call('appendToUsersDB',userId, "profile.documentURL", result.url);
+		                Meteor.call('appendToUsersDB',userId, "profile.documentName", fileName[0]);
+		                Session.set("updatedDocuments", true);
 		                }
 		        });
 		}
+
+	},
+	"click .cancelDocument": function(event){
+		var rowIndex = $( event.target ).closest( "tr" ).index();
+		var userId = FlowRouter.getParam('_id');
+		Profile = Meteor.users.findOne(userId, {fields: {profile: 1}}).profile;
+		UserDocumentsUrl = Profile.documentURL[rowIndex];
+		UserDocumentName = Profile.documentName[rowIndex];
+		Meteor.call("removeDocuments", userId, UserDocumentsUrl, UserDocumentName); //remove from DB
+		$(event.target).parent('tr').remove();
+
+		
 
 	}
 });
