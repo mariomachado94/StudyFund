@@ -8,6 +8,7 @@ Template.projectPage.helpers({
 			return Projects.findOne(projectId);
 		}
 	},
+
 	formatNumber: function(amount) {
 		var sign = amount < 0 ? "-" : "", 
 		i = parseInt(amount = Math.round(Math.abs(+amount || 0))) + "", 
@@ -35,7 +36,7 @@ Template.projectPage.helpers({
 		}
 	},
 	AdminPosted: function(project){
-		if(project.userEmail == "Admin@studyfund.com"){
+		if(project.userEmail == "Admin@studyfund.com" || project.approved){
 			return true;
 		}
 		return false;
@@ -59,6 +60,8 @@ Template.projectPage.events({
 		project = Projects.findOne(projectId);
 		$("#approve").remove();
 		$("#reject").remove();
+		endDate = new Date(Date.now() + project.funding_days * 24*60*60*1000);
+		Meteor.call("updateProjectData", projectId, "endDate", endDate);
 		Meteor.call("updateProjectData", projectId, "approved", true);
 		Meteor.call("sendEmail", project.userEmail, "your project has been approved");
 

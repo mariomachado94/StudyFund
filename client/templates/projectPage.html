@@ -8,7 +8,7 @@
 		      	<h1 style= "font-family: 'Benton Sans','Helvetica','sans-serif'; font-size: 40px"> 
 		      		{{title}}
 		     	</h1>
-		     	{{#unless AdminPosted}}
+		     	{{#unless AdminPosted project}}
 		     		<input type="button" id = "approve" name = "approve" value = "approve">
 		     		<input type="button" id = "reject" name = "reject" value = "reject">
 		     	{{/unless}}
@@ -49,6 +49,7 @@
 
 			            </div>
 			            <div class="projectSpecs">
+			            	
 			              <h1 style= "font-family: 'Benton Sans','Helvetica','sans-serif'; font-size: 40px">{{calculateDaysLeft _id}}</h1>
 			              
 			              <span>Days Left</span>

@@ -34,7 +34,7 @@ Template.profilePage.helpers({
 		}
 	},
 	getUserProjects: function() {
-		return Projects.find({owner: Meteor.userId()}).fetch();
+		return Projects.find({owner: FlowRouter.getParam('_id')}).fetch();
 	},
 	getUserDocuments: function(){
 		userId = FlowRouter.getParam('_id');
@@ -63,6 +63,19 @@ Template.profilePage.helpers({
 			return true;
 		}
 		return false;
+	},
+	projectsOwned: function(){
+		Profile = Meteor.users.findOne(userId, {fields: {profile: 1}}).profile;
+
+	},
+	checkProjectApproval: function(project){
+		if (Meteor.userId() == "okgTwsvJqwHWDTuaC" 
+		|| project.approved || project.userEmail == "Admin@studyfund.com"){
+			return true;
+		}
+		else{
+			return false;
+		}
 	}
 });
 
@@ -137,4 +150,15 @@ Template.profilePage.events({
 		
 
 	}
+});
+
+Template.documentDisplay.helpers({
+	thisUsersProfile: function() {
+			if (Meteor.userId() === FlowRouter.getParam('_id')) {
+				return true;
+			}
+			else {
+				return false;
+			}
+		}
 });

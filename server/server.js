@@ -39,7 +39,8 @@ Meteor.startup(function() {
 			photoURL: "https://s3.amazonaws.com/jaydes-photos/photos/45db63d6-8481-44ea-96e6-f04fe8b0ccc2.jpg?X-Amz-Date=20160527T220105Z&X-Amz-Expires=300&X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Signature=6fe1a016310246a4f633fcb35759a6bc79f172602b0631585d133384c25a31c8&X-Amz-Credential=ASIAID7SEZ6BJVXHAIHQ/20160527/us-east-1/s3/aws4_request&X-Amz-SignedHeaders=Host&x-amz-security-token=FQoDYXdzEK///////////wEaDDMG2oRqvNQ3yDsEfCLHAQnl367u58vzUVB1DEunx9yafCfrGX68VA1MMKupthmo7GYmnFeHjRk2tQYeRtFY9rhQRj1Xyxj/QOv9qLNce8YXhUtUvbJulCkEjKCsUp6OvFiecxD5hvlVN4WtSw6R7ddRnPyWxt87EV3M2lJDEGare5NC0wn74VEc7/w9i/R2GRieATFuA2PzNi6qSAJah5rB9WRqiiisz3kO6%2BtvADNfkbrO/Gn2TjaURdhqlQFtIvERCXibCzH6SlywOCBk/JNmeWTl44ko2YajugU%3D",
 			owner: ["zo8yAZRvbwx8kLNq7"],
 			currentAmountFunded: 8742,
-			numberOfSupporters: 500
+			numberOfSupporters: 500,
+			approved: true,
 		});
 		Projects.insert({
 			country: "Portugal",

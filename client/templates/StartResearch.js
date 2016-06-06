@@ -72,6 +72,7 @@ Template.StartResearch.events({
 			Session.set("summarytext", summarytext);
 			Session.set("subfield", subfield);
 			Session.set("department", department);
+			Session.set("funding_days", funding_days);
 			Session.set("endDate", endDate);
 			$("#toSummary").attr("href", "#Summary");
 
@@ -102,7 +103,8 @@ Template.StartResearch.events({
 		var user = Meteor.users.findOne({_id: ownerId});
 		var userEmail = user.emails[0].address;
 		var author = $("#AuthorName").val();
-	
+		var funding_days = Session.get("funding_days")
+
 		var videoname = Session.get("videoname")
 		var projectId = Session.get("projectId");
 		var photoname = Session.get("photoname");
@@ -112,6 +114,7 @@ Template.StartResearch.events({
 		var department = Session.get("department");
 		var subfield = Session.get("subfield");
 		var summarytext = Session.get("summarytext");
+
 
 		event.preventDefault();
 
@@ -126,6 +129,7 @@ Template.StartResearch.events({
 		Meteor.call('updateProjectData',projectId, "endDate", endDate);
 		Meteor.call("updateProjectData",projectId, "userEmail", userEmail);
 		Meteor.call("updateProjectData",projectId, "photoURL", photoname);
+		Meteor.call("updateProjectData",projectId, "funding_days", funding_days);
 		Meteor.call("updateProjectData",projectId, "approved", false);
 
 		if(userEmail != "Admin@studyfund.com"){
