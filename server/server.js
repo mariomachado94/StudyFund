@@ -42,9 +42,9 @@ Meteor.startup(function() {
   				}
   			}
   		}
-	);
+	); 
 
-	Meteor.users.update({customerId: { $exists: true }}, {$unset:{customerId: ""}}, {multi: true});
+	Meteor.users.update({customerId: { $exists: true }}, {$unset:{customerId: "", sources: ""}}, {multi: true});
 
 	Stripe.accounts.create({
 		managed: true,
@@ -321,17 +321,50 @@ Meteor.methods({
 
 			Meteor.users.update(Meteor.userId(), {$set: {customerId: stripeCustomer.id}});
 
+			var card = stripeCustomer.sources.data[0];
+			card = {id: card.id, brand: card.brand, exp_month: card.exp_month, exp_year: card.exp_year, last4: card.last4};
+			Meteor.users.update(Meteor.userId(), {$set: {sources: [card]}});
+
 			var supporter = {stripeCusId: stripeCustomer.id, 'card': stripeCustomer.default_source, 'amount': amount};
 		} else {
-			var cardId = Meteor.call('addCard', user.customerId, token);
-			var supporter = {stripeCusId: user.customerId, 'card': cardId, 'amount': amount};
+			var card = Meteor.call('addCard', user.customerId, token);
+
+			if(card.error) {
+				throw new Meteor.Error('card-creation-failed', card.message);
+			}
+
+			card = {id: card.id, brand: card.brand, exp_month: card.exp_month, exp_year: card.exp_year, last4: card.last4};
+			Meteor.users.update(Meteor.userId(), {$push: {sources: card}});
+
+			var supporter = {stripeCusId: user.customerId, 'card': card.id, 'amount': amount};
 		}
 
 		Meteor.call('addSupporter', projectId, supporter);
 
 	},
 
-	createStripeCustomer: function(email, token){
+	'createStripeAccount': function(email) {
+		var stripeAccount = new Future();
+
+		Stripe.accounts.create({
+			managed: true,
+			country: 'CA',
+			email: email
+			}, 
+			function(error, account) {
+				if(error) {
+					stripeAccount.return(error);
+				}
+				else {
+					stripeAccount.return(account);
+				}
+			}
+		);
+
+		return stripeAccount.wait();
+	},
+
+	'createStripeCustomer': function(email, token){
 		var stripeCustomer = new Future();
 
 		Stripe.customers.create({
@@ -351,17 +384,17 @@ Meteor.methods({
 	},
 
 	'addCard': function(cusId, token) {
-		var cardId = new Future();
+		var stripeCard = new Future();
 
 		Stripe.customers.createSource(cusId, {source: token}, function(error, card) {
 			if(error) {
-				cardId.return(error);
+				stripeCard.return(error);
 			} else {
-				cardId.return(card.id);
+				stripeCard.return(card);
 			}
 		});
 
-		return cardId.wait();
+		return stripeCard.wait();
 	},
 
 	'addSupporter': function (projectId, supporter) {
