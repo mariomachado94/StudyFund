@@ -2,6 +2,8 @@ Template.supportProject.events({
 	"submit #support-form": function(event, template) {
 		event.preventDefault();
 
+		var submitButton = $('input[type="submit"]').button('loading');
+
 		var card = {
 			number: $('[data-stripe="cardNumber"]').val(),
 			exp_month: $('[data-stripe="expMo"]').val(),
@@ -13,23 +15,15 @@ Template.supportProject.events({
 
 		STRIPE.getToken('#support-form', card, 
 		function() {
+			var token = $('[name="stripeToken"]').val();
 
-			var customer = {
-				email: Meteor.user().emails[0].address,
-				token: $('[name="stripeToken"]').val()
-			};
-
-			var submitButton = $('input[type="submit"]').button('loading');
-
-			Meteor.call('createStripeCustomer', customer, function(error){
-				if (error) {
-					alert(error.reason);
-					submitButton.button('reset');
-				} else {		
-					submitButton.button('reset');
-					Meteor.call("addSupporter", Session.get("currentProjectId"), {_id: Meteor.userId(), amount: contributeAmount});
-					BlazeLayout.render("mainLayout", {content: "homePage"});
+			Meteor.call('supportProject', Session.get("currentProjectId"), token, contributeAmount, function (err) {
+				if(err) {
+					alert(err.error + "\n" + err.reason);
+				} else {
+					alert("Success!\nRemember your credit card will only be charged if the project is also a success");
 				}
+				FlowRouter.reload();
 			});
 		});
 	}

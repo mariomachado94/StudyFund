@@ -1,5 +1,10 @@
 var secret = Meteor.settings.private.stripe.testSecretKey;
 var Stripe = StripeAPI(secret);
+var Future = Npm.require('fibers/future');
+
+Meteor.publish('stripeCustomerId', function() {
+	return Meteor.users.find(this.userId, {fields: {'customerId': 1}});
+});
 
 Meteor.startup(function() {
 	process.env.MAIL_URL = 'smtp://postmaster@sandboxb75e33707d17401db884ab15677a7dce.mailgun.org:4da2f156b8f08239ebbe9d83bc00b3c7@smtp.mailgun.org:587/'; 
@@ -22,7 +27,42 @@ Meteor.startup(function() {
   		}
 	);
 
-	var createDummyProjects = false;
+	Stripe.accounts.list(
+  		function(error, accounts) {
+  			if(error) {
+  				console.log(error);
+  			} else {
+  				var accountArray = accounts.data;
+  				for (var i = 0; i < accountArray.length; i++) {
+  					Stripe.accounts.del(accountArray[i].id, function(error, confirmation) {
+  						if (error) {
+  							console.log(error);
+  						}
+  					});
+  				}
+  			}
+  		}
+	);
+
+	Meteor.users.update({customerId: { $exists: true }}, {$unset:{customerId: ""}}, {multi: true});
+
+	Stripe.accounts.create({
+		managed: true,
+		country: 'US',
+		email: 'mario.machado@live.ca'
+		}, 
+		Meteor.bindEnvironment(function(err, account) {
+			if(err) {
+				console.log(err);
+			}
+			else {
+				console.log("Managed account created for live project with Acc ID: " + account.id);
+				Projects.update({approved: true}, {$set: {accountId: account.id}});
+			}
+		})
+	);
+
+	var createDummyProjects = true;
 
 
 	if (createDummyProjects) {
@@ -37,7 +77,7 @@ Meteor.startup(function() {
 			goal: 14000,
 			currency: "$",
 			photoURL: "https://s3.amazonaws.com/jaydes-photos/photos/45db63d6-8481-44ea-96e6-f04fe8b0ccc2.jpg?X-Amz-Date=20160527T220105Z&X-Amz-Expires=300&X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Signature=6fe1a016310246a4f633fcb35759a6bc79f172602b0631585d133384c25a31c8&X-Amz-Credential=ASIAID7SEZ6BJVXHAIHQ/20160527/us-east-1/s3/aws4_request&X-Amz-SignedHeaders=Host&x-amz-security-token=FQoDYXdzEK///////////wEaDDMG2oRqvNQ3yDsEfCLHAQnl367u58vzUVB1DEunx9yafCfrGX68VA1MMKupthmo7GYmnFeHjRk2tQYeRtFY9rhQRj1Xyxj/QOv9qLNce8YXhUtUvbJulCkEjKCsUp6OvFiecxD5hvlVN4WtSw6R7ddRnPyWxt87EV3M2lJDEGare5NC0wn74VEc7/w9i/R2GRieATFuA2PzNi6qSAJah5rB9WRqiiisz3kO6%2BtvADNfkbrO/Gn2TjaURdhqlQFtIvERCXibCzH6SlywOCBk/JNmeWTl44ko2YajugU%3D",
-			owner: ["zo8yAZRvbwx8kLNq7"],
+			owner: ["4yqosh76fmFAwELB4"],
 			currentAmountFunded: 8742,
 			numberOfSupporters: 500,
 			approved: true,
@@ -266,34 +306,71 @@ Meteor.methods({
 		Meteor.users.update({"_id": userId}, { $push: obj });
 	},
 
-	createStripeCustomer: function(customer){
-		check(customer, {
-			email: String,
-			token: String
-		});
+	'supportProject': function(projectId, token, amount) {
+		var user = Meteor.user();
+		
+		if (!user.customerId) {
+			var email = user.emails[0].address;
+			var stripeCustomer = Meteor.call('createStripeCustomer', email, token);
 
-		Stripe.customers.create({
-    			source: customer.token,
-    			email: customer.email
-  			}, 
-  			Meteor.bindEnvironment(function(error, customer){
-    			if (error){
-      				console.log(error);
-    			} else {
-      				console.log("Stripe customer created with ID: " + customer.id);
-      				Meteor.users.update(Meteor.userId(), {$set: {customerId: customer.id}});
-      				console.log("User ID: " + Meteor.userId());
-    			}
-  			})
-  		);
+			if(stripeCustomer.error) {
+				console.log("Error while creating stripe customer...");
+				console.log(stripeCustomer.message);
+				throw new Meteor.Error('customer-creation-failed', stripeCustomer.message);
+			}
+
+			Meteor.users.update(Meteor.userId(), {$set: {customerId: stripeCustomer.id}});
+
+			var supporter = {stripeCusId: stripeCustomer.id, 'card': stripeCustomer.default_source, 'amount': amount};
+		} else {
+			var cardId = Meteor.call('addCard', user.customerId, token);
+			var supporter = {stripeCusId: user.customerId, 'card': cardId, 'amount': amount};
+		}
+
+		Meteor.call('addSupporter', projectId, supporter);
+
 	},
 
-	addSupporter: function (projectId, backer) {
-		check(backer, {
-			_id: String,
+	createStripeCustomer: function(email, token){
+		var stripeCustomer = new Future();
+
+		Stripe.customers.create({
+    			'email': email,
+    			'source': token
+  			}, 
+  			function(error, customer){
+			    if (error){
+			    	stripeCustomer.return(error);
+			    } else {
+			    	stripeCustomer.return(customer);
+			    }
+			}
+		);
+
+		return stripeCustomer.wait();
+	},
+
+	'addCard': function(cusId, token) {
+		var cardId = new Future();
+
+		Stripe.customers.createSource(cusId, {source: token}, function(error, card) {
+			if(error) {
+				cardId.return(error);
+			} else {
+				cardId.return(card.id);
+			}
+		});
+
+		return cardId.wait();
+	},
+
+	'addSupporter': function (projectId, supporter) {
+		check(supporter, {
+			stripeCusId: String,
+			card: String,
 			amount: Number
 		});
-		Projects.update(projectId, { $push: {"backers": backer}, $inc: {currentAmountFunded: backer.amount, numberOfSupporters: 1} });
+		Projects.update(projectId, { $push: {"supporters": supporter}, $inc: {currentAmountFunded: supporter.amount, numberOfSupporters: 1} });
 
   	},
 

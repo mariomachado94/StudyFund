@@ -1,3 +1,4 @@
+Meteor.subscribe('stripeCustomerId');
 Meteor.startup(function() {
   var stripeKey = Meteor.settings.public.stripe.testPublishableKey;
   Stripe.setPublishableKey(stripeKey);
@@ -6,7 +7,7 @@ Meteor.startup(function() {
     getToken: function( domElement, card, callback ) {
       Stripe.card.createToken( card, function( status, response ) {
         if ( response.error ) {
-          Bert.alert( response.error.message, "danger" );
+          alert( response.error.message, "danger" );
         } else {
           STRIPE.setToken( response.id, domElement, callback );
         }
