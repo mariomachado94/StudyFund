@@ -99,8 +99,8 @@ Template.StartResearch.events({
 	'click .UploadProject': function(event){
 		$("#team").removeClass("active");
 		$("#rewards").attr("class", "active");
-		var ownerId = Meteor.userId();
-		var user = Meteor.users.findOne({_id: ownerId});
+		var userId = Meteor.userId();
+		var user = Meteor.users.findOne({_id: userId});
 		var userEmail = user.emails[0].address;
 		var author = $("#AuthorName").val();
 		var funding_days = Session.get("funding_days")
@@ -120,6 +120,7 @@ Template.StartResearch.events({
 
 		//add project to DB
 		Meteor.call("updateProjectData",projectId, "videoURL", videoname)
+		Meteor.call("updateProjectData",projectId, "userId", userId)
 		Meteor.call('updateProjectData',projectId, "author", author);
 		Meteor.call('updateProjectData',projectId, "department", department);
 		Meteor.call('updateProjectData',projectId, "subfield", subfield);
@@ -135,9 +136,7 @@ Template.StartResearch.events({
 		if(userEmail != "Admin@studyfund.com"){
 			Meteor.call("sendEmail", "silvajayde@gmail.com", projectId);
 		}
-
-		//add project ID to userDB
-		Meteor.call("appendToUsersDB", ownerId, "profile.projectsPosted", projectId)
+		Meteor.call("createStripeAccount", userEmail);
 	},
 	'click #toExtras': function(e){
 		$("#rewards").removeClass("active")
