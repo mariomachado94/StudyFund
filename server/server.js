@@ -343,25 +343,31 @@ Meteor.methods({
 
 	},
 
-	'createStripeAccount': function(email) {
-		var stripeAccount = new Future();
+	'createStripeAccount': function() {
 
-		Stripe.accounts.create({
-			managed: true,
-			country: 'CA',
-			email: email
-			}, 
-			function(error, account) {
-				if(error) {
-					stripeAccount.return(error);
-				}
-				else {
-					stripeAccount.return(account);
-				}
-			}
-		);
+		if(!Meteor.user().stripeAccount) {
+			var stripeAccount = new Future();
 
-		return stripeAccount.wait();
+
+			Stripe.accounts.create({
+				managed: true,
+				country: 'CA',
+				email: email
+				}, 
+				function(error, account) {
+					if(error) {
+						stripeAccount.return(error);
+					}
+					else {
+						stripeAccount.return(account);
+					}
+				}			
+			);
+
+			var account = stripeAccount.wait();
+
+			Meteor.users.update(Meteor.userId(), {$set: {stripeAccount: account.id}})
+		}
 	},
 
 	'createStripeCustomer': function(email, token){
