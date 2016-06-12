@@ -12,7 +12,7 @@
         <input type="hidden" name="Departments">
         <i class="dropdown icon"></i>
         <div class="default text">Select Department</div>
-        <div class="menu">
+        <div class="menu departments">
           <div class="item" >Mathematics</div>
           <div class="item" >Engineering</div>
           <div class="item">Medical</div>
@@ -22,16 +22,20 @@
       </div>
     </div>
     <div class = "col-md-4">
-      <div class="ui fluid multiple search normal selection dropdown Tending">
+      <div class="ui fluid multiple search normal selection dropdown trending">
         <input type="hidden" name="Trending">
         <i class="dropdown icon"></i>
         <div class="default text">Trending</div>
         <div class="menu">
           <div class="item" >Ending Soon</div>
           <div class="item" >Popular</div>
-          <div class="item">Featured</div>
+          <div class="item">Most Funded</div>
+          <div class="item">Long Term</div>
         </div>
       </div>
+    </div>
+    <div class = "col-md-4">
+      <button type="button" class="btn btn-primary btn-md" id="filterProjects">Search</button>
     </div>
   </div>
   <br>
@@ -40,27 +44,27 @@
   </div>
   {{#each project in (getfeaturedProject department)}}
       {{#if checkProjectApproval project}}
-        {{>featuredProject (project)}}
+        {{>featuredProject (calcPercentage project)}}
       {{/if}}
   {{/each}}
 
-  {{#if loadMore}}
-  <div class="row">
-      {{#each project in (getDepartmentProjects department)}}
-          {{#if checkProjectApproval project}}
-            {{> projectThumbNail project}}
-          {{/if}}
-      {{/each}}
-  </div>
-  {{else}}
-  <div class="row">
-      {{#each project in (getDepartmentProjects department)}}
-          {{#if checkProjectApproval project}}
-             {{> projectThumbNail project}}
-          {{/if}}
-      {{/each}}
-  </div>
-  {{/if}}
+    {{#if loadMore}}
+    <div class="row">
+        {{#each project in (getDepartmentProjects department)}}
+            {{#if checkProjectApproval project}}
+              {{> projectThumbNail project}}
+            {{/if}}
+        {{/each}}
+    </div>
+    {{else}}
+    <div class="row">
+        {{#each project in (getDepartmentProjects department)}}
+            {{#if checkProjectApproval project}}
+               {{> projectThumbNail project}}
+            {{/if}}
+        {{/each}}
+    </div>
+    {{/if}}
 
   <div class = "numOfProjects"></div>
   <center>
