@@ -9,7 +9,7 @@ Meteor.publish('stripeCustomerId', function() {
 Meteor.startup(function() {
 	process.env.MAIL_URL = 'smtp://postmaster@sandboxb75e33707d17401db884ab15677a7dce.mailgun.org:4da2f156b8f08239ebbe9d83bc00b3c7@smtp.mailgun.org:587/'; 
 	// set to true in order to populate projects collection for development
-	Projects.remove({});
+	Projects.remove({}); 
 	Stripe.customers.list(
   		function(error, customers) {
   			if(error) {
@@ -45,11 +45,13 @@ Meteor.startup(function() {
 	); 
 
 	Meteor.users.update({customerId: { $exists: true }}, {$unset:{customerId: "", sources: ""}}, {multi: true});
+	Meteor.users.update({accountId: { $exists: true }}, {$unset:{accountId: ""}}, {multi: true});
+	Meteor.users.update({sources: { $exists: true }}, {$unset:{sources: ""}}, {multi: true});
 
 	Stripe.accounts.create({
 		managed: true,
 		country: 'US',
-		email: 'mario.machado@live.ca'
+		email: 'startup_function@live.ca'
 		}, 
 		Meteor.bindEnvironment(function(err, account) {
 			if(err) {
@@ -62,10 +64,9 @@ Meteor.startup(function() {
 		})
 	);
 
-	var createDummyProjects = true;
+	SyncedCron.start();
 
-
-	if (createDummyProjects) {
+	if (Meteor.settings.private.createDummyProjects) {
 		
 		Projects.insert({
 			country: "Portugal",
@@ -74,12 +75,13 @@ Meteor.startup(function() {
 			department: "medical",
 			title: "Cancer Research",
 			summary: "Trying to change the world one step at a time",
-			goal: 14000,
+			goal: 20,
 			currency: "$",
 			photoURL: "https://s3.amazonaws.com/jaydes-photos/photos/45db63d6-8481-44ea-96e6-f04fe8b0ccc2.jpg?X-Amz-Date=20160527T220105Z&X-Amz-Expires=300&X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Signature=6fe1a016310246a4f633fcb35759a6bc79f172602b0631585d133384c25a31c8&X-Amz-Credential=ASIAID7SEZ6BJVXHAIHQ/20160527/us-east-1/s3/aws4_request&X-Amz-SignedHeaders=Host&x-amz-security-token=FQoDYXdzEK///////////wEaDDMG2oRqvNQ3yDsEfCLHAQnl367u58vzUVB1DEunx9yafCfrGX68VA1MMKupthmo7GYmnFeHjRk2tQYeRtFY9rhQRj1Xyxj/QOv9qLNce8YXhUtUvbJulCkEjKCsUp6OvFiecxD5hvlVN4WtSw6R7ddRnPyWxt87EV3M2lJDEGare5NC0wn74VEc7/w9i/R2GRieATFuA2PzNi6qSAJah5rB9WRqiiisz3kO6%2BtvADNfkbrO/Gn2TjaURdhqlQFtIvERCXibCzH6SlywOCBk/JNmeWTl44ko2YajugU%3D",
 			owner: ["4yqosh76fmFAwELB4"],
-			currentAmountFunded: 8742,
+			currentAmountFunded: 0,
 			numberOfSupporters: 500,
+			endDate: new Date(Date.now() + 60*1000),
 			approved: true,
 		});
 		Projects.insert({
@@ -267,6 +269,22 @@ Meteor.startup(function() {
 		
 
 	}
+
+	var pjct = Projects.findOne({approved: true});
+	console.log(pjct);
+
+	SyncedCron.add({
+		name: pjct._id,
+		schedule: function(parser) {
+			// return parser.text('every 1 min starting on the 7th min');
+			return parser.recur().on(pjct.endDate).fullDate();
+		},
+		job: function() {
+			Meteor.call('processProject', this.name);
+			// SyncedCron.remove(this.name);
+		}
+	});
+
 });
 
 S3.config = {
@@ -314,7 +332,7 @@ Meteor.methods({
 			var stripeCustomer = Meteor.call('createStripeCustomer', email, token);
 
 			if(stripeCustomer.error) {
-				console.log("Error while creating stripe customer...");
+				console.log("************Error while creating stripe customer...");
 				console.log(stripeCustomer.message);
 				throw new Meteor.Error('customer-creation-failed', stripeCustomer.message);
 			}
@@ -343,7 +361,7 @@ Meteor.methods({
 
 	},
 
-	'createStripeAccount': function() {
+	'createStripeAccount': function(projectId) {
 
 		if(!Meteor.user().stripeAccount) {
 			var stripeAccount = new Future();
@@ -352,7 +370,7 @@ Meteor.methods({
 			Stripe.accounts.create({
 				managed: true,
 				country: 'CA',
-				email: email
+				email: Meteor.user().emails[0].address
 				}, 
 				function(error, account) {
 					if(error) {
@@ -366,7 +384,8 @@ Meteor.methods({
 
 			var account = stripeAccount.wait();
 
-			Meteor.users.update(Meteor.userId(), {$set: {stripeAccount: account.id}})
+			Meteor.users.update(Meteor.userId(), {$set: {accountId: account.id}});
+			Projects.update(projectId, {$set: {accountId: account.id}});
 		}
 	},
 
@@ -396,7 +415,7 @@ Meteor.methods({
 			if(error) {
 				stripeCard.return(error);
 			} else {
-				stripeCard.return(card);
+				stripeCard.return(card); 
 			}
 		});
 
@@ -411,6 +430,55 @@ Meteor.methods({
 		});
 		Projects.update(projectId, { $push: {"supporters": supporter}, $inc: {currentAmountFunded: supporter.amount, numberOfSupporters: 1} });
 
+  	},
+
+  	'processProject': function(projectId) {
+  		console.log("process the project with id: " + projectId);
+
+  		var project = Projects.findOne(projectId);
+  		console.log(project);
+
+  		if(project.currentAmountFunded >= project.goal) {
+  			for(var i = 0; i < project.supporters.length; i++) {
+
+  				var contribution = project.supporters[i].amount * 100;
+  				var appFee = Math.ceil((contribution * 0.05) + (contribution * 0.029) + 30);
+
+  				console.log("charge: " + contribution + " App Fee: " + appFee);
+
+  				Stripe.charges.create({
+  					amount: contribution,
+  					currency: "usd",
+  					customer: project.supporters[i].stripeCusId,
+  					source: project.supporters[i].card,
+  					destination: project.accountId,
+  					application_fee: appFee
+  				}, function (error, charge){
+  					if(error) {
+  						console.log("Aww wtf? " + error.message);
+  					} else {
+  						console.log("charge succeded :D");
+  						console.log("charge: " + charge.amount + " appfee:  " + charge.application_fee);
+  					}
+  				});
+  			}
+  		}
+  	},
+
+  	'addCronJob': function(projectId) {
+  		var endDate = Projects.findOne(projectId).endDate;
+  		var name = projectId + " process";
+
+  		SyncedCron.add({
+			name: name,
+			schedule: function(parser) {
+				return parser.recur().on(endDate).fullDate();
+			},
+			job: function() {
+				Meteor.call('processProject', projectId); 
+				SyncedCron.remove(this.name);
+			}
+		});
   	},
 
   	'decrementProjectDays': function(){

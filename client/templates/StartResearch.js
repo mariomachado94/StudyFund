@@ -136,7 +136,7 @@ Template.StartResearch.events({
 		if(userEmail != "Admin@studyfund.com"){
 			Meteor.call("sendEmail", "silvajayde@gmail.com", projectId);
 		}
-		Meteor.call("createStripeAccount");
+		Meteor.call("createStripeAccount", projectId);
 	},
 	'click #toExtras': function(e){
 		$("#rewards").removeClass("active")

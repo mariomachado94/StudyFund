@@ -66,6 +66,7 @@ Template.projectPage.events({
 		Meteor.call("updateProjectData", projectId, "approved", true);
 		Meteor.call("appendToUsersDB", userId, "profile.projectsPosted", projectId)
 		Meteor.call("sendEmail", project.userEmail, "your project has been approved");
+		Meteor.call("addCronJob", projectId);
 
 	},
 	"click #deny": function(){
