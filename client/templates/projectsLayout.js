@@ -1,4 +1,6 @@
 Session.set("loadMore", false);
+Session.set("filterProjects", false);
+
 amountToDisplay = 6;
 Template.projectsLayout.helpers({
 	calcPercentage: function(project) {
@@ -12,19 +14,18 @@ Template.projectsLayout.helpers({
 			return Projects.find({department: Department}, {limit: 1}).fetch();
 	},
 	department: function () {
-		return FlowRouter.getParam('department');
+		return FlowRouter.getQueryParam('department');
 	},
 	getDepartmentProjects: function(Department) {
-		Session.set("loadMore", false);
+		Session.set("loadMore", false)
 		var projects;
-		var trending = window.localStorage.getItem("trending");
-		console.log("trending is " + trending)
+		var trending = FlowRouter.getQueryParam('trending')
+		console.log(trending)
 		if(Session.get("departmentName") != Department && Session.get('departmentName') != null){
 			amountToDisplay = 6;
 		}
-		console.log("in here")
 		Session.set("departmentName", Department);
-		if(trending == null || trending == ""){
+		if(trending == "null" || trending == "" ){
 			//works for when we first load page. takes department from URL which is passed through function
 			console.log("got in null and department is = " + Department)
 
@@ -75,7 +76,7 @@ Template.projectsLayout.helpers({
 		}
 	},
 	loadMore: function(){
-		return Session.get("loadMore");
+		 return Session.get("loadMore")
 	},
 	checkProjectApproval: function(project){
 		if (Meteor.userId() == "okgTwsvJqwHWDTuaC" 
@@ -100,12 +101,14 @@ Template.projectsLayout.events({
       	var department = $(".search.normal.selection.dropdown.departments a").text().toLowerCase();
       	var trending = $(".search.normal.selection.dropdown.trending a").text().toLowerCase();
 
-      	if(department != "" && department != null){
-
-			window.location.href = "/projects/"+department;
+      	if(department == "" || department == null){
+      		department = FlowRouter.getQueryParam("department")
+      		FlowRouter.go('/projects/', null, {department: department, trending: trending});
       	}
-		window.localStorage.setItem("trending", trending);
-
+      	else{
+      		FlowRouter.go('/projects/', null, {department: department, trending: trending});
+      	}
+	
 	}
 })
 
