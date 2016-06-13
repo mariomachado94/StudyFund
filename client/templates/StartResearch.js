@@ -131,12 +131,19 @@ Template.StartResearch.events({
 		Meteor.call("updateProjectData",projectId, "userEmail", userEmail);
 		Meteor.call("updateProjectData",projectId, "photoURL", photoname);
 		Meteor.call("updateProjectData",projectId, "funding_days", funding_days);
-		Meteor.call("updateProjectData",projectId, "approved", false);
 
 		if(userEmail != "Admin@studyfund.com"){
 			Meteor.call("sendEmail", "silvajayde@gmail.com", projectId);
 		}
+
 		Meteor.call("createStripeAccount", projectId);
+
+		if(userEmail != "Admin@studyfund.com"){
+			Meteor.call("updateProjectData",projectId, "approved", false);
+		}
+		else{
+			Meteor.call("updateProjectData",projectId, "approved", true);
+		}
 	},
 	'click #toExtras': function(e){
 		$("#rewards").removeClass("active")
