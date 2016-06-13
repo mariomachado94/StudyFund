@@ -48,23 +48,23 @@
       {{/if}}
   {{/each}}
 
-    {{#if loadMore}}
-    <div class="row">
-        {{#each project in (getDepartmentProjects department)}}
-            {{#if checkProjectApproval project}}
-              {{> projectThumbNail project}}
-            {{/if}}
-        {{/each}}
-    </div>
-    {{else}}
-    <div class="row">
-        {{#each project in (getDepartmentProjects department)}}
-            {{#if checkProjectApproval project}}
-               {{> projectThumbNail project}}
-            {{/if}}
-        {{/each}}
-    </div>
-    {{/if}}
+  {{#if loadMore}}
+  <div class="row">
+      {{#each project in (getDepartmentProjects department)}}
+          {{#if checkProjectApproval project}}
+            {{> projectThumbNail project}}
+          {{/if}}
+      {{/each}}
+  </div>
+  {{else}}
+  <div class="row">
+      {{#each project in (getDepartmentProjects department)}}
+          {{#if checkProjectApproval project}}
+             {{> projectThumbNail project}}
+          {{/if}}
+      {{/each}}
+  </div>
+  {{/if}}
 
   <div class = "numOfProjects"></div>
   <center>

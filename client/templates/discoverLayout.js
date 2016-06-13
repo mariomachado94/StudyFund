@@ -21,9 +21,20 @@ Template.discoverLayout.helpers({
 
 });
 
+Template.discoverLayout.events({
+	"click .categoryLink": function(event){
+		var department = $(event.target).text();
+		var trimmedDepartment = $.trim(department.toLowerCase());
+		FlowRouter.go('/projects/', null, {department: trimmedDepartment, trending: ""});
+	}
+
+});
+
+
 Template.featuredProject.helpers({
 	getUserPhoto: function(id){
 		var user = Meteor.users.findOne({_id: id}, {fields: {"profile.picture":1}});
 		return user.profile.picture;
-		}
+	}
+
 });
