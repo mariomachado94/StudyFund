@@ -40,6 +40,21 @@ Template.projectPage.helpers({
 			return true;
 		}
 		return false;
+	},
+	getUsersSupportingProject: function(){
+		project = Projects.findOne(FlowRouter.getParam('_id'));
+		var array;
+		Meteor.call("grabUsersSupportingProjectFromServer", project, function(error, result){
+			if(error){
+				console.log(error.reason);
+    			return;
+			}
+			else{
+				console.log("result is " + result)
+				array = result;
+			}
+		});
+		return array;
 	}
 });
 
@@ -58,15 +73,19 @@ Template.projectPage.events({
 	"click #approve": function(){
 		var projectId = FlowRouter.getParam('_id');
 		project = Projects.findOne(projectId);
-		userId = project.userId;
+		ownersArray = project.owner;
 		$("#approve").remove();
 		$("#reject").remove();
 		endDate = new Date(Date.now() + project.funding_days * 24*60*60*1000);
 		Meteor.call("updateProjectData", projectId, "endDate", endDate);
 		Meteor.call("updateProjectData", projectId, "approved", true);
-		Meteor.call("appendToUsersDB", userId, "profile.projectsPosted", projectId)
 		Meteor.call("sendEmail", project.userEmail, "your project has been approved");
 		Meteor.call("addCronJob", projectId);
+
+		//ADD PROJECT TO ALL OWNERS DB ASSOCIATED TO PROJECT
+		for(var i=0; i<ownersArray.length; i++){
+			Meteor.call("appendToUsersDB", ownersArray[i], "profile.projectsPosted", projectId)
+		}
 
 	},
 	"click #deny": function(){

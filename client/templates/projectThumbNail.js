@@ -11,7 +11,7 @@ Template.projectThumbNail.helpers({
 		return sign + (j ? i.substr(0, j) + "," : "") + i.substr(j).replace(/(\d{3})(?=\d)/g, "$1" + ",");
 	},
 	getUserPhoto: function(id){
-		var user = Meteor.users.findOne(id, {fields: {profile: 1}});
+		var user = Meteor.users.findOne(id);
 		if(user.profile.picture != null){
 			return user.profile.picture;
 		}

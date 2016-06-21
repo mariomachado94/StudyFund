@@ -77,23 +77,9 @@
 						      </tr>
 						    </thead>
 						    <tbody>
-						      <tr>
-						        <td>John</td>
-						        <td>Doe</td>
-						        <td>john@example.com</td>
-						      </tr>
-						      <br>
-						      <tr>
-						        <td>Mary</td>
-						        <td>Moe</td>
-						        <td>mary@example.com</td>
-						      </tr>
-						      <br>
-						      <tr>
-						        <td>July</td>
-						        <td>Dooley</td>
-						        <td>july@example.com</td>
-						      </tr>
+						      {{#each doc in getUsersSupportingProject}}
+						      		{{> supporterRow doc}}
+						      {{/each}}
 						    </tbody>
 						</table>
 					</div>
@@ -168,4 +154,14 @@
 	}
 	</style>
 
+</template>
+
+<template name = "supporterRow">
+	<tr>
+	    <td>{{Name}}</td>
+	    <td>{{Amount}}</td>
+	    <td>{{Email}}</td>
+	  	<td><img src ="{{Photo}}" class="img-circle" style = "max-height: 12%"></td>
+	</tr>
+	<br>
 </template>

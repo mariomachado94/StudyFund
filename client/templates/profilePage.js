@@ -50,7 +50,6 @@ Template.profilePage.helpers({
 				documents.push(doc);
 			}
 		}
-		console.log(documents.length)
 		return documents;
 	},
 	userUpdateDocuments: function(){
@@ -64,8 +63,44 @@ Template.profilePage.helpers({
 		}
 		return false;
 	},
-	projectsOwned: function(){
-		Profile = Meteor.users.findOne(userId, {fields: {profile: 1}}).profile;
+	projectsOwned: function(){		
+		userId = FlowRouter.getParam('_id');
+		userProfile = Meteor.users.findOne({_id: userId}).profile;
+		numOfProjects = userProfile.projectsPosted;
+		if(!numOfProjects){
+			return 0;
+		}
+		else{
+			return numOfProjects.length;
+		}
+	},
+	numOfProjectsSupported: function(){
+		userId = FlowRouter.getParam('_id');
+		userProfile = Meteor.users.findOne({_id: userId}).profile;
+		numOfProjects = userProfile.projectsSupported;
+		if(!numOfProjects){
+			return 0;
+		}
+		else{
+			return numOfProjects.length;
+		}
+
+	},
+	UserProjectsSupported: function(){
+		userId = FlowRouter.getParam('_id');
+		userProfile = Meteor.users.findOne({_id: userId}).profile;
+		projectsSupported = userProfile.projectsSupported;
+		var projects = [];
+		if(projectsSupported){
+			for(var i=0; i< projectsSupported.length; i++){
+				console.log("project = " + Projects.findOne(projectsSupported[i]));
+				project = Projects.findOne(projectsSupported[i]);
+				console.log("pject = " + project.photoURL);
+				projects.push(project)
+			}
+		}
+		console.log("projects = " + projects[0].photoURL)
+		return projects;
 
 	},
 	checkProjectApproval: function(project){

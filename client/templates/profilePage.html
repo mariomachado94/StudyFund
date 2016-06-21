@@ -31,7 +31,7 @@
 	<div class="container-fluid space-top-lg">
 		<ul class="nav nav-tabs">
 			<li class="active"><a data-toggle="tab" href="#projects">Projects <span class="badge">{{projectsOwned}}</span></a></li>
-			<li><a data-toggle="tab" href="#sponsored">Sponsored <span class="badge">5</span></a></li>
+			<li><a data-toggle="tab" href="#sponsored">Sponsored <span class="badge">{{numOfProjectsSupported}}</span></a></li>
 			<li><a data-toggle="tab" href="#bio-tab">Biography</a></li>
 		</ul>
 		<div class="tab-content">
@@ -49,11 +49,9 @@
 			<div id="sponsored" class="tab-pane fade">
 			    <div class="container">
 			    	<div class="row">
-			    		{{> sponsoredThumbNail}}
-			    		{{> sponsoredThumbNail}}
-			    		{{> sponsoredThumbNail}}
-			    		{{> sponsoredThumbNail}}
-			    		{{> sponsoredThumbNail}}
+			    		{{#each project in UserProjectsSupported}}
+								{{> sponsoredThumbnail project}}
+						{{/each}}
 			    	</div>
 			    </div>
 			</div>
@@ -152,12 +150,12 @@
 	</div>
 </template>
 
-<template name="sponsoredThumbNail">
+<template name="sponsoredThumbnail">
 	<div class="col-md-3 space-top-lg">
 	    <a href="#">
-	    	<img class="img-responsive" src="placeholder-red.png">
+	    	<img class="img-responsive" src="{{photoURL}}">
 	    </a>
-	    <b>Project Title</b>
+	    <b>{{title}}</b>
 	</div>
 </template>
 
