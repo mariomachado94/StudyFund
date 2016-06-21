@@ -43,7 +43,7 @@ Template.projectPage.helpers({
 	},
 	getUsersSupportingProject: function(){
 		project = Projects.findOne(FlowRouter.getParam('_id'));
-		var array;
+		var supporters;
 		Meteor.call("grabUsersSupportingProjectFromServer", project, function(error, result){
 			if(error){
 				console.log(error.reason);
@@ -51,10 +51,11 @@ Template.projectPage.helpers({
 			}
 			else{
 				console.log("result is " + result)
-				array = result;
+				Session.set("result",result);
 			}
 		});
-		return array;
+		supporters = Session.get("result");
+		return supporters;
 	}
 });
 
