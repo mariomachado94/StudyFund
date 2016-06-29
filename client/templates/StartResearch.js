@@ -143,6 +143,7 @@ Template.StartResearch.events({
 		}
 		else{
 			Meteor.call("updateProjectData",projectId, "approved", true);
+			Meteor.call("appendToUsersDB", userId, "profile.projectsPosted", projectId)
 		}
 	},
 	'click #toExtras': function(e){

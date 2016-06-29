@@ -40,7 +40,24 @@ Template.projectPage.helpers({
 			return true;
 		}
 		return false;
+	},
+	getUsersSupportingProject: function(){
+		project = Projects.findOne(FlowRouter.getParam('_id'));
+		var supporters;
+		Meteor.call("grabUsersSupportingProjectFromServer", project, function(error, result){
+			if(error){
+				console.log(error.reason);
+    			return;
+			}
+			else{
+				console.log("result is " + result)
+				Session.set("result",result);
+			}
+		});
+		supporters = Session.get("result");
+		return supporters;
 	}
+
 });
 
 Template.projectPage.events({
@@ -58,15 +75,19 @@ Template.projectPage.events({
 	"click #approve": function(){
 		var projectId = FlowRouter.getParam('_id');
 		project = Projects.findOne(projectId);
-		userId = project.userId;
+		ownersArray = project.owner;
 		$("#approve").remove();
 		$("#reject").remove();
 		endDate = new Date(Date.now() + project.funding_days * 24*60*60*1000);
 		Meteor.call("updateProjectData", projectId, "endDate", endDate);
 		Meteor.call("updateProjectData", projectId, "approved", true);
-		Meteor.call("appendToUsersDB", userId, "profile.projectsPosted", projectId)
 		Meteor.call("sendEmail", project.userEmail, "your project has been approved");
 		Meteor.call("addCronJob", projectId);
+
+		//ADD PROJECT TO ALL OWNERS DB ASSOCIATED TO PROJECT
+		for(var i=0; i<ownersArray.length; i++){
+			Meteor.call("appendToUsersDB", ownersArray[i], "profile.projectsPosted", projectId)
+		}
 
 	},
 	"click #deny": function(){
@@ -77,4 +98,71 @@ Template.projectPage.events({
 		Meteor.call("sendEmail", project.ownerEmail, "your project has been rejected");
 		Meteor.call("removeProject", projectId);
 	},
+});
+
+Template.Comments.helpers({
+	comments: function() {
+	    const instance = Template.instance();
+	    if (instance.state.get('hideCompleted')) {
+	      // If hide completed is checked, filter tasks
+	      return Comments.find({ checked: { $ne: true } }, { sort: { createdAt: -1 } });
+	    }
+	    return Comments.find({}, { sort: { createdAt: -1 } });
+
+	},
+
+  	incompleteCount: function() {
+    	return Comments.find({ checked: { $ne: true } }).count();
+  	}
+
+});
+
+Template.Comments.onCreated(function CommentsOnCreated() {
+  this.state = new ReactiveDict();
+  Meteor.subscribe('Comments');
+
+});
+
+Template.Comments.events({
+  'submit .new-comment'(event) {
+    // Prevent default browser form submit
+    event.preventDefault();
+ 
+    // Get value from form element
+    const target = event.target;
+    const text = target.text.value;
+ 
+    // Insert a comment into the collection
+
+    Meteor.call('Comments.insert', text);
+
+ 
+    // Clear form
+    target.text.value = '';
+  },
+  
+});
+
+Template.comment.helpers({
+	projectOwner: function(){
+		const ownerArray = Projects.findOne(FlowRouter.getParam('_id')).owner;
+	    if ($.inArray(Meteor.userId(), ownerArray) > -1 ) {
+	    //then user does not own project, i.e the owners id is not in the projects array of owner(s)
+	      return true;
+	    }
+	    return false;
+	},
+	currentUserId: function(){
+			//a temportary fix, so that the if statements does not put 2 "x's" 
+			//when projectOwner posts comment
+			return Meteor.userId();
+		
+	}
+});
+
+Template.comment.events({
+  'click .delete'() {
+    Meteor.call('Comments.remove', this._id);
+  },
+  
 });

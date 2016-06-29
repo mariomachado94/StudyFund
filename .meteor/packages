@@ -39,3 +39,5 @@ meteorhacks:aggregate
 mrgalaxy:stripe
 summernote:summernote
 percolate:synced-cron
+reactive-dict
+raix:handlebar-helpers

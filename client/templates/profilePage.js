@@ -1,4 +1,4 @@
-var profilePic = "../placeholder-profile.png";
+var profilePic = "https://s3.amazonaws.com/jaydes-photos/defaultImages/placeholder-profile.png";
 Session.set("profilePic", profilePic);
 Session.set("updatedDocuments", false);
 Template.profilePage.helpers({
@@ -50,7 +50,6 @@ Template.profilePage.helpers({
 				documents.push(doc);
 			}
 		}
-		console.log(documents.length)
 		return documents;
 	},
 	userUpdateDocuments: function(){
@@ -64,8 +63,44 @@ Template.profilePage.helpers({
 		}
 		return false;
 	},
-	projectsOwned: function(){
-		Profile = Meteor.users.findOne(userId, {fields: {profile: 1}}).profile;
+	projectsOwned: function(){		
+		userId = FlowRouter.getParam('_id');
+		userProfile = Meteor.users.findOne({_id: userId}).profile;
+		numOfProjects = userProfile.projectsPosted;
+		if(!numOfProjects){
+			return 0;
+		}
+		else{
+			return numOfProjects.length;
+		}
+	},
+	numOfProjectsSupported: function(){
+		userId = FlowRouter.getParam('_id');
+		userProfile = Meteor.users.findOne({_id: userId}).profile;
+		numOfProjects = userProfile.projectsSupported;
+		if(!numOfProjects){
+			return 0;
+		}
+		else{
+			return numOfProjects.length;
+		}
+
+	},
+	UserProjectsSupported: function(){
+		userId = FlowRouter.getParam('_id');
+		userProfile = Meteor.users.findOne({_id: userId}).profile;
+		projectsSupported = userProfile.projectsSupported;
+		var projects = [];
+		if(projectsSupported){
+			for(var i=0; i< projectsSupported.length; i++){
+				console.log("project = " + Projects.findOne(projectsSupported[i]));
+				project = Projects.findOne(projectsSupported[i]);
+				console.log("pject = " + project.photoURL);
+				projects.push(project)
+			}
+		}
+		console.log("projects = " + projects[0].photoURL)
+		return projects;
 
 	},
 	checkProjectApproval: function(project){
@@ -96,7 +131,7 @@ Template.profilePage.events({
 		var bio = template.$("#bio").val();
 		var userId = Meteor.userId();
 		var profilePic = Session.get("profilePic");
-		Meteor.users.update(userId, {$set: {"profile.name": name, "profile.title": title, "profile.summary": summary, "profile.picture": profilePic,  "profile.bio": bio}});
+		Meteor.users.update(userId, {$set: {"profile.name": name, "profile.email": email , "profile.title": title, "profile.summary": summary, "profile.picture": profilePic,  "profile.bio": bio}});
 	},
 	"change .profilePic": function(e){
 		if($(".profilePic")[0].files.length != 0){

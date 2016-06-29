@@ -6,6 +6,15 @@ Meteor.publish('stripeCustomerId', function() {
 	return Meteor.users.find(this.userId, {fields: {'customerId': 1}});
 });
 
+Meteor.publish('Comments', function commentsPublication() {
+	return Comments.find({
+      $or: [
+        { private: { $ne: true } },
+        { owner: this.userId },
+      ],
+    });
+ });
+
 Meteor.startup(function() {
 	process.env.MAIL_URL = 'smtp://postmaster@sandboxb75e33707d17401db884ab15677a7dce.mailgun.org:4da2f156b8f08239ebbe9d83bc00b3c7@smtp.mailgun.org:587/'; 
 	// set to true in order to populate projects collection for development
@@ -71,6 +80,7 @@ Meteor.startup(function() {
 		var endtmrw = new Date(Date.now() + 1 * 60*1000)
 
 		Projects.insert({
+			videoURL: "https://s3.amazonaws.com/jaydes-photos/videos/391d5135-6b46-4a63-bb35-f14c861307a6.mp4",
 			country: "Portugal",
 			city: "Lisbon",
 			daysLeft: 50,
@@ -80,10 +90,10 @@ Meteor.startup(function() {
 			summary: "Tying to change the world one step at a time",
 			goal: 14000,
 			currency: "$",
-			photoURL: "https://s3.amazonaws.com/jaydes-photos/photos/a264c4a4-2c97-4085-b3c3-08e3bdb2aa68.jpg?X-Amz-Date=20160613T193212Z&X-Amz-Expires=300&X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Signature=c5c3bfe77abbf33074fd75ed3774f73f483ec3eada02372876961e274afbd6bd&X-Amz-Credential=ASIAIU5AV2M5PPM7USVA/20160613/us-east-1/s3/aws4_request&X-Amz-SignedHeaders=Host&x-amz-security-token=FQoDYXdzEGEaDGdc3MWFmYbxpiIwDSLHATKOD5Xy2UKEo0efADBbdwJa1u41EeiUzy18Iqd%2BNGE21iH/IuLeaUmcfvasAA6uR9LxS9qcHSOtcpCoE/pC7vA4ZkcsXks1%2BGVj9Re%2BdGoN3XZ3cjz0ZBoXwusyHcVspK4/54AwCj6XZV/tOmQo6OzLSQxHBtSCuuFLPl/99fr8xzUCILR7qYmk9Q2LiMwQg42VV5%2BcYNv03jOHp2vmTtit0%2Blt8Avkxw9KBcKVh//TLKgdRmy3pSKsblGLUSXRhOtRAo7sotMozLj7ugU%3D",
+			photoURL: "https://s3.amazonaws.com/jaydes-photos/photos/8232e0df7e8dcc14239ee5e220f7501c.jpg",
 			owner: ["okgTwsvJqwHWDTuaC"],
-			currentAmountFunded: 8742,
-			numberOfSupporters: 500,
+			currentAmountFunded: 6789,
+			numberOfSupporters: 30,
 			endDate: new Date(Date.now() + 60*1000),
 			approved: true,
 		});
@@ -98,11 +108,12 @@ Meteor.startup(function() {
 			summary: "Tryig to change the world one step at a time",
 			goal: 14000,
 			currency: "$",
-			photoURL: "https://s3.amazonaws.com/jaydes-photos/photos/a264c4a4-2c97-4085-b3c3-08e3bdb2aa68.jpg?X-Amz-Date=20160613T193212Z&X-Amz-Expires=300&X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Signature=c5c3bfe77abbf33074fd75ed3774f73f483ec3eada02372876961e274afbd6bd&X-Amz-Credential=ASIAIU5AV2M5PPM7USVA/20160613/us-east-1/s3/aws4_request&X-Amz-SignedHeaders=Host&x-amz-security-token=FQoDYXdzEGEaDGdc3MWFmYbxpiIwDSLHATKOD5Xy2UKEo0efADBbdwJa1u41EeiUzy18Iqd%2BNGE21iH/IuLeaUmcfvasAA6uR9LxS9qcHSOtcpCoE/pC7vA4ZkcsXks1%2BGVj9Re%2BdGoN3XZ3cjz0ZBoXwusyHcVspK4/54AwCj6XZV/tOmQo6OzLSQxHBtSCuuFLPl/99fr8xzUCILR7qYmk9Q2LiMwQg42VV5%2BcYNv03jOHp2vmTtit0%2Blt8Avkxw9KBcKVh//TLKgdRmy3pSKsblGLUSXRhOtRAo7sotMozLj7ugU%3D",
+			photoURL: "https://s3.amazonaws.com/jaydes-photos/photos/a264c4a4-2c97-4085-b3c3-08e3bdb2aa68.jpg",
 			owner: ["okgTwsvJqwHWDTuaC"],
-			currentAmountFunded: 8742,
-			numberOfSupporters: 500,
+			currentAmountFunded: 842,
+			numberOfSupporters: 10,
 			approved: true,
+			videoURL: "https://s3.amazonaws.com/jaydes-photos/videos/391d5135-6b46-4a63-bb35-f14c861307a6.mp4",
 
 		});
 		Projects.insert({
@@ -116,11 +127,13 @@ Meteor.startup(function() {
 			summary: "Trying to cange the world one step at a time",
 			goal: 14000,
 			currency: "$",
-			photoURL: "https://s3.amazonaws.com/jaydes-photos/photos/a264c4a4-2c97-4085-b3c3-08e3bdb2aa68.jpg?X-Amz-Date=20160613T193212Z&X-Amz-Expires=300&X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Signature=c5c3bfe77abbf33074fd75ed3774f73f483ec3eada02372876961e274afbd6bd&X-Amz-Credential=ASIAIU5AV2M5PPM7USVA/20160613/us-east-1/s3/aws4_request&X-Amz-SignedHeaders=Host&x-amz-security-token=FQoDYXdzEGEaDGdc3MWFmYbxpiIwDSLHATKOD5Xy2UKEo0efADBbdwJa1u41EeiUzy18Iqd%2BNGE21iH/IuLeaUmcfvasAA6uR9LxS9qcHSOtcpCoE/pC7vA4ZkcsXks1%2BGVj9Re%2BdGoN3XZ3cjz0ZBoXwusyHcVspK4/54AwCj6XZV/tOmQo6OzLSQxHBtSCuuFLPl/99fr8xzUCILR7qYmk9Q2LiMwQg42VV5%2BcYNv03jOHp2vmTtit0%2Blt8Avkxw9KBcKVh//TLKgdRmy3pSKsblGLUSXRhOtRAo7sotMozLj7ugU%3D",
+			photoURL: "http://s3.amazonaws.com/jaydes-photos/photos/5f2946a4-6b19-4f30-a148-fed62330e0c2.jpg",
 			owner: ["okgTwsvJqwHWDTuaC"],
-			currentAmountFunded: 8742,
+			currentAmountFunded: 6543,
 			numberOfSupporters: 500,
 			approved: true,
+			_id: "PRZhG5Fn9Gp74Z4c4",
+			videoURL: "https://s3.amazonaws.com/jaydes-photos/videos/391d5135-6b46-4a63-bb35-f14c861307a6.mp4",
 
 		});
 		Projects.insert({
@@ -134,11 +147,12 @@ Meteor.startup(function() {
 			summary: "Trying to change the word one step at a time",
 			goal: 14000,
 			currency: "$",
-			photoURL: "https://s3.amazonaws.com/jaydes-photos/photos/a264c4a4-2c97-4085-b3c3-08e3bdb2aa68.jpg?X-Amz-Date=20160613T193212Z&X-Amz-Expires=300&X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Signature=c5c3bfe77abbf33074fd75ed3774f73f483ec3eada02372876961e274afbd6bd&X-Amz-Credential=ASIAIU5AV2M5PPM7USVA/20160613/us-east-1/s3/aws4_request&X-Amz-SignedHeaders=Host&x-amz-security-token=FQoDYXdzEGEaDGdc3MWFmYbxpiIwDSLHATKOD5Xy2UKEo0efADBbdwJa1u41EeiUzy18Iqd%2BNGE21iH/IuLeaUmcfvasAA6uR9LxS9qcHSOtcpCoE/pC7vA4ZkcsXks1%2BGVj9Re%2BdGoN3XZ3cjz0ZBoXwusyHcVspK4/54AwCj6XZV/tOmQo6OzLSQxHBtSCuuFLPl/99fr8xzUCILR7qYmk9Q2LiMwQg42VV5%2BcYNv03jOHp2vmTtit0%2Blt8Avkxw9KBcKVh//TLKgdRmy3pSKsblGLUSXRhOtRAo7sotMozLj7ugU%3D",
+			photoURL: "https://s3.amazonaws.com/jaydes-photos/photos/dual-neurons.jpg",
 			owner: ["okgTwsvJqwHWDTuaC"],
-			currentAmountFunded: 8742,
-			numberOfSupporters: 500,
+			currentAmountFunded: 5432,
+			numberOfSupporters: 20,
 			approved: true,
+			videoURL: "https://s3.amazonaws.com/jaydes-photos/videos/391d5135-6b46-4a63-bb35-f14c861307a6.mp4",
 
 		});
 		Projects.insert({
@@ -152,11 +166,12 @@ Meteor.startup(function() {
 			summary: "Trying to change the wod one step at a time",
 			goal: 14000,
 			currency: "$",
-			photoURL: "https://s3.amazonaws.com/jaydes-photos/photos/a264c4a4-2c97-4085-b3c3-08e3bdb2aa68.jpg?X-Amz-Date=20160613T193212Z&X-Amz-Expires=300&X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Signature=c5c3bfe77abbf33074fd75ed3774f73f483ec3eada02372876961e274afbd6bd&X-Amz-Credential=ASIAIU5AV2M5PPM7USVA/20160613/us-east-1/s3/aws4_request&X-Amz-SignedHeaders=Host&x-amz-security-token=FQoDYXdzEGEaDGdc3MWFmYbxpiIwDSLHATKOD5Xy2UKEo0efADBbdwJa1u41EeiUzy18Iqd%2BNGE21iH/IuLeaUmcfvasAA6uR9LxS9qcHSOtcpCoE/pC7vA4ZkcsXks1%2BGVj9Re%2BdGoN3XZ3cjz0ZBoXwusyHcVspK4/54AwCj6XZV/tOmQo6OzLSQxHBtSCuuFLPl/99fr8xzUCILR7qYmk9Q2LiMwQg42VV5%2BcYNv03jOHp2vmTtit0%2Blt8Avkxw9KBcKVh//TLKgdRmy3pSKsblGLUSXRhOtRAo7sotMozLj7ugU%3D",
+			photoURL: "https://s3.amazonaws.com/jaydes-photos/photos/engineering-wallpaper-hd.jpg",
 			owner: ["okgTwsvJqwHWDTuaC"],
-			currentAmountFunded: 8742,
-			numberOfSupporters: 500,
+			currentAmountFunded: 1245,
+			numberOfSupporters: 40,
 			approved: true,
+			videoURL: "https://s3.amazonaws.com/jaydes-photos/videos/391d5135-6b46-4a63-bb35-f14c861307a6.mp4",
 
 		});
 		Projects.insert({
@@ -170,11 +185,12 @@ Meteor.startup(function() {
 			summary: "Trying to change the world one stept a time",
 			goal: 14000,
 			currency: "$",
-			photoURL: "https://s3.amazonaws.com/jaydes-photos/photos/a264c4a4-2c97-4085-b3c3-08e3bdb2aa68.jpg?X-Amz-Date=20160613T193212Z&X-Amz-Expires=300&X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Signature=c5c3bfe77abbf33074fd75ed3774f73f483ec3eada02372876961e274afbd6bd&X-Amz-Credential=ASIAIU5AV2M5PPM7USVA/20160613/us-east-1/s3/aws4_request&X-Amz-SignedHeaders=Host&x-amz-security-token=FQoDYXdzEGEaDGdc3MWFmYbxpiIwDSLHATKOD5Xy2UKEo0efADBbdwJa1u41EeiUzy18Iqd%2BNGE21iH/IuLeaUmcfvasAA6uR9LxS9qcHSOtcpCoE/pC7vA4ZkcsXks1%2BGVj9Re%2BdGoN3XZ3cjz0ZBoXwusyHcVspK4/54AwCj6XZV/tOmQo6OzLSQxHBtSCuuFLPl/99fr8xzUCILR7qYmk9Q2LiMwQg42VV5%2BcYNv03jOHp2vmTtit0%2Blt8Avkxw9KBcKVh//TLKgdRmy3pSKsblGLUSXRhOtRAo7sotMozLj7ugU%3D",
+			photoURL: "https://s3.amazonaws.com/jaydes-photos/photos/engineering.jpg",
 			owner: ["okgTwsvJqwHWDTuaC"],
-			currentAmountFunded: 8742,
+			currentAmountFunded: 3000,
 			numberOfSupporters: 500,
 			approved: true,
+			videoURL: "https://s3.amazonaws.com/jaydes-photos/videos/391d5135-6b46-4a63-bb35-f14c861307a6.mp4",
 
 		});
 		Projects.insert({
@@ -188,11 +204,12 @@ Meteor.startup(function() {
 			summary: "Trying to ch the world one step at a time",
 			goal: 14000,
 			currency: "$",
-			photoURL: "https://s3.amazonaws.com/jaydes-photos/photos/a264c4a4-2c97-4085-b3c3-08e3bdb2aa68.jpg?X-Amz-Date=20160613T193212Z&X-Amz-Expires=300&X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Signature=c5c3bfe77abbf33074fd75ed3774f73f483ec3eada02372876961e274afbd6bd&X-Amz-Credential=ASIAIU5AV2M5PPM7USVA/20160613/us-east-1/s3/aws4_request&X-Amz-SignedHeaders=Host&x-amz-security-token=FQoDYXdzEGEaDGdc3MWFmYbxpiIwDSLHATKOD5Xy2UKEo0efADBbdwJa1u41EeiUzy18Iqd%2BNGE21iH/IuLeaUmcfvasAA6uR9LxS9qcHSOtcpCoE/pC7vA4ZkcsXks1%2BGVj9Re%2BdGoN3XZ3cjz0ZBoXwusyHcVspK4/54AwCj6XZV/tOmQo6OzLSQxHBtSCuuFLPl/99fr8xzUCILR7qYmk9Q2LiMwQg42VV5%2BcYNv03jOHp2vmTtit0%2Blt8Avkxw9KBcKVh//TLKgdRmy3pSKsblGLUSXRhOtRAo7sotMozLj7ugU%3D",
+			photoURL: "https://s3.amazonaws.com/jaydes-photos/photos/a264c4a4-2c97-4085-b3c3-08e3bdb2aa68.jpg",
 			owner: ["okgTwsvJqwHWDTuaC"],
-			currentAmountFunded: 8742,
-			numberOfSupporters: 500,
+			currentAmountFunded: 6000,
+			numberOfSupporters: 100,
 			approved: true,
+			videoURL: "https://s3.amazonaws.com/jaydes-photos/videos/391d5135-6b46-4a63-bb35-f14c861307a6.mp4",
 
 		});
 		Projects.insert({
@@ -206,28 +223,29 @@ Meteor.startup(function() {
 			summary: "Trying to change  world one step at a time, abbjdkblk jekdbfkejrb jebwkjbe jreblklrej",
 			goal: 14000,
 			currency: "$",
-			photoURL: "https://s3.amazonaws.com/jaydes-photos/photos/a264c4a4-2c97-4085-b3c3-08e3bdb2aa68.jpg?X-Amz-Date=20160613T193212Z&X-Amz-Expires=300&X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Signature=c5c3bfe77abbf33074fd75ed3774f73f483ec3eada02372876961e274afbd6bd&X-Amz-Credential=ASIAIU5AV2M5PPM7USVA/20160613/us-east-1/s3/aws4_request&X-Amz-SignedHeaders=Host&x-amz-security-token=FQoDYXdzEGEaDGdc3MWFmYbxpiIwDSLHATKOD5Xy2UKEo0efADBbdwJa1u41EeiUzy18Iqd%2BNGE21iH/IuLeaUmcfvasAA6uR9LxS9qcHSOtcpCoE/pC7vA4ZkcsXks1%2BGVj9Re%2BdGoN3XZ3cjz0ZBoXwusyHcVspK4/54AwCj6XZV/tOmQo6OzLSQxHBtSCuuFLPl/99fr8xzUCILR7qYmk9Q2LiMwQg42VV5%2BcYNv03jOHp2vmTtit0%2Blt8Avkxw9KBcKVh//TLKgdRmy3pSKsblGLUSXRhOtRAo7sotMozLj7ugU%3D",
+			photoURL: "https://s3.amazonaws.com/jaydes-photos/photos/mac-wallpaper-backgrounds-high-definition_hd-phone-wallpapers-1.jpg",
 			owner: ["okgTwsvJqwHWDTuaC"],
 			currentAmountFunded: 8742,
 			numberOfSupporters: 500,
 			approved: true,
+			videoURL: "https://s3.amazonaws.com/jaydes-photos/videos/391d5135-6b46-4a63-bb35-f14c861307a6.mp4",
 
 		});
 		Projects.insert({
 			country: "Canada",
 			city: "Oakville",
 			daysLeft: 50,
-						endDate: endDate,
-
+			endDate: endDate,
+			videoURL: "https://s3.amazonaws.com/jaydes-photos/videos/391d5135-6b46-4a63-bb35-f14c861307a6.mp4",
 			department: "engineering",
 			title: "AeroSpace Engineering",
 			summary: "Trying to change the world one step at a time, with spaceships and physics and engineering",
 			goal: 14000,
 			currency: "$",
-			photoURL: "https://s3.amazonaws.com/jaydes-photos/photos/a264c4a4-2c97-4085-b3c3-08e3bdb2aa68.jpg?X-Amz-Date=20160613T193212Z&X-Amz-Expires=300&X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Signature=c5c3bfe77abbf33074fd75ed3774f73f483ec3eada02372876961e274afbd6bd&X-Amz-Credential=ASIAIU5AV2M5PPM7USVA/20160613/us-east-1/s3/aws4_request&X-Amz-SignedHeaders=Host&x-amz-security-token=FQoDYXdzEGEaDGdc3MWFmYbxpiIwDSLHATKOD5Xy2UKEo0efADBbdwJa1u41EeiUzy18Iqd%2BNGE21iH/IuLeaUmcfvasAA6uR9LxS9qcHSOtcpCoE/pC7vA4ZkcsXks1%2BGVj9Re%2BdGoN3XZ3cjz0ZBoXwusyHcVspK4/54AwCj6XZV/tOmQo6OzLSQxHBtSCuuFLPl/99fr8xzUCILR7qYmk9Q2LiMwQg42VV5%2BcYNv03jOHp2vmTtit0%2Blt8Avkxw9KBcKVh//TLKgdRmy3pSKsblGLUSXRhOtRAo7sotMozLj7ugU%3D",
+			photoURL: "http://s3.amazonaws.com/jaydes-photos/photos/5f2946a4-6b19-4f30-a148-fed62330e0c2.jpg",
 			owner: ["okgTwsvJqwHWDTuaC"],
-			currentAmountFunded: 8742,
-			numberOfSupporters: 500,
+			currentAmountFunded: 10000,
+			numberOfSupporters: 20,
 			approved: true,
 
 		});
@@ -236,16 +254,17 @@ Meteor.startup(function() {
 			city: "Oakville",
 			daysLeft: 50,
 						endDate: endDate,
+			videoURL: "https://s3.amazonaws.com/jaydes-photos/videos/391d5135-6b46-4a63-bb35-f14c861307a6.mp4",
 
 			department: "engineering",
 			title: "AeroSpace Engineering",
 			summary: "Tryi change the world one step at a time, with spaceships and physics and engineering",
 			goal: 14000,
 			currency: "$",
-			photoURL: "https://s3.amazonaws.com/jaydes-photos/photos/a264c4a4-2c97-4085-b3c3-08e3bdb2aa68.jpg?X-Amz-Date=20160613T193212Z&X-Amz-Expires=300&X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Signature=c5c3bfe77abbf33074fd75ed3774f73f483ec3eada02372876961e274afbd6bd&X-Amz-Credential=ASIAIU5AV2M5PPM7USVA/20160613/us-east-1/s3/aws4_request&X-Amz-SignedHeaders=Host&x-amz-security-token=FQoDYXdzEGEaDGdc3MWFmYbxpiIwDSLHATKOD5Xy2UKEo0efADBbdwJa1u41EeiUzy18Iqd%2BNGE21iH/IuLeaUmcfvasAA6uR9LxS9qcHSOtcpCoE/pC7vA4ZkcsXks1%2BGVj9Re%2BdGoN3XZ3cjz0ZBoXwusyHcVspK4/54AwCj6XZV/tOmQo6OzLSQxHBtSCuuFLPl/99fr8xzUCILR7qYmk9Q2LiMwQg42VV5%2BcYNv03jOHp2vmTtit0%2Blt8Avkxw9KBcKVh//TLKgdRmy3pSKsblGLUSXRhOtRAo7sotMozLj7ugU%3D",
+			photoURL: "https://s3.amazonaws.com/jaydes-photos/photos/world_best_wallpaper_in_hd-2.jpg",
 			owner: ["okgTwsvJqwHWDTuaC"],
-			currentAmountFunded: 8742,
-			numberOfSupporters: 500,
+			currentAmountFunded: 100,
+			numberOfSupporters: 23,
 			approved: true,
 
 		});
@@ -254,16 +273,17 @@ Meteor.startup(function() {
 			city: "Oakville",
 			daysLeft: 50,
 						endDate: endDate,
+			videoURL: "https://s3.amazonaws.com/jaydes-photos/videos/391d5135-6b46-4a63-bb35-f14c861307a6.mp4",
 
 			department: "engineering",
 			title: "AeroSpace Engineering",
 			summary: "Trying to chworld one step at a time, with spaceships and physics and engineering",
 			goal: 14000,
 			currency: "$",
-			photoURL: "https://s3.amazonaws.com/jaydes-photos/photos/a264c4a4-2c97-4085-b3c3-08e3bdb2aa68.jpg?X-Amz-Date=20160613T193212Z&X-Amz-Expires=300&X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Signature=c5c3bfe77abbf33074fd75ed3774f73f483ec3eada02372876961e274afbd6bd&X-Amz-Credential=ASIAIU5AV2M5PPM7USVA/20160613/us-east-1/s3/aws4_request&X-Amz-SignedHeaders=Host&x-amz-security-token=FQoDYXdzEGEaDGdc3MWFmYbxpiIwDSLHATKOD5Xy2UKEo0efADBbdwJa1u41EeiUzy18Iqd%2BNGE21iH/IuLeaUmcfvasAA6uR9LxS9qcHSOtcpCoE/pC7vA4ZkcsXks1%2BGVj9Re%2BdGoN3XZ3cjz0ZBoXwusyHcVspK4/54AwCj6XZV/tOmQo6OzLSQxHBtSCuuFLPl/99fr8xzUCILR7qYmk9Q2LiMwQg42VV5%2BcYNv03jOHp2vmTtit0%2Blt8Avkxw9KBcKVh//TLKgdRmy3pSKsblGLUSXRhOtRAo7sotMozLj7ugU%3D",
+			photoURL: "http://s3.amazonaws.com/jaydes-photos/photos/5f2946a4-6b19-4f30-a148-fed62330e0c2.jpg",
 			owner: ["okgTwsvJqwHWDTuaC"],
-			currentAmountFunded: 8742,
-			numberOfSupporters: 500,
+			currentAmountFunded: 800,
+			numberOfSupporters: 76,
 			approved: true,
 
 		});
@@ -272,16 +292,17 @@ Meteor.startup(function() {
 			city: "Oakville",
 			daysLeft: 50,
 						endDate: endDate,
+			videoURL: "https://s3.amazonaws.com/jaydes-photos/videos/391d5135-6b46-4a63-bb35-f14c861307a6.mp4",
 
 			department: "engineering",
 			title: "AeroSpace Engineering",
 			summary: "T the world one step at a time, with spaceships and physics and engineering",
 			goal: 14000,
 			currency: "$",
-			photoURL: "https://s3.amazonaws.com/jaydes-photos/photos/a264c4a4-2c97-4085-b3c3-08e3bdb2aa68.jpg?X-Amz-Date=20160613T193212Z&X-Amz-Expires=300&X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Signature=c5c3bfe77abbf33074fd75ed3774f73f483ec3eada02372876961e274afbd6bd&X-Amz-Credential=ASIAIU5AV2M5PPM7USVA/20160613/us-east-1/s3/aws4_request&X-Amz-SignedHeaders=Host&x-amz-security-token=FQoDYXdzEGEaDGdc3MWFmYbxpiIwDSLHATKOD5Xy2UKEo0efADBbdwJa1u41EeiUzy18Iqd%2BNGE21iH/IuLeaUmcfvasAA6uR9LxS9qcHSOtcpCoE/pC7vA4ZkcsXks1%2BGVj9Re%2BdGoN3XZ3cjz0ZBoXwusyHcVspK4/54AwCj6XZV/tOmQo6OzLSQxHBtSCuuFLPl/99fr8xzUCILR7qYmk9Q2LiMwQg42VV5%2BcYNv03jOHp2vmTtit0%2Blt8Avkxw9KBcKVh//TLKgdRmy3pSKsblGLUSXRhOtRAo7sotMozLj7ugU%3D",
+			photoURL: "http://s3.amazonaws.com/jaydes-photos/photos/5f2946a4-6b19-4f30-a148-fed62330e0c2.jpg",
 			owner: ["okgTwsvJqwHWDTuaC"],
-			currentAmountFunded: 8742,
-			numberOfSupporters: 500,
+			currentAmountFunded: 4000,
+			numberOfSupporters: 120,
 			approved: true,
 
 		});
@@ -290,16 +311,17 @@ Meteor.startup(function() {
 			city: "Oakville",
 			daysLeft: 50,
 						endDate: endDate,
+			videoURL: "https://s3.amazonaws.com/jaydes-photos/videos/391d5135-6b46-4a63-bb35-f14c861307a6.mp4",
 
 			department: "engineering",
 			title: "AeroSpace Engineering",
 			summary: "Trying to change thet a time, with spaceships and physics and engineering",
 			goal: 14000,
 			currency: "$",
-			photoURL: "https://s3.amazonaws.com/jaydes-photos/photos/a264c4a4-2c97-4085-b3c3-08e3bdb2aa68.jpg?X-Amz-Date=20160613T193212Z&X-Amz-Expires=300&X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Signature=c5c3bfe77abbf33074fd75ed3774f73f483ec3eada02372876961e274afbd6bd&X-Amz-Credential=ASIAIU5AV2M5PPM7USVA/20160613/us-east-1/s3/aws4_request&X-Amz-SignedHeaders=Host&x-amz-security-token=FQoDYXdzEGEaDGdc3MWFmYbxpiIwDSLHATKOD5Xy2UKEo0efADBbdwJa1u41EeiUzy18Iqd%2BNGE21iH/IuLeaUmcfvasAA6uR9LxS9qcHSOtcpCoE/pC7vA4ZkcsXks1%2BGVj9Re%2BdGoN3XZ3cjz0ZBoXwusyHcVspK4/54AwCj6XZV/tOmQo6OzLSQxHBtSCuuFLPl/99fr8xzUCILR7qYmk9Q2LiMwQg42VV5%2BcYNv03jOHp2vmTtit0%2Blt8Avkxw9KBcKVh//TLKgdRmy3pSKsblGLUSXRhOtRAo7sotMozLj7ugU%3D",
+			photoURL: "http://s3.amazonaws.com/jaydes-photos/photos/5f2946a4-6b19-4f30-a148-fed62330e0c2.jpg",
 			owner: ["okgTwsvJqwHWDTuaC"],
-			currentAmountFunded: 8742,
-			numberOfSupporters: 500,
+			currentAmountFunded: 6000,
+			numberOfSupporters: 87,
 			approved: true,
 
 		});
@@ -312,12 +334,13 @@ Meteor.startup(function() {
 			summary: " to change the world one step at a time, with spaceships and physics and engineering",
 			goal: 14000,
 						endDate: endDate,
+			videoURL: "https://s3.amazonaws.com/jaydes-photos/videos/391d5135-6b46-4a63-bb35-f14c861307a6.mp4",
 
 			currency: "$",
-			photoURL: "https://s3.amazonaws.com/jaydes-photos/photos/a264c4a4-2c97-4085-b3c3-08e3bdb2aa68.jpg?X-Amz-Date=20160613T193212Z&X-Amz-Expires=300&X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Signature=c5c3bfe77abbf33074fd75ed3774f73f483ec3eada02372876961e274afbd6bd&X-Amz-Credential=ASIAIU5AV2M5PPM7USVA/20160613/us-east-1/s3/aws4_request&X-Amz-SignedHeaders=Host&x-amz-security-token=FQoDYXdzEGEaDGdc3MWFmYbxpiIwDSLHATKOD5Xy2UKEo0efADBbdwJa1u41EeiUzy18Iqd%2BNGE21iH/IuLeaUmcfvasAA6uR9LxS9qcHSOtcpCoE/pC7vA4ZkcsXks1%2BGVj9Re%2BdGoN3XZ3cjz0ZBoXwusyHcVspK4/54AwCj6XZV/tOmQo6OzLSQxHBtSCuuFLPl/99fr8xzUCILR7qYmk9Q2LiMwQg42VV5%2BcYNv03jOHp2vmTtit0%2Blt8Avkxw9KBcKVh//TLKgdRmy3pSKsblGLUSXRhOtRAo7sotMozLj7ugU%3D",
+			photoURL: "http://s3.amazonaws.com/jaydes-photos/photos/5f2946a4-6b19-4f30-a148-fed62330e0c2.jpg",
 			owner: ["okgTwsvJqwHWDTuaC"],
-			currentAmountFunded: 8742,
-			numberOfSupporters: 500,
+			currentAmountFunded: 4000,
+			numberOfSupporters: 48,
 			approved: true,
 
 		});
@@ -578,6 +601,51 @@ Meteor.methods({
 
 	'removeProject': function(id){
 		Projects.remove({_id: id});
-	}
+	},
+	'grabUsersSupportingProjectFromServer': function(project){
+		if(project.usersContributedID){
+			projectInfo = [];
+			for(var i =0; i< project.usersContributedID.length; i++){
+				var doc = {};
+				console.log(" ==== " + project.usersContributedID[i])
+				doc["Name"] = Meteor.users.findOne(project.usersContributedID[i]).profile.name;
+				console.log(" name = " + doc["Name"])
+				doc["Amount"] = project.usersContributedAmount[i];
+				console.log(" name = " + doc["Amount"])
+				doc["Email"] = Meteor.users.findOne(project.usersContributedID[i]).emails[0].address;
+				console.log(" name = " + doc["Email"])
+				doc["Photo"] = Meteor.users.findOne(project.usersContributedID[i]).profile.picture;
+				console.log(" name = " + doc["Photo"])
+
+				projectInfo.push(doc);
+			}
+			console.log("projectINFO len " + projectInfo.length)
+			console.log("projectINFO  " + JSON.stringify(projectInfo[0]))
+			return projectInfo;
+
+		}
+	},
+
+	'Comments.insert': function (text) {
+	    check(text, String);
+	 
+	    // Make sure the user is logged in before inserting a comment
+	    if (! this.userId) {
+	      throw new Meteor.Error('not-authorized');
+	    }
+	    Comments.insert({
+	      text,
+	      createdAt: new Date(),
+	      photo: Meteor.users.findOne(Meteor.userId()).profile.picture,
+	      owner: Meteor.userId(),
+	      username: Meteor.users.findOne(Meteor.userId()).profile.name,
+	    });
+	  },
+
+	  'Comments.remove': function(commentId) {
+	    check(commentId, String);
+	
+	    Comments.remove(commentId);
+	  }
 
 });
