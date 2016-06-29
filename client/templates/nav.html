@@ -25,7 +25,12 @@
         </div>
       </form>
       <ul class="nav navbar-nav navbar-right">
-        {{> loginButtons}}
+        {{#if currentUser}}
+          {{> loginButtons}}
+        {{else}}
+          <li><a href="/signup">Sign Up</a></li>
+          <li><a href="/login">Login</a></li>
+        {{/if}}
       </ul>
     </div><!-- /.navbar-collapse -->
   </div><!-- /.container-fluid -->

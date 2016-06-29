@@ -51,7 +51,7 @@ Template.projectPage.events({
 			BlazeLayout.render("mainLayout", {content: "supportProject"});
 		}
 		else {
-			BlazeLayout.render("mainLayout", {content: "signupPage"});
+			FlowRouter.go("signup");
 		}
 	},
 
