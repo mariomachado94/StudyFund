@@ -6,6 +6,15 @@ Meteor.publish('stripeCustomerId', function() {
 	return Meteor.users.find(this.userId, {fields: {'customerId': 1}});
 });
 
+Meteor.publish('Comments', function commentsPublication() {
+	return Comments.find({
+      $or: [
+        { private: { $ne: true } },
+        { owner: this.userId },
+      ],
+    });
+ });
+
 Meteor.startup(function() {
 	process.env.MAIL_URL = 'smtp://postmaster@sandboxb75e33707d17401db884ab15677a7dce.mailgun.org:4da2f156b8f08239ebbe9d83bc00b3c7@smtp.mailgun.org:587/'; 
 	// set to true in order to populate projects collection for development
@@ -593,7 +602,7 @@ Meteor.methods({
 	'removeProject': function(id){
 		Projects.remove({_id: id});
 	},
-	grabUsersSupportingProjectFromServer: function(project){
+	'grabUsersSupportingProjectFromServer': function(project){
 		if(project.usersContributedID){
 			projectInfo = [];
 			for(var i =0; i< project.usersContributedID.length; i++){
@@ -615,8 +624,28 @@ Meteor.methods({
 			return projectInfo;
 
 		}
-		
+	},
 
-	}
+	'Comments.insert': function (text) {
+	    check(text, String);
+	 
+	    // Make sure the user is logged in before inserting a comment
+	    if (! this.userId) {
+	      throw new Meteor.Error('not-authorized');
+	    }
+	    Comments.insert({
+	      text,
+	      createdAt: new Date(),
+	      photo: Meteor.users.findOne(Meteor.userId()).profile.picture,
+	      owner: Meteor.userId(),
+	      username: Meteor.users.findOne(Meteor.userId()).profile.name,
+	    });
+	  },
+
+	  'Comments.remove': function(commentId) {
+	    check(commentId, String);
+	
+	    Comments.remove(commentId);
+	  }
 
 });

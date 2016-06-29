@@ -24,7 +24,6 @@
 			    <li role="presentation" class="active"><a data-toggle="tab" href="#Home">Home</a></li>
 				<li role="presentation"><a data-toggle="tab" href="#Supporters">Supporters</a></li>
 				<li role="presentation"><a data-toggle="tab" href="#Comments">Comments</a></li>
-				<li role="presentation"><a data-toggle="tab" href="#Portfolio">Portfolio</a></li>
 			</ul>
 			<br>
 			<div class="tab-content">
@@ -85,39 +84,7 @@
 					</div>
 				</div>
 				<div id="Comments" class="tab-pane fade">
-					<div class = "col-lg-8 col-xs-offset-2">
-					    <table class="table table-striped">
-						  <thead>
-						      <tr>
-						        <th>Name</th>
-						        <th>Comment</th>
-						        <th>Email</th>
-						      </tr>
-						    </thead>
-						    <tbody>
-						      <tr>
-						        <td>John</td>
-						        <td>Doe</td>
-						        <td>john@example.com</td>
-						      </tr>
-						      <br>
-						      <tr>
-						        <td>Mary</td>
-						        <td>Moe</td>
-						        <td>mary@example.com</td>
-						      </tr>
-						      <br>
-						      <tr>
-						        <td>July</td>
-						        <td>Dooley</td>
-						        <td>july@example.com</td>
-						      </tr>
-						    </tbody>
-						</table>
-					</div>
-				</div>
-				<div id="Portfolio" class="tab-pane fade">
-					HEY
+					{{> Comments}}
 				</div>
 			</div>
 		</div>
@@ -152,6 +119,7 @@
 	.projectVisual img{
 		width: 100%;
 	}
+
 	</style>
 
 </template>
@@ -164,4 +132,158 @@
 	  	<td><img src ="{{Photo}}" class="img-circle" style = "max-height: 12%"></td>
 	</tr>
 	<br>
+</template>
+
+<template name = "Comments">
+	<div class="commentscontainer">
+	    <header>
+	      	<h1>Comments ({{incompleteCount}})</h1>
+
+      		{{#if currentUser}}
+		    <form class="new-comment">
+		        <input type="text" name="text" placeholder="Type to add a comment" />
+		    </form>
+		    {{/if}}
+
+	   	</header>
+
+	 
+	    <ul>
+	      {{#each comments}}
+	        {{> comment }}
+	      {{/each}}
+	    </ul>
+	 </div>
+	 
+
+  <style type="text/css">
+	 
+	.commentscontainer {
+	  
+	  font-family: sans-serif;
+	  background-color: #315481;
+	  background-image: linear-gradient(to bottom, #315481, #918e82 100%);
+	  background-attachment: fixed;
+	 
+	  font-size: 14px;
+	}
+	 
+	.commentscontainer header {
+	  background: #d2edf4;
+	  background-image: linear-gradient(to bottom, #d0edf5, #e1e5f0 100%);
+	  padding: 20px 15px 15px 15px;
+	  position: relative;
+	}
+	 
+	 
+	.commentscontainer h1 {
+	  font-size: 1.5em;
+	  margin: 0;
+	  margin-bottom: 10px;
+	  display: inline-block;
+	  margin-right: 1em;
+	}
+	 
+	.commentscontainer form {
+	  margin-top: 10px;
+	  margin-bottom: -10px;
+	  position: relative;
+	}
+	 
+	.new-comment input {
+	  box-sizing: border-box;
+	  padding: 10px 0;
+	  background: transparent;
+	  border: none;
+	  width: 100%;
+	  padding-right: 80px;
+	  font-size: 1em;
+	}
+	 
+	.new-comment input:focus{
+	  outline: 0;
+	}
+	 
+	.commentscontainer ul {
+	  margin: 0;
+	  padding: 0;
+	  background: white;
+	}
+	 
+	.delete {
+	  float: right;
+	  font-weight: bold;
+	  background: none;
+	  font-size: 1em;
+	  border: none;
+	  position: relative;
+	}
+	 
+	.newcomment li {
+	  position: relative;
+	  list-style: none;
+	  padding: 15px;
+	  border-bottom: #eee solid 1px;
+	}
+	 
+	.newcomment li .text {
+	  margin-left: 10px;
+	}
+	 
+	.newcomment li.checked {
+	  color: #888;
+	}
+	 
+	.newcomment li.checked .text {
+	  text-decoration: line-through;
+	}
+	 
+	.newcomment li.private {
+	  background: #eee;
+	  border-color: #ddd;
+	}
+	 
+	header .hide-completed {
+	  float: right;
+	}
+	 
+	.toggle-private {
+	  margin-left: 5px;
+	}
+	 
+	@media (max-width: 600px) {
+	  .newcomment li {
+	    padding: 12px 15px;
+	  }
+	 
+	  .search {
+	    width: 150px;
+	    clear: both;
+	  }
+	 
+	  .new-comment input {
+	    padding-bottom: 5px;
+	  }
+	}
+
+  </style>
+
+</template>
+
+<template name="comment">
+	<div class = "newcomment">
+	  	<li class="comment">
+	  		{{#if projectOwner}}
+		    	<button class="delete">&times;</button>
+		    {{else}}
+			    {{#if $eq owner currentUserId }}
+			    	<button class="delete">&times;</button>
+			    {{/if}}
+			{{/if}}
+
+		    <img src ="{{photo}}" class="img-circle" style = "max-height: 50px;">
+	 
+	    	<span class="text"><strong>{{username}}</strong> - {{text}}</span>
+		</li>
+	</div>
 </template>

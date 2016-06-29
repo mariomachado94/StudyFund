@@ -1,4 +1,4 @@
-var profilePic = "../placeholder-profile.png";
+var profilePic = "https://s3.amazonaws.com/jaydes-photos/defaultImages/placeholder-profile.png";
 Session.set("profilePic", profilePic);
 Session.set("updatedDocuments", false);
 Template.profilePage.helpers({
@@ -131,7 +131,7 @@ Template.profilePage.events({
 		var bio = template.$("#bio").val();
 		var userId = Meteor.userId();
 		var profilePic = Session.get("profilePic");
-		Meteor.users.update(userId, {$set: {"profile.name": name, "profile.title": title, "profile.summary": summary, "profile.picture": profilePic,  "profile.bio": bio}});
+		Meteor.users.update(userId, {$set: {"profile.name": name, "profile.email": email , "profile.title": title, "profile.summary": summary, "profile.picture": profilePic,  "profile.bio": bio}});
 	},
 	"change .profilePic": function(e){
 		if($(".profilePic")[0].files.length != 0){
