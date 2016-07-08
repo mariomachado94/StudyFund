@@ -90,9 +90,27 @@ Template.StartResearch.events({
 
 	},
 	'click #teammateBtn': function(e){
-		var teammate = $("#teammate").val();
+		var co_ownerEmail = $("#teammate").val();
+		var projectId = Session.get("projectId");
+		Meteor.call("grabUserFromServerByEmail", co_ownerEmail, function(error,result){
+			if(error){
+				console.log(error.reason);
+    			return;
+			}
+			else{
+				console.log("result is " + result)
+				Session.set("co_owner",result);
+			}
+		});
+		var co_owner = Session.get("co_owner");
+		console.log(co_owner._id)
+		if(co_owner == null){
+			throw new Meteor.Error('email does not exist');
+		}
+		var co_ownerID = co_owner._id;
 		projectId = Session.get("projectId");
-		Meteor.call('appendToProjectData',projectId, "author", teammate);
+		Meteor.call('appendToProjectData',projectId, "owner", co_ownerID);
+		Meteor.call("appendToUsersDB", co_ownerID, "profile.projectsPosted", projectId)
 		$("#teammate").val("");
 
 	},

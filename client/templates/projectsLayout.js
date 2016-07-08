@@ -19,11 +19,21 @@ Template.projectsLayout.helpers({
 	getDepartmentProjects: function(Department) {
 		Session.set("loadMore", false)
 		var projects;
-		var trending = FlowRouter.getQueryParam('trending')
-		console.log(trending)
+		var trending = FlowRouter.getQueryParam('trending');
+
 		if(Session.get("departmentName") != Department && Session.get('departmentName') != null){
 			amountToDisplay = 6;
 		}
+
+		//this will show all projects that have been completed
+		if(FlowRouter.getQueryParam('department') == "ended"){
+			projects = Projects.find({ended: true},{sort: {rand: 1}, limit: amountToDisplay});
+			if(projects.count() < amountToDisplay){
+					$(".LoadMore").hide();
+			}
+			return projects.fetch();
+		}
+
 		Session.set("departmentName", Department);
 		if(trending == "null" || trending == "" ){
 			//works for when we first load page. takes department from URL which is passed through function
@@ -86,6 +96,12 @@ Template.projectsLayout.helpers({
 		else{
 			return false;
 		}
+	},
+	ended: function(){
+		if(FlowRouter.getQueryParam('department') == "ended"){
+			return true;
+		}
+		return false;
 	}
 
 

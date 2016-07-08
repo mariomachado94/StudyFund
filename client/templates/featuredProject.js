@@ -9,8 +9,8 @@ Template.featuredProject.helpers({
 		var timeDiff = Math.abs(endDate.getTime() - todaysDate.getTime());
 		var diffDays = Math.ceil(timeDiff / (1000 * 3600 * 24)); 
 		if(diffDays <= 0){
-			Meteor.call("removeProject", id)
-		}
+			Meteor.call("updateProjectData",id, "ended", true);
+			return "ENDED";		}
 		else{
 			return diffDays;
 		}

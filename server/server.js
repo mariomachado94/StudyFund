@@ -77,14 +77,15 @@ Meteor.startup(function() {
 
 	if (Meteor.settings.private.createDummyProjects) {
 		var endDate = new Date(Date.now() + 50 * 24*60*60*1000)
-		var endtmrw = new Date(Date.now() + 1 * 60*1000)
+		var endtmrw = new Date(Date.now())
 
 		Projects.insert({
 			videoURL: "https://s3.amazonaws.com/jaydes-photos/videos/391d5135-6b46-4a63-bb35-f14c861307a6.mp4",
 			country: "Portugal",
 			city: "Lisbon",
 			daysLeft: 50,
-			endDate: endDate,
+			ended: false,
+			endDate: endtmrw,
 			department: "medical",
 			title: "Cancer Research",
 			summary: "Tying to change the world one step at a time",
@@ -94,9 +95,9 @@ Meteor.startup(function() {
 			owner: ["okgTwsvJqwHWDTuaC"],
 			currentAmountFunded: 6789,
 			numberOfSupporters: 30,
-			endDate: new Date(Date.now() + 60*1000),
 			approved: true,
 		});
+	/*
 		Projects.insert({
 			country: "Portugal",
 			city: "Lisbon",
@@ -344,7 +345,7 @@ Meteor.startup(function() {
 			approved: true,
 
 		});
-		
+		*/
 
 	}
 
@@ -646,6 +647,11 @@ Meteor.methods({
 	    check(commentId, String);
 	
 	    Comments.remove(commentId);
+	  },
+
+	  'grabUserFromServerByEmail': function(co_ownerEmail){
+	  		return Meteor.users.findOne({"emails.address": co_ownerEmail})
 	  }
+
 
 });

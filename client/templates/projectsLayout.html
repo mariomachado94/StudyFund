@@ -2,9 +2,15 @@
  <!-- featured project --> 
  <div class = "container">
   <div class = "row">
+    {{#if ended}}
+    <center>
+      <h1 style= "font-family: 'Benton Sans','Helvetica','sans-serif'; font-size: 40px"> Projects Ended </h1>
+    </center>
+    {{else}}
     <center>
       <h1 style= "font-family: 'Benton Sans','Helvetica','sans-serif'; font-size: 40px"> New discoveries in the {{department}} field </h1>
     </center>
+    {{/if}}
     <hr>
     <br>
     <div class = "col-md-4">
@@ -21,6 +27,7 @@
         </div>
       </div>
     </div>
+    {{#unless ended}}
     <div class = "col-md-4">
       <div class="ui fluid multiple search normal selection dropdown trending">
         <input type="hidden" name="Trending">
@@ -34,6 +41,7 @@
         </div>
       </div>
     </div>
+    {{/unless}}
     <div class = "col-md-4">
       <button type="button" class="btn btn-primary btn-md" id="filterProjects">Search</button>
     </div>

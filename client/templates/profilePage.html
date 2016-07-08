@@ -17,12 +17,13 @@
 
 				<p class="space-top-sm">{{profile.summary}}</p>
 			</div>
-
 			<div class="col-md-3">
 				{{#if thisUsersProfile}}
 					{{> userButtons}}
+				<!--
 				{{else}}
 					{{> followButton}}
+				-->
 				{{/if}}
 			</div>
 		</div>
@@ -138,8 +139,8 @@
 
 <template name="userButtons">
 	<div class="btn-group space-top-lg pull-right" role="group">
-		<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#myModal">Edit</button>
-		<span class="btn-label btn-label-default" title="23,000 followers">23,000 followers</span>
+		<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#myModal">Edit Profile</button>
+		<!--<span class="btn-label btn-label-default" title="23,000 followers">23,000 followers</span>-->
 	</div>
 </template>
 

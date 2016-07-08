@@ -29,7 +29,8 @@ Template.projectPage.helpers({
 		var timeDiff = Math.abs(endDate.getTime() - todaysDate.getTime());
 		var diffDays = Math.ceil(timeDiff / (1000 * 3600 * 24)); 
 		if(diffDays <= 0){
-			Meteor.call("removeProject", id)
+			Meteor.call("updateProjectData",id, "ended", true);
+			return "ENDED";
 		}
 		else{
 			return diffDays;
@@ -81,6 +82,7 @@ Template.projectPage.events({
 		endDate = new Date(Date.now() + project.funding_days * 24*60*60*1000);
 		Meteor.call("updateProjectData", projectId, "endDate", endDate);
 		Meteor.call("updateProjectData", projectId, "approved", true);
+		Meteor.call("updateProjectData", projectId, "ended", false);
 		Meteor.call("sendEmail", project.userEmail, "your project has been approved");
 		Meteor.call("addCronJob", projectId);
 
