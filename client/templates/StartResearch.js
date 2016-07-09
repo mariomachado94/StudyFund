@@ -19,7 +19,6 @@ Template.StartResearch.events({
 		var subfield = $("#subfield").val();
 		var funding_days = $(".funding-days").val();
 		var summarytext = $("#summarytext").val();
-		console.log(department);
 
 		if(department == ""){
 			$("#DepartmentErrorMsg").text("Select department");

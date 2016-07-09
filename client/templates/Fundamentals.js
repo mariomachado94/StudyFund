@@ -58,8 +58,10 @@ Template.Fundamentals.events({
 		        Session.set("field", ResearchDepartment);
 		        Session.set("fieldChanged", true);
 		        break;
-		    case 4:
-		        day = "Thursday";
+		    case "physics":
+		        ResearchDepartment = "physics";
+		        Session.set("field", ResearchDepartment);
+		        Session.set("fieldChanged", true);
 		        break;
 		    case 5:
 		        day = "Friday";

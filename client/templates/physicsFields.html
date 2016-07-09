@@ -1,0 +1,54 @@
+<template name = "physicsFields"> <!-- must be called physicsFields for dynamic template -->
+	<div id = "physicsfield">
+		<div class="ui sub header">Select your field</div>
+			<div class="ui fluid multiple search normal selection dropdown subfield">
+		  	<input type="hidden" name="physicsField" id="subfield">
+		  	<i class="dropdown icon"></i>
+		  	<div class="default text">Subfield...</div>
+			  <div class="menu">
+			  <div class="item">Astronomy</div>
+			  <div class="item">Acoustics</div>
+			  <div class="item">Astrophysics</div>
+			  <div class="item">Biophysics</div>
+			  <div class="item">Chaos Theory</div>
+			  <div class="item">Chemical Physics</div>
+			  <div class="item">Computational Physics</div>
+			  <div class="item">Cosmology</div>
+			  <div class="item">Cyrophysics</div>
+			  <div class="item"> Crystallography</div>
+			  <div class="item">Electromagnetism</div>
+			  <div class="item">Electronics</div>
+			  <div class="item">Fluid Dynamics</div>
+			  <div class="item">Information theory and signal processing</div>
+			  <div class="item">Geophysics</div>
+			  <div class="item">High Energy Physics</div>
+			  <div class="item"> Laser Physics</div>
+			  <div class="item">Mathematical Physics</div>
+			  <div class="item">Mechanical Physics</div>
+			  <div class="item">Mechanics</div>			  
+			  <div class="item">Meteorology</div>
+			  <div class="item">Molecular Physics</div>
+			  <div class="item">Nanotechnology</div>
+			  <div class="item">Nuclear Physics</div>
+			  <div class="item">Optics</div>
+			  <div class="item">Particle Physics</div>
+			  <div class="item">Plasma physics</div>
+			  <div class="item">Quantum Electrodynamics</div>
+			  <div class="item">Quantum Mechanics</div>
+			  <div class="item">Quantum Optics</div>
+			  <div class="item">Quantum Gravity</div>
+			  <div class="item">Relativity</div>
+			  <div class="item">Statistical Mechanics</div>
+			  <div class="item">String Theory</div>
+			  <div class="item">Thermodynamics</div>
+			  </div>
+		</div> 
+	</div>
+	<script type="text/javascript">
+		$('.ui.normal.dropdown')
+	  .dropdown({
+	    maxSelections: 1
+	  })
+	;
+	</script>
+</template>

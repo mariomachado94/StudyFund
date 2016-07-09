@@ -20,13 +20,16 @@ Template.projectThumbNail.helpers({
 		}
 	},
 	calculateDaysLeft: function(id){
+		var project = Projects.findOne(id);
 		var endDate = Projects.findOne(id).endDate;
 		var todaysDate = new Date();
 		var diffDays;
 		var timeDiff = endDate.getTime() - todaysDate.getTime();
 		if(timeDiff < 0){
 			diffDays = 0;
-			Meteor.call("updateProjectData",id, "ended", true);
+			if(!project.ended){
+				Meteor.call("updateProjectData",id, "ended", true);
+			}
 			return "ENDED";
 		}
 		else{
