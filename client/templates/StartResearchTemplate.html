@@ -1,9 +1,8 @@
 <template name = "StartResearch">
-		
 	<div class="row affix-row">
 	    <div class="col-sm-3 col-md-2 affix-sidebar" >
 			<div class="sidebar-nav">
-		  <div class="navbar navbar-default" role="navigation" style = "height: 100%;">
+		  <div class="navbar navbar-primary" role="navigation" style = "height: 100%;">
 		    <div class="navbar-header">
 		      <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".sidebar-navbar-collapse">
 		      <span class="sr-only">Toggle navigation</span>
@@ -25,7 +24,7 @@
 		        </li>
 		        <li>
 		          <a href="#" data-toggle="collapse" data-target="#toggleDemo" data-parent="#sidenav01" class="collapsed" aria-expanded="true" >
-		          <span class="glyphicon glyphicon-book"></span>Research Editor <span class="caret"></span>
+		          <span class="glyphicon glyphicon-book"></span><p style="color:white;">Research guide</p> <span class="caret"></span>
 		          </a>
 		          <div class="collapse" id="toggleDemo" style="height: 0px;">
 		            <ul class="nav nav-list">
@@ -73,10 +72,28 @@
 			-->
 			</div>
 			
-	</div>
+		</div>
+	
 <style type="text/css">
 	.SaveCon{
 		padding-left: 77.3%;
+	}
+	
+	.affix-sidebar {
+	  top: 0;
+	  left: 0;
+	  bottom: 0;
+	  width: 280px;
+	  background: #2a2a2a; // the color you want the sidebar to be
+	  position: absolute;
+	}
+
+	.sidebar-nav {
+	  float: left;
+	  width: 230px;
+	  padding: 10px;
+	  background: #2a2a2a; // the color you want the sidebar to be
+
 	}
 	
 </style>

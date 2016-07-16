@@ -7,16 +7,7 @@ Template.discoverLayout.helpers({
 	},
 
 	getfeaturedProjects: function() {
-			return Projects.find({}, {sort: {rand: 1}, limit: 1}).fetch();
-	},
-	checkProjectApproval: function(project){
-		if (Meteor.userId() == "okgTwsvJqwHWDTuaC" 
-		|| project.approved || project.userEmail == "Admin@studyfund.com"){
-			return true;
-		}
-		else{
-			return false;
-		}
+			return Projects.find({approved:true}, {sort: {rand: 1}, limit: 1}).fetch();
 	}
 
 });

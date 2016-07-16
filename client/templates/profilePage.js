@@ -17,7 +17,7 @@ Template.profilePage.helpers({
 			return user.profile.picture;
 		}
 		else{
-			return "../placeholder-profile.png"; //edit this to point to URL in S3 later ****
+			return "https://s3.amazonaws.com/jaydes-photos/defaultImages/placeholder-profile.png"; //edit this to point to URL in S3 later ****
 		}
 	},
 	user: function () {
@@ -93,13 +93,10 @@ Template.profilePage.helpers({
 		var projects = [];
 		if(projectsSupported){
 			for(var i=0; i< projectsSupported.length; i++){
-				console.log("project = " + Projects.findOne(projectsSupported[i]));
 				project = Projects.findOne(projectsSupported[i]);
-				console.log("pject = " + project.photoURL);
 				projects.push(project)
 			}
 		}
-		console.log("projects = " + projects[0].photoURL)
 		return projects;
 
 	},

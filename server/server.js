@@ -97,6 +97,42 @@ Meteor.startup(function() {
 			numberOfSupporters: 30,
 			approved: true,
 		});
+		Projects.insert({
+			videoURL: "https://s3.amazonaws.com/jaydes-photos/videos/391d5135-6b46-4a63-bb35-f14c861307a6.mp4",
+			country: "Portugal",
+			city: "Lisbon",
+			daysLeft: 50,
+			ended: false,
+			endDate: endtmrw,
+			department: "medical",
+			title: "Cancer Research",
+			summary: "Tying to change the world one step at a time",
+			goal: 14000,
+			currency: "$",
+			photoURL: "https://s3.amazonaws.com/jaydes-photos/photos/9abe16ed-7a6f-49fd-9d26-a09dd9b20176.jpg",
+			owner: ["okgTwsvJqwHWDTuaC"],
+			currentAmountFunded: 6789,
+			numberOfSupporters: 30,
+			approved: true,
+		});
+		Projects.insert({
+			videoURL: "https://s3.amazonaws.com/jaydes-photos/videos/391d5135-6b46-4a63-bb35-f14c861307a6.mp4",
+			country: "Portugal",
+			city: "Lisbon",
+			daysLeft: 50,
+			ended: false,
+			endDate: endtmrw,
+			department: "medical",
+			title: "Cancer Research",
+			summary: "Tying to change the world one step at a time",
+			goal: 14000,
+			currency: "$",
+			photoURL: "https://s3.amazonaws.com/jaydes-photos/photos/5f2946a4-6b19-4f30-a148-fed62330e0c2.jpg",
+			owner: ["okgTwsvJqwHWDTuaC"],
+			currentAmountFunded: 6789,
+			numberOfSupporters: 30,
+			approved: true,
+		});
 	/*
 		Projects.insert({
 			country: "Portugal",

@@ -16,7 +16,7 @@ Template.projectThumbNail.helpers({
 			return user.profile.picture;
 		}
 		else{
-			return "../placeholder-profile.png"; //edit this to point to URL in S3 later ****
+			return "https://s3.amazonaws.com/jaydes-photos/defaultImages/placeholder-profile.png"; //edit this to point to URL in S3 later ****
 		}
 	},
 	calculateDaysLeft: function(id){
