@@ -24,6 +24,7 @@ Template.projectsLayout.helpers({
 		if(Session.get("departmentName") != Department && Session.get('departmentName') != null){
 			amountToDisplay = 6;
 		}
+		Session.set("departmentName", Department);
 
 		//this will show all projects that have been completed
 		if(FlowRouter.getQueryParam('department') == "ended"){
@@ -34,13 +35,12 @@ Template.projectsLayout.helpers({
 			return projects.fetch();
 		}
 
-		Session.set("departmentName", Department);
 		if(trending == "null" || trending == "" ){
 			//works for when we first load page. takes department from URL which is passed through function
 			console.log("got in null and department is = " + Department)
 
 			projects = Projects.find({department: Department},{sort: {rand: 1}, limit: amountToDisplay});
-			console.log("num of projects is " + projects.count())
+
 			if(projects.count() < amountToDisplay){
 					$(".LoadMore").hide();
 				}

@@ -17,7 +17,7 @@ Template.profilePage.helpers({
 			return user.profile.picture;
 		}
 		else{
-			return "../placeholder-profile.png"; //edit this to point to URL in S3 later ****
+			return "https://s3.amazonaws.com/jaydes-photos/defaultImages/placeholder-profile.png"; //edit this to point to URL in S3 later ****
 		}
 	},
 	user: function () {
@@ -93,13 +93,10 @@ Template.profilePage.helpers({
 		var projects = [];
 		if(projectsSupported){
 			for(var i=0; i< projectsSupported.length; i++){
-				console.log("project = " + Projects.findOne(projectsSupported[i]));
 				project = Projects.findOne(projectsSupported[i]);
-				console.log("pject = " + project.photoURL);
 				projects.push(project)
 			}
 		}
-		console.log("projects = " + projects[0].photoURL)
 		return projects;
 
 	},
@@ -131,7 +128,7 @@ Template.profilePage.events({
 		var bio = template.$("#bio").val();
 		var userId = Meteor.userId();
 		var profilePic = Session.get("profilePic");
-		Meteor.users.update(userId, {$set: {"profile.name": name, "profile.email": email , "profile.title": title, "profile.summary": summary, "profile.picture": profilePic,  "profile.bio": bio}});
+		Meteor.users.update(userId, {$set: {"profile.name": name, "profile.title": title, "profile.summary": summary, "profile.picture": profilePic,  "profile.bio": bio}});
 	},
 	"change .profilePic": function(e){
 		if($(".profilePic")[0].files.length != 0){

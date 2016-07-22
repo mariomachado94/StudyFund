@@ -113,14 +113,14 @@ Template.Comments.helpers({
 	    const instance = Template.instance();
 	    if (instance.state.get('hideCompleted')) {
 	      // If hide completed is checked, filter tasks
-	      return Comments.find({ checked: { $ne: true } }, { sort: { createdAt: -1 } });
+	      return Comments.find({projectId: FlowRouter.getParam('_id')},{ checked: { $ne: true } }, { sort: { createdAt: -1 } });
 	    }
-	    return Comments.find({}, { sort: { createdAt: -1 } });
+	    return Comments.find({projectId: FlowRouter.getParam('_id')}, { sort: { createdAt: -1 } });
 
 	},
 
   	incompleteCount: function() {
-    	return Comments.find({ checked: { $ne: true } }).count();
+    	return Comments.find({projectId: FlowRouter.getParam('_id')},{ checked: { $ne: true } }).count();
   	}
 
 });
@@ -139,10 +139,11 @@ Template.Comments.events({
     // Get value from form element
     const target = event.target;
     const text = target.text.value;
+    var projectID = FlowRouter.getParam('_id');
  
     // Insert a comment into the collection
 
-    Meteor.call('Comments.insert', text);
+    Meteor.call('Comments.insert', text, projectId);
 
  
     // Clear form

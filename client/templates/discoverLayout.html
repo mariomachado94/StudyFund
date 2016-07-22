@@ -21,8 +21,8 @@
                     <div class="col-xs-4 col-sm-3">
                         <a class = "categoryLink">
                             <div class="shortcut">
-                                <i class="fa fa-male shortcut-icon icon-brown">
-                                    <h3 style= "color: grey;">Physiology</h3>
+                                <i class="fa fa-lightbulb-o shortcut-icon icon-yellow">
+                                    <h3 style= "color: grey;">Physics</h3>
                                 </i>
                             </div>
                         </a>
@@ -40,7 +40,7 @@
                         <a class = "categoryLink">
                             <div class="shortcut">
                                 <i class="fa fa-spoon shortcut-icon icon-dark-blue">
-                                    <h3 style= "color: grey;">Nutrition</h3>
+                                    <h3 style= "color: grey;">Fitness & Nutrition</h3>
                                 </i>
                             </div>
                         </a>
@@ -90,9 +90,7 @@
 
     <div class = "container">
         {{#each project in getfeaturedProjects}}
-                {{#if checkProjectApproval project}}
                     {{>featuredProject (calcPercentage project)}}
-                {{/if}}
         {{/each}}
     </div>
 

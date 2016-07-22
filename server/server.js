@@ -22,7 +22,8 @@ Meteor.publish('Comments', function commentsPublication() {
 Meteor.startup(function() {
 	process.env.MAIL_URL = 'smtp://postmaster@sandboxb75e33707d17401db884ab15677a7dce.mailgun.org:4da2f156b8f08239ebbe9d83bc00b3c7@smtp.mailgun.org:587/'; 
 	// set to true in order to populate projects collection for development
-	Projects.remove({}); 
+	Projects.remove({});
+	Comments.remove({});
 	Stripe.customers.list(
   		function(error, customers) {
   			if(error) {
@@ -99,6 +100,42 @@ Meteor.startup(function() {
 			owner: ["okgTwsvJqwHWDTuaC"],
 			currentAmountFunded: 0,
 			numberOfSupporters: 0,
+			approved: true,
+		});
+		Projects.insert({
+			videoURL: "https://s3.amazonaws.com/jaydes-photos/videos/391d5135-6b46-4a63-bb35-f14c861307a6.mp4",
+			country: "Portugal",
+			city: "Lisbon",
+			daysLeft: 50,
+			ended: false,
+			endDate: endtmrw,
+			department: "medical",
+			title: "Cancer Research",
+			summary: "Tying to change the world one step at a time",
+			goal: 14000,
+			currency: "$",
+			photoURL: "https://s3.amazonaws.com/jaydes-photos/photos/9abe16ed-7a6f-49fd-9d26-a09dd9b20176.jpg",
+			owner: ["okgTwsvJqwHWDTuaC"],
+			currentAmountFunded: 6789,
+			numberOfSupporters: 30,
+			approved: true,
+		});
+		Projects.insert({
+			videoURL: "https://s3.amazonaws.com/jaydes-photos/videos/391d5135-6b46-4a63-bb35-f14c861307a6.mp4",
+			country: "Portugal",
+			city: "Lisbon",
+			daysLeft: 50,
+			ended: false,
+			endDate: endtmrw,
+			department: "medical",
+			title: "Cancer Research",
+			summary: "Tying to change the world one step at a time",
+			goal: 14000,
+			currency: "$",
+			photoURL: "https://s3.amazonaws.com/jaydes-photos/photos/5f2946a4-6b19-4f30-a148-fed62330e0c2.jpg",
+			owner: ["okgTwsvJqwHWDTuaC"],
+			currentAmountFunded: 6789,
+			numberOfSupporters: 30,
 			approved: true,
 		});
 	/*
@@ -636,7 +673,7 @@ Meteor.methods({
 		}
 	},
 
-	'Comments.insert': function (text) {
+	'Comments.insert': function (text, projectID) {
 	    check(text, String);
 	 
 	    // Make sure the user is logged in before inserting a comment
@@ -646,6 +683,7 @@ Meteor.methods({
 	    Comments.insert({
 	      text,
 	      createdAt: new Date(),
+	      projectId: projectID,
 	      photo: Meteor.users.findOne(Meteor.userId()).profile.picture,
 	      owner: Meteor.userId(),
 	      username: Meteor.users.findOne(Meteor.userId()).profile.name,
