@@ -18,7 +18,8 @@ Meteor.publish('Comments', function commentsPublication() {
 Meteor.startup(function() {
 	process.env.MAIL_URL = 'smtp://postmaster@sandboxb75e33707d17401db884ab15677a7dce.mailgun.org:4da2f156b8f08239ebbe9d83bc00b3c7@smtp.mailgun.org:587/'; 
 	// set to true in order to populate projects collection for development
-	Projects.remove({}); 
+	Projects.remove({});
+	Comments.remove({});
 	Stripe.customers.list(
   		function(error, customers) {
   			if(error) {
@@ -663,7 +664,7 @@ Meteor.methods({
 		}
 	},
 
-	'Comments.insert': function (text) {
+	'Comments.insert': function (text, projectID) {
 	    check(text, String);
 	 
 	    // Make sure the user is logged in before inserting a comment
@@ -673,6 +674,7 @@ Meteor.methods({
 	    Comments.insert({
 	      text,
 	      createdAt: new Date(),
+	      projectId: projectID,
 	      photo: Meteor.users.findOne(Meteor.userId()).profile.picture,
 	      owner: Meteor.userId(),
 	      username: Meteor.users.findOne(Meteor.userId()).profile.name,

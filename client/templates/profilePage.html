@@ -60,6 +60,8 @@
 				<div class="container">
 					<div class="page-header">
   						<h1>Biography</h1>
+  						<p>{{profile.bio}}</p>
+
   						{{#if thisUsersProfile}}
   						<div class="fileUpload btn btn-primary" >
 						    <span>Upload Document</span>
@@ -67,7 +69,6 @@
 						</div>
 						{{/if}}
 					</div>
-					<p>{{profile.bio}}</p>
 					<table class="table table-hover" id = "my_table">
 				    <thead>
 				      <tr>
@@ -116,8 +117,8 @@
 	            	<label for="biography">Biography</label>
 	              	<textarea id="bio" class="form-control" rows="5" placeholder="Tell us who you are and why supporters should help your projects...">{{profile.bio}}</textarea>
 	            </div>
-	            <br>
 	            <div class = "col-md-6">
+	            	<br>
 		            <label class="control-label">Upload Profile Picture</label>
 					<input id="profile-photo" type="file" class="profilePic" accept=".jpg,.JPG,.JPEG,.PNG,.jpeg,.png">
 					<br>

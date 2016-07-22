@@ -105,7 +105,9 @@
 .icon-dark-blue:hover{
     color: #07175E;
 }
-
+.icon-yellow{
+    color: #ff0000;
+}
 .icon-orange{
     color: #F57F0A;
 }

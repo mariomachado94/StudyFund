@@ -9,9 +9,7 @@
 
 		<div class="row">
 			{{#each project in getPopularProjects}}
-				{{#if checkProjectApproval project}}
 					{{> projectThumbNail project}}
-				{{/if}}
 			{{/each}}
 	  	</div> <!-- .row -->
 
@@ -21,9 +19,7 @@
 
 		<div class="row">
 		    {{#each project in getEndSoonProjects}}
-		    	{{#if checkProjectApproval project}}
 					{{> projectThumbNail project}}
-				{{/if}}
 			{{/each}}
 	  	</div> <!-- .row -->
 	  	<div class="page-header">
