@@ -1,0 +1,9 @@
+<template name="creditCard">
+	<div class="col-md-3 col-sm-6 col-xs-10">
+		<input class="pull-left" type="radio" name="card" value="{{id}}">
+		<i class="fa fa-3x {{cardType brand}} space-left pull-left" aria-hidden="true"></i>
+		<b class="pull-left">Last 4 digits:</b><span class="pull-right">{{last4}}</span>
+		<br>
+		<b class="pull-left">exp:</b><span class="pull-right">{{exp_month}}/{{exp_year}}</span>
+	</div>
+</template>

@@ -6,6 +6,10 @@ Meteor.publish('stripeCustomerId', function() {
 	return Meteor.users.find(this.userId, {fields: {'customerId': 1}});
 });
 
+Meteor.publish('stripeSources', function() {
+	return Meteor.users.find(this.userId, {fields: {'sources': 1}}); 
+});
+
 Meteor.publish('Comments', function commentsPublication() {
 	return Comments.find({
       $or: [
@@ -13,7 +17,7 @@ Meteor.publish('Comments', function commentsPublication() {
         { owner: this.userId },
       ],
     });
- });
+ }); 
 
 Meteor.startup(function() {
 	process.env.MAIL_URL = 'smtp://postmaster@sandboxb75e33707d17401db884ab15677a7dce.mailgun.org:4da2f156b8f08239ebbe9d83bc00b3c7@smtp.mailgun.org:587/'; 
@@ -85,16 +89,16 @@ Meteor.startup(function() {
 			city: "Lisbon",
 			daysLeft: 50,
 			ended: false,
-			endDate: endtmrw,
+			endDate: endDate,
 			department: "medical",
 			title: "Cancer Research",
 			summary: "Tying to change the world one step at a time",
-			goal: 14000,
+			goal: 10000,
 			currency: "$",
 			photoURL: "https://s3.amazonaws.com/jaydes-photos/photos/8232e0df7e8dcc14239ee5e220f7501c.jpg",
 			owner: ["okgTwsvJqwHWDTuaC"],
-			currentAmountFunded: 6789,
-			numberOfSupporters: 30,
+			currentAmountFunded: 0,
+			numberOfSupporters: 0,
 			approved: true,
 		});
 	/*
@@ -403,7 +407,7 @@ Meteor.methods({
 		Meteor.users.update({"_id": userId}, { $push: obj });
 	},
 
-	'supportProject': function(projectId, token, amount) {
+	'supportProject': function(projectId, token, amount, createCard) {
 		var user = Meteor.user();
 		
 		if (!user.customerId) {
@@ -423,7 +427,8 @@ Meteor.methods({
 			Meteor.users.update(Meteor.userId(), {$set: {sources: [card]}});
 
 			var supporter = {stripeCusId: stripeCustomer.id, 'card': stripeCustomer.default_source, 'amount': amount};
-		} else {
+		} 
+		else if (createCard){
 			var card = Meteor.call('addCard', user.customerId, token);
 
 			if(card.error) {
@@ -434,6 +439,10 @@ Meteor.methods({
 			Meteor.users.update(Meteor.userId(), {$push: {sources: card}});
 
 			var supporter = {stripeCusId: user.customerId, 'card': card.id, 'amount': amount};
+		}
+		else {
+			var supporter = {stripeCusId: user.customerId, 'card': token, 'amount': amount};
+			console.log("added another supporter with recent card: " + token);
 		}
 
 		Meteor.call('addSupporter', projectId, supporter);
